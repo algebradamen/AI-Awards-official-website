@@ -1,0 +1,211 @@
+/* Glitch Effects */
+.effect-glitch {
+  position: relative;
+}
+
+.effect-glitch::before,
+.effect-glitch::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  background-size: cover;
+  background-position: center;
+}
+
+.effect-glitch.is-active::before {
+  animation: glitchShift1 0.3s steps(1) infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+  opacity: 0.8;
+}
+
+.effect-glitch.is-active::after {
+  animation: glitchShift2 0.3s steps(1) infinite;
+  clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+  opacity: 0.8;
+}
+
+@keyframes glitchShift1 {
+  0% { transform: translateX(0); filter: hue-rotate(0deg); }
+  20% { transform: translateX(-5px); filter: hue-rotate(90deg); }
+  40% { transform: translateX(5px); filter: hue-rotate(-90deg); }
+  60% { transform: translateX(-3px); filter: hue-rotate(180deg); }
+  80% { transform: translateX(3px); filter: hue-rotate(-180deg); }
+  100% { transform: translateX(0); filter: hue-rotate(0deg); }
+}
+
+@keyframes glitchShift2 {
+  0% { transform: translateX(0); filter: hue-rotate(0deg); }
+  20% { transform: translateX(5px); filter: hue-rotate(-90deg); }
+  40% { transform: translateX(-5px); filter: hue-rotate(90deg); }
+  60% { transform: translateX(3px); filter: hue-rotate(-180deg); }
+  80% { transform: translateX(-3px); filter: hue-rotate(180deg); }
+  100% { transform: translateX(0); filter: hue-rotate(0deg); }
+}
+
+/* Chromatic Aberration */
+.effect-chromatic {
+  position: relative;
+}
+
+.effect-chromatic::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  background-size: cover;
+  background-position: center;
+  mix-blend-mode: screen;
+  opacity: 0;
+  filter: url('#chromatic-red');
+  transform: translateX(-3px);
+  transition: opacity 0.3s;
+}
+
+.effect-chromatic::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  background-size: cover;
+  background-position: center;
+  mix-blend-mode: screen;
+  opacity: 0;
+  filter: url('#chromatic-blue');
+  transform: translateX(3px);
+  transition: opacity 0.3s;
+}
+
+.effect-chromatic.is-active::before,
+.effect-chromatic.is-active::after {
+  opacity: 0.5;
+}
+
+/* Color Desaturation */
+.effect-desaturate {
+  transition: filter var(--transition-medium);
+}
+
+.effect-desaturate.is-active {
+  filter: saturate(0) contrast(1.2);
+}
+
+/* Vignette Pulse */
+.effect-vignette {
+  position: relative;
+}
+
+.effect-vignette::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 40%,
+    rgba(0, 0, 0, 0.9) 100%
+  );
+  opacity: 0;
+  transition: opacity var(--transition-medium);
+}
+
+.effect-vignette.is-active::after {
+  opacity: 1;
+  animation: vignettePulse 2s ease-in-out infinite;
+}
+
+@keyframes vignettePulse {
+  0%, 100% { 
+    background: radial-gradient(
+      ellipse at center,
+      transparent 40%,
+      rgba(0, 0, 0, 0.9) 100%
+    );
+  }
+  50% { 
+    background: radial-gradient(
+      ellipse at center,
+      transparent 20%,
+      rgba(0, 0, 0, 0.95) 100%
+    );
+  }
+}
+
+/* Screen Shake */
+.effect-shake {
+  animation: none;
+}
+
+.effect-shake.is-active {
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0) translateY(0); }
+  10% { transform: translateX(-5px) translateY(-3px); }
+  20% { transform: translateX(5px) translateY(2px); }
+  30% { transform: translateX(-4px) translateY(-2px); }
+  40% { transform: translateX(4px) translateY(3px); }
+  50% { transform: translateX(-3px) translateY(-1px); }
+  60% { transform: translateX(3px) translateY(2px); }
+  70% { transform: translateX(-2px) translateY(-2px); }
+  80% { transform: translateX(2px) translateY(1px); }
+  90% { transform: translateX(-1px) translateY(-1px); }
+}
+
+/* Blur/Focus */
+.effect-blur {
+  transition: filter var(--transition-medium);
+}
+
+.effect-blur.is-active {
+  filter: blur(3px);
+}
+
+/* Toxic Color Shift */
+.effect-toxic {
+  transition: filter var(--transition-slow);
+}
+
+.effect-toxic.is-active {
+  filter: sepia(0.5) saturate(1.5) hue-rotate(-20deg) contrast(1.1);
+}
+
+/* Flash to White */
+.effect-flash {
+  position: fixed;
+  inset: 0;
+  background: white;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: opacity 0.1s;
+}
+
+.effect-flash.is-active {
+  animation: flashWhite 0.5s ease-out;
+}
+
+@keyframes flashWhite {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Fade transitions */
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}

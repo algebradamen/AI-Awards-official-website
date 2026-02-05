@@ -1,0 +1,40 @@
+{
+  "teamNumber": 12,
+  "projectName": "Syntetisk Sannhet",
+  "projectType": "Video/Documentary Project",
+  "description": "Promotes critical thinking about AI and synthetic media through documentary format. Examines AI's role in sustainability while questioning technological solutions to environmental problems. Explores ethical dimensions of AI in society, truth and authenticity in the AI age, and social implications of technological progress. Targets UN SDG 16 (Peace, Justice and Strong Institutions), SDG 4 (Quality Education), and SDG 9 (Industry, Innovation and Infrastructure).",
+  "technologies": [
+    "Video production"
+  ],
+  "logo": null,
+  "teamMembers": [
+    {
+      "name": "Sebastian",
+      "role": null
+    },
+    {
+      "name": "Madj",
+      "role": null
+    },
+    {
+      "name": "Aksel",
+      "role": null
+    },
+    {
+      "name": "Maksym",
+      "role": null
+    },
+    {
+      "name": "Erik H",
+      "role": null
+    }
+  ],
+  "additionalFiles": [
+    "dokumentar.mp4",
+    "syntetisk sannhet ferdig1.mov",
+    "syntetisk sannhet trailer ferdig1.mov",
+    "Prosjektplan.docx",
+    "rapport.docx"
+  ],
+  "promotionalVideo": "../promotional_videos/Team_12_Syntetisk_sannhet_Promo.mp4"
+}

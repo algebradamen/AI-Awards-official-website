@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bærekraft og Natur - Vår Fremtid</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">🌱 Klimablikk Norge</div>
+            <ul class="nav-links">
+                <li><a href="#hjem">Hjem</a></li>
+                <li><a href="#om">Om</a></li>
+                <li><a href="#videoer">Videoer</a></li>
+                <li><a href="#tips">Tips</a></li>
+                <li><a href="donasjon.html">Donasjon</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hjem" class="hero">
+        <div class="hero-background"></div>
+        <div class="hero-content">
+            <h1>Bærekraft for en Bedre Fremtid</h1>
+            <p>La oss sammen ta vare på naturen og skape en grønnere verden for generasjoner fremover</p>
+            <button class="cta-button">Bli Med Oss</button>
+        </div>
+        <div class="hero-overlay"></div>
+    </section>
+
+    <!-- About Section -->
+    <section id="om" class="about">
+        <div class="about-background"></div>
+        <div class="container">
+            <h2>Hvorfor Bærekraft?</h2>
+            <div class="about-grid">
+                <div class="about-card">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=800&q=80');"></div>
+                    <div class="icon">🌍</div>
+                    <h3>Klima</h3>
+                    <p>Reduser karbonavtrykket ditt og bidra til å bekjempe klimaendringer gjennom bærekraftige valg.</p>
+                </div>
+                <div class="about-card">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80');"></div>
+                    <div class="icon">🌿</div>
+                    <h3>Natur</h3>
+                    <p>Beskytte vår natur og biodiversitet er avgjørende for planetens helse og vår egen overlevelse.</p>
+                </div>
+                <div class="about-card">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?w=800&q=80');"></div>
+                    <div class="icon">♻️</div>
+                    <h3>Gjenbruk</h3>
+                    <p>Gjenbruk og resirkulering reduserer avfall og bevarer verdifulle ressurser for fremtiden.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section id="videoer" class="videos">
+        <div class="container">
+            <h2>Inspirerende Video</h2>
+            <p class="section-subtitle">Se hvordan vi kan gjøre en forskjell sammen</p>
+            <div class="video-container">
+                <div class="video-box-large">
+                    <div class="video-wrapper">
+                        <video id="mainVideo" class="video-player" controls>
+                            <source id="videoSource" src="" type="video/mp4">
+                            Din nettleser støtter ikke video-elementet.
+                        </video>
+                        <div class="video-upload-overlay" id="videoUploadOverlay">
+                            <div class="upload-content">
+                                <div class="upload-icon">📹</div>
+                                <p>Ingen video lastet opp</p>
+                                <label for="videoFileInput" class="upload-button">
+                                    Velg Video
+                                    <input type="file" id="videoFileInput" accept="video/*" style="display: none;">
+                                </label>
+                                <p class="upload-hint">Støttede formater: MP4, WebM, OGG</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h3>Bærekraft og Fremtiden</h3>
+                        <p>En inspirerende video om hvordan vi sammen kan skape en bedre fremtid gjennom bærekraftige valg og miljøvennlige løsninger.</p>
+                        <div class="video-controls">
+                            <label for="videoFileInputSecondary" class="change-video-btn">
+                                🔄 Bytt Video
+                                <input type="file" id="videoFileInputSecondary" accept="video/*" style="display: none;">
+                            </label>
+                            <button class="delete-video-btn" id="deleteVideoBtn" style="display: none;">
+                                🗑️ Slett Video
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tips Section -->
+    <section id="tips" class="tips">
+        <div class="container">
+            <h2>Bærekraftige Tips</h2>
+
+            <!-- Praktiske hverdags-tips -->
+            <div class="tips-list">
+                <div class="tip-item">
+                    <span class="tip-number">1</span>
+                    <div class="tip-content">
+                        <h3>Reduser, Gjenbruk, Resirkuler</h3>
+                        <p>Prioriter å kjøpe mindre og bedre, bruk ting lengre, reparer når du kan, og sorter avfall slik at mest mulig kan materialgjenvinnes.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-number">2</span>
+                    <div class="tip-content">
+                        <h3>Spar Energi i Hverdagen</h3>
+                        <p>Senk innetemperaturen litt, slå av lys og elektronikk når de ikke er i bruk, og bytt til LED-pærer for å redusere strømforbruket.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-number">3</span>
+                    <div class="tip-content">
+                        <h3>Ta Vare på Vannet</h3>
+                        <p>Ta kortere dusjer, installer sparedusj, steng kranen når du pusser tennene, og reparer dryppende kraner for å spare mange liter vann hver dag.</p>
+                    </div>
+                </div>
+                <div class="tip-item">
+                    <span class="tip-number">4</span>
+                    <div class="tip-content">
+                        <h3>Grønn Transport</h3>
+                        <p>Velg gange, sykkel eller kollektivtransport når du kan, og samkjør bil for å redusere utslipp per person.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fakta-bokser med tall fra SSB -->
+            <div class="facts-section">
+                <h3 class="facts-title">Fakta</h3>
+                <p class="facts-subtitle">Tallene under er hentet fra Statistisk sentralbyrå (SSB), blant annet statistikkene «Municipal wastewater», «Hazardous waste» og «Municipal environmental management».</p>
+
+                <div class="facts-grid">
+                    <!-- Kommunalt avløpsvann -->
+                    <div class="fact-card">
+                        <div class="fact-inner">
+                            <div class="fact-front">
+                                <div class="fact-header">
+                                    <span class="fact-icon">🚿</span>
+                                    <h4>Kommunalt avløpsvann</h4>
+                                </div>
+                                <p class="fact-front-text">
+                                    Over <strong>85 %</strong> av befolkningen er tilknyttet kommunale avløpsanlegg, og andelen som får vann renset i tråd med kravene har økt kraftig siden 2019.
+                                </p>
+                            </div>
+                            <div class="fact-back">
+                                <h4>Detaljer</h4>
+                                <ul class="fact-list">
+                                    <li><strong>85,7 %</strong> av befolkningen var i 2024 tilknyttet kommunale avløpsanlegg (2019: 85,5 %).</li>
+                                    <li><strong>38,1 %</strong> av husholdningene hadde vannmåler i 2024 (2019: 35,5 %).</li>
+                                    <li>Andelen innbyggere tilknyttet anlegg som oppfyller rensekrav økte fra <strong>35,3 %</strong> i 2019 til <strong>70,8 %</strong> i 2024.</li>
+                                    <li>Andelen på anlegg som ikke oppfyller rensekrav falt fra <strong>58,1 %</strong> (2019) til <strong>24,3 %</strong> (2024).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ledningsnett og fornyelse -->
+                    <div class="fact-card">
+                        <div class="fact-inner">
+                            <div class="fact-front">
+                                <div class="fact-header">
+                                    <span class="fact-icon">🛠️</span>
+                                    <h4>Ledningsnett og fornyelse</h4>
+                                </div>
+                                <p class="fact-front-text">
+                                    Norge har titalls millioner meter avløps- og overvannsledninger, men bare en veldig liten andel av nettet fornyes hvert år.
+                                </p>
+                            </div>
+                            <div class="fact-back">
+                                <h4>Detaljer</h4>
+                                <ul class="fact-list">
+                                    <li>Det var i 2024 om lag <strong>40,3 millioner meter</strong> avløpsledninger i Norge (opp fra 38,4 millioner meter i 2019).</li>
+                                    <li>Separate overvannsledninger økte til rundt <strong>21,1 millioner meter</strong> i 2024 – en vekst på ca. <strong>10,6 %</strong> siden 2019.</li>
+                                    <li>Bare rundt <strong>0,67 %</strong> av avløpsnettet fornyes per år (3-årig gjennomsnitt), noe som viser at vedlikeholdsetterslepet fortsatt er stort.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Utslipp og slam -->
+                    <div class="fact-card">
+                        <div class="fact-inner">
+                            <div class="fact-front">
+                                <div class="fact-header">
+                                    <span class="fact-icon">🌊</span>
+                                    <h4>Utslipp og slam</h4>
+                                </div>
+                                <p class="fact-front-text">
+                                    Mengden organisk stoff til resipient er redusert siden 2019, mens slam­mengdene har økt i takt med mer rensing og mer avanserte anlegg.
+                                </p>
+                            </div>
+                            <div class="fact-back">
+                                <h4>Detaljer</h4>
+                                <ul class="fact-list">
+                                    <li>Utslipp av fosfor fra større avløpsrenseanlegg (≥ 50 pe) lå rundt <strong>1 010 tonn</strong> i 2024 – omtrent samme nivå som i 2019.</li>
+                                    <li>Organisk stoff (BOD₅) gikk ned fra ca. <strong>36 700 tonn</strong> i 2019 til rundt <strong>33 000 tonn</strong> i 2024 (nesten 10 % reduksjon).</li>
+                                    <li>Den totale mengden avløpsslam til sluttbehandling økte fra om lag <strong>108 000 tonn</strong> (tørrstoff) i 2019 til rundt <strong>138 000 tonn</strong> i 2024.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hvorfor vannsparing er viktig -->
+                    <div class="fact-card">
+                        <div class="fact-inner">
+                            <div class="fact-front">
+                                <div class="fact-header">
+                                    <span class="fact-icon">💧</span>
+                                    <h4>Derfor er vannsparing viktig</h4>
+                                </div>
+                                <p class="fact-front-text">
+                                    Mindre vannforbruk betyr mindre energibruk, lavere belastning på avløpssystemet og mindre risiko for utslipp til naturen.
+                                </p>
+                            </div>
+                            <div class="fact-back">
+                                <h4>Detaljer</h4>
+                                <ul class="fact-list">
+                                    <li>Alt vann som går i avløpet må transporteres i rør og renses, noe som krever både energi og ressurser.</li>
+                                    <li>Mindre vannforbruk betyr mindre belastning på avløpsanleggene og lavere risiko for overløp ved kraftig nedbør.</li>
+                                    <li>Enkle tiltak hjemme – som sparedusj og å stenge kranen når du ikke trenger vann – bidrar direkte til mindre utslipp og et mer robust system.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Farlig avfall -->
+                    <div class="fact-card">
+                        <div class="fact-inner">
+                            <div class="fact-front">
+                                <div class="fact-header">
+                                    <span class="fact-icon">☣️</span>
+                                    <h4>Farlig avfall</h4>
+                                </div>
+                                <p class="fact-front-text">
+                                    I 2023 ble det behandlet rundt <strong>1,68 millioner tonn</strong> farlig avfall i godkjente anlegg – noe mer enn i 2019, men nedgang fra 2022.
+                                </p>
+                            </div>
+                            <div class="fact-back">
+                                <h4>Detaljer</h4>
+                                <ul class="fact-list">
+                                    <li>Totalt farlig avfall til godkjent behandling økte fra <strong>1,63</strong> til <strong>1,68 millioner tonn</strong> fra 2019 til 2023.</li>
+                                    <li>Avfall med oljeinnhold gikk ned fra <strong>559 000 tonn</strong> (2019) til <strong>477 000 tonn</strong> (2023).</li>
+                                    <li>Avfall med tungmetaller og forurensede masser økte til rundt <strong>642 000 tonn</strong> i 2023.</li>
+                                    <li>Behandlet prosessvann økte kraftig – fra cirka <strong>60 000 tonn</strong> i 2019 til over <strong>200 000 tonn</strong> i 2023.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kommunal miljøforvaltning -->
+                    <div class="fact-card">
+                        <div class="fact-inner">
+                            <div class="fact-front">
+                                <div class="fact-header">
+                                    <span class="fact-icon">🏛️</span>
+                                    <h4>Kommunal miljøforvaltning</h4>
+                                </div>
+                                <p class="fact-front-text">
+                                    Kommunene behandler tusenvis av saker om motorferdsel og natur, og bruker stadig mer ressurser på friluftsliv, naturforvaltning og kulturarv.
+                                </p>
+                            </div>
+                            <div class="fact-back">
+                                <h4>Detaljer</h4>
+                                <ul class="fact-list">
+                                    <li>I 2024 behandlet kommunene rundt <strong>10 363</strong> søknader om motorferdsel i utmark, hvorav ca. <strong>9 703</strong> ble innvilget.</li>
+                                    <li>Brutto driftsutgifter til rekreasjon i tettsteder, naturforvaltning og friluftsliv i kommunene var om lag <strong>808 000 kroner</strong> per 1 000 innbyggere i 2024.</li>
+                                    <li>Kulturminnevern på fylkesnivå hadde brutto driftsutgifter på rundt <strong>216 000 kroner</strong> per 1 000 innbyggere i 2024.</li>
+                                    <li>Antall gjeldende tillatelser til snøscooterkjøring i utmark lå i overkant av <strong>24 000</strong>, og løypenettet var over <strong>8 500 km</strong> langt.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Bærekraft og Natur. Alle rettigheter reservert.</p>
+            <p>La oss sammen skape en bedre fremtid for vår planet 🌱</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

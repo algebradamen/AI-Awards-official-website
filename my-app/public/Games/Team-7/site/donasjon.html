@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donasjon - Bærekraft og Natur</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">🌱 Klimablikk Norge</div>
+            <ul class="nav-links">
+                <li><a href="index.html#hjem">Hjem</a></li>
+                <li><a href="index.html#om">Om</a></li>
+                <li><a href="index.html#videoer">Videoer</a></li>
+                <li><a href="index.html#tips">Tips</a></li>
+                <li><a href="donasjon.html" class="active">Donasjon</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Donation Hero -->
+    <section class="donation-hero">
+        <div class="donation-hero-background"></div>
+        <div class="donation-hero-content">
+            <h1>Støtt Bærekraft og Natur</h1>
+            <p>Din donasjon bidrar til å plante trær, beskytte vann, og støtte bærekraftige bedrifter</p>
+        </div>
+    </section>
+
+    <!-- Donation Stats -->
+    <section class="donation-stats">
+        <div class="container">
+            <h2>Totalt Innsamlet</h2>
+            <div class="total-amount">
+                <span class="currency">kr</span>
+                <span class="amount" id="totalAmount">0</span>
+            </div>
+            <p class="stats-subtitle">Takket være generøse donorer som deg!</p>
+        </div>
+    </section>
+
+    <!-- Donation Form -->
+    <section class="donation-form-section">
+        <div class="container">
+            <div class="donation-container">
+                <div class="donation-form-card">
+                    <h2>Gjør en Donasjon</h2>
+                    <p class="form-subtitle">Velg beløp eller skriv inn ditt eget beløp</p>
+                    
+                    <div class="amount-buttons">
+                        <button class="amount-btn" data-amount="100">100 kr</button>
+                        <button class="amount-btn" data-amount="250">250 kr</button>
+                        <button class="amount-btn" data-amount="500">500 kr</button>
+                        <button class="amount-btn" data-amount="1000">1000 kr</button>
+                    </div>
+
+                    <div class="custom-amount">
+                        <label for="customAmount">Eget beløp:</label>
+                        <input type="number" id="customAmount" placeholder="Skriv inn beløp" min="1">
+                    </div>
+
+                    <div class="donation-causes">
+                        <h3>Velg hvor donasjonen skal gå:</h3>
+                        <div class="cause-options">
+                            <label class="cause-option">
+                                <input type="radio" name="cause" value="trees" checked>
+                                <span class="cause-icon">🌳</span>
+                                <span class="cause-text">Planting av Trær</span>
+                            </label>
+                            <label class="cause-option">
+                                <input type="radio" name="cause" value="water">
+                                <span class="cause-icon">💧</span>
+                                <span class="cause-text">Vannbeskyttelse</span>
+                            </label>
+                            <label class="cause-option">
+                                <input type="radio" name="cause" value="business">
+                                <span class="cause-icon">🏢</span>
+                                <span class="cause-text">Bærekraftige Bedrifter</span>
+                            </label>
+                            <label class="cause-option">
+                                <input type="radio" name="cause" value="climate">
+                                <span class="cause-icon">🌍</span>
+                                <span class="cause-text">Klimaaksjoner</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button class="donate-button" id="donateBtn">Doner Nå</button>
+                    
+                    <div class="donation-message" id="donationMessage"></div>
+                </div>
+
+                <div class="donation-info-card">
+                    <h3>Hvor går pengene?</h3>
+                    <div class="info-stats">
+                        <div class="info-stat">
+                            <div class="stat-icon">🌳</div>
+                            <div class="stat-details">
+                                <span class="stat-label">Trær plantet</span>
+                                <span class="stat-value" id="treesPlanted">0</span>
+                            </div>
+                        </div>
+                        <div class="info-stat">
+                            <div class="stat-icon">💧</div>
+                            <div class="stat-details">
+                                <span class="stat-label">Liter vann beskyttet</span>
+                                <span class="stat-value" id="waterProtected">0</span>
+                            </div>
+                        </div>
+                        <div class="info-stat">
+                            <div class="stat-icon">🏢</div>
+                            <div class="stat-details">
+                                <span class="stat-label">Bedrifter støttet</span>
+                                <span class="stat-value" id="businessesSupported">0</span>
+                            </div>
+                        </div>
+                        <div class="info-stat">
+                            <div class="stat-icon">🌍</div>
+                            <div class="stat-details">
+                                <span class="stat-label">Klimaaksjoner</span>
+                                <span class="stat-value" id="climateActions">0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="impact-info">
+                        <h4>Din innvirkning</h4>
+                        <ul>
+                            <li>100 kr = 1 tre plantet</li>
+                            <li>250 kr = 500 liter vann beskyttet</li>
+                            <li>500 kr = Støtte til 1 bærekraftig bedrift</li>
+                            <li>1000 kr = Klimaaksjon som reduserer CO₂</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Bærekraft og Natur. Alle rettigheter reservert.</p>
+            <p>La oss sammen skape en bedre fremtid for vår planet 🌱</p>
+        </div>
+    </footer>
+
+    <script src="donasjon.js"></script>
+</body>
+</html>
+

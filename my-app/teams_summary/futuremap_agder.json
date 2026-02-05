@@ -1,0 +1,49 @@
+{
+  "teamNumber": 16,
+  "projectName": "FutureMap Agder",
+  "projectType": "Interactive Web Map Application",
+  "description": "Makes climate futures tangible by visualizing the Agder region in 2050 under different scenarios. Compares sustainable vs. non-sustainable futures with interactive maps showing climate risks (floods, drought, fire zones) and impact on local landmarks. Empowers communities to choose sustainable path through visual comparison and AI 'Climate Expert' chatbot guidance. Targets UN SDG 13 (Climate Action), SDG 11 (Sustainable Cities and Communities), and SDG 15 (Life on Land).",
+  "technologies": [
+    "HTML5",
+    "CSS3",
+    "JavaScript",
+    "Leaflet.js",
+    "FontAwesome",
+    "AOS (Animate On Scroll)",
+    "Google Fonts (Poppins)"
+  ],
+  "logo": null,
+  "teamMembers": [
+    {
+      "name": "Tobias",
+      "role": null
+    },
+    {
+      "name": "Eskil",
+      "role": null
+    },
+    {
+      "name": "Dmytro",
+      "role": null
+    },
+    {
+      "name": "Nasir",
+      "role": null
+    },
+    {
+      "name": "Max",
+      "role": null
+    },
+    {
+      "name": "Ahmed",
+      "role": null
+    }
+  ],
+  "additionalFiles": [
+    "Agder_2050__Our_Choice.mp4",
+    "AI Bærekraft Video.mp4",
+    "Raport.pdf",
+    "Ai prosjekt.docx"
+  ],
+  "promotionalVideo": "../promotional_videos/Team_16_FutureMap_Promo.mp4"
+}

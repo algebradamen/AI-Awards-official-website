@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rødlistet - Overlevelse med KI-Vokter</title>
+    
+    <!-- Ikon -->
+    <link rel="icon" type="image/x-icon" href="images/logo.jpg">
+    
+    <!-- Leaflet Kart CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Kobling til CSS-fil -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Selve kartet -->
+    <div id="map"></div>
+
+    <!-- Spill-Logo -->
+    <div id="game-logo">
+        <img src="images/logo.jpg" alt="Logo" onerror="this.src='logo.jpg'"> 
+        <span>RØDLISTET</span>
+    </div>
+
+    <!-- KI-AGENT GRENSSESNITT -->
+    <div id="bot-trigger">
+        <div class="vokter-logo">
+            <div class="vokter-core"></div>
+            <div class="vokter-ring"></div>
+            <div class="vokter-orb"></div>
+        </div>
+    </div>
+
+    <div id="chat-window" class="hidden">
+        <div class="chat-header">
+            <span>Naturens Vokter 🤖</span>
+            <span id="close-chat" style="cursor:pointer; font-size: 1.5rem;">&times;</span>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="msg bot">Hei! Jeg er Naturens Vokter. Jeg kan svare på alt om Agder-naturen og dyrene i spillet. Hva lurer du på?</div>
+        </div>
+        <div id="typing-indicator" class="typing hidden">Vokteren tenker...</div>
+        <form class="chat-input-area" id="chat-form">
+            <input type="text" id="chat-input" placeholder="Spør om et dyr..." autocomplete="off">
+            <button type="submit">➤</button>
+        </form>
+    </div>
+
+    <!-- STATUS BAR -->
+    <div id="top-bar">
+        <div class="stat-item">
+            <span class="label">DAG</span>
+            <span class="value" id="day-counter">1</span>
+        </div>
+        <div class="stat-item">
+            <span class="label">STREAK 🔥</span>
+            <span class="value" id="streak-counter">0</span>
+        </div>
+        <div class="stat-item">
+            <span class="label">NATUR-HELSE</span>
+            <div class="health-bar-bg">
+                <div id="health-bar-fill" style="width: 100%;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- KART TYPE KNAPP -->
+    <button id="btn-toggle-map" class="map-toggle-btn">🛰️ Satellitt</button>
+
+    <!-- HOVEDKONTROLLER -->
+    <div id="controls-container">
+        <button id="btn-start-day" class="btn-pulse">START DAGENS VALG</button>
+        <div class="side-buttons">
+            <button id="btn-show-leaderboard" class="btn-icon">🏆 Poengtavle</button>
+            <button id="btn-show-achievements" class="btn-icon">🌟 Prestasjoner</button>
+        </div>
+        <p class="instruction">Klikk på prikkene for å lære om dyrene før du tar et valg.</p>
+    </div>
+
+    <!-- MODAL: PRESTASJONER -->
+    <div id="achievements-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" id="close-achievements">&times;</span>
+            <h2>🌟 Prestasjoner</h2>
+            <div id="achievements-list" class="achievements-container">
+                <!-- Prestasjoner vil bli lastet her av JavaScript -->
+                <p>Ingen prestasjoner låst opp ennå.</p>
+            </div>
+            <button id="btn-reset-achievements" class="btn-audio-small" style="margin: 20px auto 0; color: var(--accent-red); border-color: var(--accent-red); opacity: 0.5;">🗑️ Nullstill prestasjoner</button>
+        </div>
+    </div>
+
+    <!-- MODAL: VELG VANSKELIGHETSGRAD -->
+    <div id="difficulty-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Velg vanskelighetsgrad</h2>
+            <p>Dette valget gjelder for hele denne spillrunden.</p>
+            <div class="difficulty-grid">
+                <button class="btn-diff diff-easy" id="opt-easy">Lett</button>
+                <button class="btn-diff diff-medium" id="opt-medium">Medium</button>
+                <button class="btn-diff diff-hard" id="opt-hard">Vanskelig</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: DYREFAKTA -->
+    <div id="info-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" id="close-info">&times;</span>
+            <span id="btn-listen-info" class="corner-audio-btn" title="Hør fakta">🔊</span>
+            <div class="image-wrapper-large">
+                <img id="info-img" src="" alt="Bilde mangler" onerror="this.src='https://placehold.co/300x300?text=Ingen+bilde'">
+            </div>
+            <h2 id="info-title">Navn</h2>
+            <h4 id="info-latin">Latinsk navn</h4>
+            <p id="info-group" class="badge">Gruppe</p>
+            <div id="info-fact-box" class="info-body"></div>
+            <button id="btn-ask-ai" class="btn primary" style="margin-top: 20px;">🤖 Spør Vokteren om denne arten</button>
+        </div>
+    </div>
+
+    <!-- MODAL: DAGENS VALG (QUIZ) -->
+    <div id="choice-modal" class="modal hidden">
+        <div class="modal-content wide">
+            <span id="btn-listen-quiz" class="corner-audio-btn" title="Les oppgave">🔊</span>
+            <div class="quiz-header">
+                <h2>Hvem må gå?</h2>
+                <div class="header-buttons">
+                    <button id="btn-hint" class="hint-btn">
+                        💡 Hint (<span id="hint-count">0</span>)
+                    </button>
+                </div>
+            </div>
+            <p id="quiz-instruction">Velg en art som skal fjernes for å balansere systemet.</p>
+            <div id="hint-text" class="hint-box hidden"></div>
+            <div id="choices-container" class="choices-grid"></div>
+        </div>
+    </div>
+
+    <!-- MODAL: RESULTAT -->
+    <div id="result-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2 id="result-title">Resultat</h2>
+            <div id="result-body"></div>
+            <button id="btn-continue" class="btn primary">Gå videre</button>
+        </div>
+    </div>
+
+    <!-- MODAL: GAME OVER / SEIER -->
+    <div id="game-over-modal" class="modal hidden">
+        <div class="modal-content">
+            <h1 id="end-title" class="dead-text">NATUREN KOLLAPSET</h1>
+            <p id="game-over-text">Økosystemet tålte ikke mer press.</p>
+            <div class="save-score-section">
+                <h3>Lagre ditt resultat</h3>
+                <input type="text" id="player-name" placeholder="Ditt navn..." maxlength="15">
+                <button id="btn-save-score" class="btn primary">Lagre på tavla</button>
+            </div>
+            <button id="btn-restart" class="btn success">PRØV PÅ NYTT</button>
+        </div>
+    </div>
+
+    <!-- MODAL: LEADERBOARD -->
+    <!-- DEBUG KNAPP -->
+    <button id="btn-debug-images" style="position:fixed; bottom:10px; left:10px; z-index:9999; background:red; color:white; border:none; padding:5px; font-size:10px; opacity:0.7;">SJEKK BILDER</button>
+
+    <div id="leaderboard-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" id="close-leaderboard">&times;</span>
+            <h2>🏆 Toppliste</h2>
+            <div id="leaderboard-list" class="leaderboard-container"></div>
+        </div>
+    </div>
+
+    <div id="overlay" class="hidden"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    <!-- Kobling til JavaScript-fil -->
+    <script src="script.js"></script>
+
+</body>
+</html>

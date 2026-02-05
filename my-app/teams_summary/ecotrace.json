@@ -1,0 +1,47 @@
+{
+  "teamNumber": 4,
+  "projectName": "EcoTrace",
+  "projectType": "Mobile App",
+  "description": "EcoTrace AI is a next-generation mobile platform designed to combat environmental pollution through data and action. By utilizing advanced multimodal AI, the app allows users to scan litter, receive instant local sorting advice, and earn points through verified cleanup efforts. We move beyond simple reporting by connecting citizens, schools, and municipalities in real-time—turning waste management into a competitive, data-driven sport.",
+  "technologies": [
+    "Python",
+    "Google Gemini 2.5 Flash",
+    "Live2D",
+    "SenseVoice (ASR)",
+    "Piper TTS",
+    "React Native",
+    "Expo",
+    "Supabase",
+    "Google Maps",
+    "Sherpa-ONNX"
+  ],
+  "logo": "Team 4/drive-download-20260114T095724Z-1-001/AI-Teammedlem-main/logo.png",
+  "teamMembers": [
+    {
+      "name": "John Kevin",
+      "role": null
+    },
+    {
+      "name": "Cornelius Jørs",
+      "role": null
+    },
+    {
+      "name": "Ludvik",
+      "role": null
+    },
+    {
+      "name": "Andreas",
+      "role": null
+    },
+    {
+      "name": "Alexander Jonathan Lid Nilsen",
+      "role": null
+    }
+  ],
+  "additionalFiles": [
+    "Ecotrace rapport.pdf",
+    "ScreenRecording video",
+    "Pitch EcoTrace.pptx"
+  ],
+  "promotionalVideo": "../promotional_videos/Team_04_EcoTrace_Promo.mp4"
+}

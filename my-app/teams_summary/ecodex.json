@@ -1,0 +1,44 @@
+{
+  "teamNumber": 6,
+  "projectName": "EcoDex",
+  "projectType": "Web App",
+  "description": "Provides accessible environmental and nature education through a comprehensive web application. Makes environmental knowledge democratically accessible to students, educators, and nature enthusiasts. Promotes nature conservation through information and builds environmental awareness in the community. Targets UN SDG 15 (Life on Land), SDG 13 (Climate Action), and SDG 4 (Quality Education).",
+  "technologies": [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "Leaflet.js",
+    "ml5.js"
+  ],
+  "logo": null,
+  "teamMembers": [
+    {
+      "name": "Siri",
+      "role": null
+    },
+    {
+      "name": "Helle",
+      "role": null
+    },
+    {
+      "name": "Jette",
+      "role": null
+    },
+    {
+      "name": "Randi Føreland Amundsen",
+      "role": null
+    },
+    {
+      "name": "Chanel Thoresen",
+      "role": null
+    }
+  ],
+  "additionalFiles": [
+    "EcoDex dokumentar.mp4",
+    "Reklamevideo EcoDex.mov",
+    "Prosjektplan team 6.docx",
+    "Link til nettappen.docx",
+    "Rapport_ Utviklingen av EcoDex.docx"
+  ],
+  "promotionalVideo": "../promotional_videos/Team_06_EcoDex_Promo.mov"
+}

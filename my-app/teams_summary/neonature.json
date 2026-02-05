@@ -1,0 +1,45 @@
+{
+  "teamNumber": 13,
+  "projectName": "NeoNature",
+  "projectType": "Website with Interactive Map",
+  "description": "Builds connection between people and local wildlife through an interactive website for tracking and learning about wild Norwegian animals. Promotes biodiversity awareness, encourages nature conservation, and makes nature education accessible and engaging through map integration and QR scanning. Targets UN SDG 15 (Life on Land), SDG 4 (Quality Education), and SDG 13 (Climate Action).",
+  "technologies": [
+    "HTML5",
+    "CSS3",
+    "JavaScript",
+    "FontAwesome",
+    "html5-qrcode library",
+    "GeoJSON"
+  ],
+  "logo": null,
+  "teamMembers": [
+    {
+      "name": "Alexander H.",
+      "role": null
+    },
+    {
+      "name": "Ben Kristian",
+      "role": null
+    },
+    {
+      "name": "Simon",
+      "role": null
+    },
+    {
+      "name": "Marcus",
+      "role": null
+    },
+    {
+      "name": "Osama",
+      "role": null
+    }
+  ],
+  "additionalFiles": [
+    "Produksjonsplan Ai.docx",
+    "Rapport AI Uke.pdf",
+    "Ai Videoer/",
+    "Bilder/"
+  ],
+  "promotionalVideo": "../promotional_videos/Team_13_NeoNature_Promo.mp4",
+  "folderPath": "Games/Team-13/site/"
+}

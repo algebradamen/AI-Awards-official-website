@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naturens Liv - Overlevelse</title>
+    <link rel="icon" type="image/x-icon" href="images/logo.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="life.css">
+</head>
+<body>
+
+    <div id="game-container">
+        <!-- HEADER -->
+        <div id="top-bar">
+            <div id="back-to-menu" onclick="window.location.href='start.html'">⬅</div>
+            <div class="stat-item">
+                <span class="label">ALDER</span>
+                <span class="value" id="age-display">0 år, 0 mnd</span>
+            </div>
+            <div class="stat-item">
+                <span class="label">STYRKE</span>
+                <div class="bar-bg"><div id="strength-bar" class="strength-fill" style="width: 0%;"></div></div>
+            </div>
+            <div class="stat-item">
+                <span class="label">SLITEN</span>
+                <div class="bar-bg"><div id="fatigue-bar" class="fatigue-fill" style="width: 0%;"></div></div>
+            </div>
+            <div class="stat-item">
+                <span class="label">HELSE</span>
+                <div class="bar-bg"><div id="health-bar" style="width: 100%;"></div></div>
+            </div>
+            <div class="stat-item">
+                <span class="label">LYKKE</span>
+                <div class="bar-bg"><div id="happiness-bar" style="width: 100%;"></div></div>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT AREA -->
+        <div id="main-content">
+            <div id="selection-screen" class="content-box">
+                <h1>Hvem vil du være?</h1>
+                <p>Velg en art å leve som i Agder-naturen.</p>
+                <div id="species-grid" class="emoji-grid"></div>
+            </div>
+
+            <div id="life-screen" class="content-box hidden">
+                <div id="animal-identity">
+                    <div id="player-emoji" class="large-emoji"></div>
+                    <h2 id="player-name">Art Navn</h2>
+                    <p id="player-location" class="badge">Agder-naturen</p>
+                </div>
+                
+                <div class="log-header">
+                    <span>HENDELSESLOGG</span>
+                    <button id="btn-read-aloud" class="btn-tts">🔊 Les opp</button>
+                </div>
+                <div id="event-log"></div>
+
+                <div class="side-nav">
+                    <button id="btn-open-status" class="btn-side">📊 HANDLINGER</button>
+                    <button id="btn-open-family" class="btn-side">👪 FAMILIE</button>
+                </div>
+
+                <div id="action-area">
+                    <button id="btn-age-up" class="btn-premium">NESTE (2 MND)</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOR STATUS/ACTIVITIES -->
+    <div id="status-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h2>AKTIVITETER</h2>
+            <div id="activities-list" class="button-stack">
+                <button id="btn-train" class="btn-choice">💪 Tren Styrke</button>
+                <button id="btn-explore" class="btn-choice">🧭 Utforsk Nærområdet</button>
+                <button id="btn-hunt" class="btn-choice">🦴 Lær å Jage</button>
+                <button id="btn-forage" class="btn-choice">🍎 Sank Mat</button>
+                <button id="btn-partner" class="btn-choice">❤️ Finn Partner</button>
+                <button id="btn-rival" class="btn-choice">💢 Utfordre Rival</button>
+                <button id="btn-territory" class="btn-choice">🏹 Marker Revir</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOR FAMILY -->
+    <div id="family-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h2>DIN FAMILIE</h2>
+            <div id="family-list" class="button-stack"></div>
+        </div>
+    </div>
+
+    <!-- MODAL FOR FAMILY INTERACTION -->
+    <div id="member-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal" onclick="openModal('family-modal')">&times;</span>
+            <h2 id="member-name">Navn</h2>
+            <p id="member-relation">Relasjon</p>
+            <div class="button-stack">
+                <button id="btn-interact-play" class="btn-choice">🎮 Lek</button>
+                <button id="btn-interact-food" class="btn-choice">🍎 Gi mat</button>
+                <button id="btn-interact-spend" class="btn-choice">💬 Tilbring tid</button>
+                <button id="btn-interact-fight" class="btn-choice">💢 Krangel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL FOR PARTNER SELECTION -->
+    <div id="partner-list-modal" class="modal hidden">
+        <div class="modal-content wide">
+            <span class="close-modal" onclick="closeAllModals()">&times;</span>
+            <h2>FINN EN MAKE</h2>
+            <div id="partner-candidates" class="candidate-grid"></div>
+        </div>
+    </div>
+
+    <!-- MODAL FOR VALG / HENDELSER -->
+    <div id="choice-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2 id="choice-title">Hva gjør du?</h2>
+            <p id="choice-desc">Beskrivelse...</p>
+            <div id="choice-buttons" class="button-stack"></div>
+        </div>
+    </div>
+
+    <!-- MODAL FOR DØD -->
+    <div id="death-modal" class="modal hidden">
+        <div class="modal-content death-content">
+            <div class="tombstone-wrapper">
+                <div class="tombstone">
+                    <div class="rip">RIP</div>
+                    <div class="tombstone-text">SPILLET ER SLUTT</div>
+                </div>
+            </div>
+            <div class="death-actions">
+                <button id="btn-retry-same" class="btn-premium success">PRØV IGJEN (<span id="retry-animal-name">Dyr</span>)</button>
+                <button id="btn-choose-new" class="btn-premium primary">VELG NY</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="overlay" class="hidden"></div>
+
+    <script src="life.js"></script>
+</body>
+</html>

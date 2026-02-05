@@ -1,0 +1,44 @@
+{
+  "teamNumber": 7,
+  "projectName": "Klimablikk Norge",
+  "projectType": "Website",
+  "description": "Addresses the lack of Norwegian-language climate education resources by creating a comprehensive platform for climate awareness, nature education, and environmental action. Provides educational content about climate, nature, and recycling with practical sustainability tips. Facilitates donations for environmental causes and builds environmental consciousness. Targets UN SDG 13 (Climate Action), SDG 15 (Life on Land), and SDG 12 (Responsible Consumption and Production).",
+  "technologies": [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "Python (simple HTTP server)"
+  ],
+  "logo": null,
+  "teamMembers": [
+    {
+      "name": "Adam",
+      "role": null
+    },
+    {
+      "name": "Artin",
+      "role": null
+    },
+    {
+      "name": "Carmen",
+      "role": null
+    },
+    {
+      "name": "Robin",
+      "role": null
+    },
+    {
+      "name": "Tønnes August Fischer Tjemsland",
+      "role": null
+    }
+  ],
+  "additionalFiles": [
+    "AI Proj.mp4",
+    "AI Slutt Reklame.mp4",
+    "Dokumentar - Prosess.mp4",
+    "Prosjektplan.pdf",
+    "Sluttrapport.pdf"
+  ],
+  "promotionalVideo": "../promotional_videos/Team_07_Klimablikk_Norge_Promo.mp4",
+  "folderPath": "Games/Team-7/site/"
+}

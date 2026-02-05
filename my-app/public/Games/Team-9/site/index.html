@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Map & Bosses</title>
+    <style>
+        /* --- GLOBAL & RESET --- */
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            background: #111;
+            color: white;
+            user-select: none;
+        }
+
+        /* --- GAME STAGE (THE MAP) --- */
+        #game-view {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            transition: filter 0.3s;
+        }
+
+        /* The container that holds the background and the points. 
+           We move this to simulate camera movement. */
+        #world-container {
+            position: absolute;
+            left: 0;
+            top: 0;
+            will-change: transform;
+            transform-origin: 0 0;
+        }
+
+        #background {
+            display: block;
+            width: auto;
+            height: auto;
+            pointer-events: none; /* Let clicks pass through to points */
+        }
+
+        /* --- INTERACTIVE POINTS --- */
+        .map-point {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 60, 0, 0.2);
+            border: 3px solid #ff4400;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 20px;
+            color: #fff;
+            text-shadow: 0 2px 4px black;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 15px #ff4400;
+        }
+
+        .map-point:hover {
+            transform: translate(-50%, -50%) scale(1.3);
+            background: rgba(255, 60, 0, 0.6);
+            border-color: #fff;
+        }
+
+        .map-point::after {
+            content: 'BOSS';
+            position: absolute;
+            top: -25px;
+            font-size: 12px;
+            background: black;
+            padding: 2px 6px;
+            border-radius: 4px;
+            opacity: 0;
+            transition: opacity 0.2s;
+            pointer-events: none;
+        }
+        .map-point:hover::after {
+            opacity: 1;
+        }
+
+        /* --- THE CHARACTER --- */
+        #character-container {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 0; 
+            height: 0;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        #character-sprite {
+            position: absolute;
+            width: 150px;
+            height: auto;
+            /* Center the image on the container point */
+            left: -75px; 
+            top: -75px; 
+            will-change: transform;
+            transition: transform 0.1s; /* Smooth flip */
+        }
+
+        /* --- UI LAYER (HUD) --- */
+        #hud {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 200;
+            pointer-events: none;
+        }
+        .key-hint {
+            background: rgba(0,0,0,0.5);
+            padding: 10px;
+            border-radius: 8px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* --- BOSS SCREEN (OVERLAY) --- */
+        #boss-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 12, 0.95);
+            z-index: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        #boss-screen.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .boss-card {
+            width: 80%;
+            max-width: 600px;
+            background: #1a1a1a;
+            border: 2px solid #333;
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            transform: translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        #boss-screen.active .boss-card {
+            transform: translateY(0);
+        }
+
+        .boss-title {
+            font-size: 3rem;
+            margin: 0 0 10px 0;
+            color: #ff4400;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .boss-desc {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            background: white;
+            color: black;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.1s, background 0.2s;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+            background: #ff4400;
+            color: white;
+        }
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- GAME VIEW -->
+    <div id="game-view">
+        <div id="world-container">
+            <img id="background" src="background.jpg" alt="Map">
+            
+            <!-- INTERACTIVE BOSS POINTS -->
+            <!-- Use onclick to open specific boss data -->
+            
+            <div class="map-point active" style="left: 26.86%; top: 66%;" onclick="window.location.href='level1.html'">1</div>
+            
+            <div class="map-point" style="left: 45%; top: 29.5%;" onclick="window.location.href='level2.html'">2</div>
+            
+            <div class="map-point" style="left: 57.1%; top: 39%;" onclick="interact('Olifild')">3</div>
+        </div>
+        </div>
+
+        <!-- PLAYER CHARACTER -->
+        <div id="character-container">
+            <img id="character-sprite" src="ejhfhefsfd-removebg-preview(1).png" alt="Hero">
+        </div>
+
+        <!-- HUD -->
+        <div id="hud">
+            <div class="key-hint">
+                <strong>CONTROLS:</strong><br>
+                WASD to Move<br>
+                SPACE to Jump<br>
+                Click Points for Bosses
+            </div>
+        </div>
+    </div>
+
+    <!-- DEDICATED BOSS SCREEN -->
+    <div id="boss-screen">
+        <div class="boss-card">
+            <h1 id="boss-title" class="boss-title">Boss Name</h1>
+            <p id="boss-desc" class="boss-desc">Description goes here...</p>
+            <button class="btn" onclick="closeBoss()">Back to Map</button>
+        </div>
+    </div>
+
+    <script>
+        // --- BOSS DATA ---
+        const bosses = {
+            'start': {
+                title: "The Awakening",
+                desc: "This is where your journey began. A weak but persistent shadow lurks here. Recommended Level: 1"
+            },
+            'nuclear': {
+                title: "Reactor Core",
+                desc: "The radiation has mutated everything nearby. The Nuclear Titan guards the control rod. Bring anti-rad gear."
+            },
+            'coast': {
+                title: "Tidal Leviathan",
+                desc: "A massive creature from the deep. It controls the tides and the storms. Watch out for the water blast!"
+            }
+        };
+
+        // --- GAME STATE ---
+        const gameState = {
+            paused: false,
+            keys: { w: false, a: false, s: false, d: false, space: false },
+            player: {
+                x: 24.0, // Percentage coordinates
+                y: 46.0,
+                vx: 0,   // Velocity X
+                vy: 0,   // Velocity Y
+                facingRight: true,
+                z: 0,    // Height (for jumping)
+                vz: 0    // Vertical Velocity
+            },
+            camera: {
+                x: 26.7,
+                y: 64.0
+            }
+        };
+
+        // --- CONFIG ---
+        const CFG = {
+            accel: 60,      // How fast we speed up
+            friction: 10,   // How fast we stop (higher = more slippery)
+            maxSpeed: 12,   // Max move speed
+            jumpForce: 40,  // Jump height
+            gravity: 120,   // How fast we fall back down
+            cameraLerp: 5,  // How strictly camera follows player (lower = looser)
+            zoom: 1.5       // Map zoom level
+        };
+
+        // --- DOM ELEMENTS ---
+        const world = document.getElementById('world-container');
+        const bg = document.getElementById('background');
+        const charSprite = document.getElementById('character-sprite');
+        const bossScreen = document.getElementById('boss-screen');
+        const bossTitle = document.getElementById('boss-title');
+        const bossDesc = document.getElementById('boss-desc');
+
+        // --- INPUT HANDLING ---
+        window.addEventListener('keydown', e => {
+            const k = e.key.toLowerCase();
+            if(k === 'w' || k === 'arrowup') gameState.keys.w = true;
+            if(k === 's' || k === 'arrowdown') gameState.keys.s = true;
+            if(k === 'a' || k === 'arrowleft') gameState.keys.a = true;
+            if(k === 'd' || k === 'arrowright') gameState.keys.d = true;
+            if(k === ' ') {
+                if(!gameState.keys.space && gameState.player.z === 0) {
+                    gameState.player.vz = CFG.jumpForce; // JUMP!
+                }
+                gameState.keys.space = true;
+            }
+        });
+
+        window.addEventListener('keyup', e => {
+            const k = e.key.toLowerCase();
+            if(k === 'w' || k === 'arrowup') gameState.keys.w = false;
+            if(k === 's' || k === 'arrowdown') gameState.keys.s = false;
+            if(k === 'a' || k === 'arrowleft') gameState.keys.a = false;
+            if(k === 'd' || k === 'arrowright') gameState.keys.d = false;
+            if(k === ' ') gameState.keys.space = false;
+        });
+
+        // --- BOSS FUNCTIONS ---
+        window.openBoss = function(id) {
+            const data = bosses[id];
+            if(!data) return;
+
+            bossTitle.innerText = data.title;
+            bossDesc.innerText = data.desc;
+            
+            bossScreen.classList.add('active');
+            gameState.paused = true; // Stop game loop logic
+        };
+
+        window.closeBoss = function() {
+            bossScreen.classList.remove('active');
+            gameState.paused = false;
+            
+            // Reset keys to prevent sticking
+            gameState.keys.w = false;
+            gameState.keys.s = false;
+            gameState.keys.a = false;
+            gameState.keys.d = false;
+            
+            requestAnimationFrame(tick); // Restart loop
+        };
+
+        // --- PHYSICS & RENDER LOOP ---
+        let lastTime = performance.now();
+
+        function tick(now) {
+            if (gameState.paused) return; // Stop if boss screen is open
+
+            const dt = Math.min((now - lastTime) / 1000, 0.1); // Cap dt for safety
+            lastTime = now;
+
+            const p = gameState.player;
+            const k = gameState.keys;
+
+            // 1. INPUT ACCELERATION
+            let targetVx = 0;
+            let targetVy = 0;
+
+            if (k.w) targetVy -= CFG.maxSpeed;
+            if (k.s) targetVy += CFG.maxSpeed;
+            if (k.a) targetVx -= CFG.maxSpeed;
+            if (k.d) targetVx += CFG.maxSpeed;
+
+            // Normalize diagonal speed
+            if (targetVx !== 0 && targetVy !== 0) {
+                targetVx *= 0.707;
+                targetVy *= 0.707;
+            }
+
+            // 2. APPLY PHYSICS (Inertia)
+            // Move velocity towards target velocity
+            p.vx += (targetVx - p.vx) * CFG.friction * dt;
+            p.vy += (targetVy - p.vy) * CFG.friction * dt;
+
+            // 3. UPDATE POSITION
+            p.x += p.vx * dt;
+            p.y += p.vy * dt;
+
+            // Clamp to map boundaries (0% to 100%)
+            p.x = Math.max(2, Math.min(98, p.x));
+            p.y = Math.max(2, Math.min(98, p.y));
+
+            // 4. JUMP PHYSICS (Visual Z-axis)
+            p.z += p.vz * dt;
+            p.vz -= CFG.gravity * dt; // Gravity
+            if(p.z < 0) {
+                p.z = 0;
+                p.vz = 0;
+            }
+
+            // 5. FACING DIRECTION
+            if (Math.abs(p.vx) > 1) {
+                p.facingRight = p.vx > 0;
+            }
+
+            // 6. CAMERA FOLLOW (Smooth Lerp)
+            // Camera tries to catch up to player
+            const camAlpha = 1 - Math.exp(-CFG.cameraLerp * dt);
+            gameState.camera.x += (p.x - gameState.camera.x) * camAlpha;
+            gameState.camera.y += (p.y - gameState.camera.y) * camAlpha;
+
+            // 7. RENDER
+            render();
+
+            requestAnimationFrame(tick);
+        }
+
+        function render() {
+            // A. Move World (Camera)
+            // We move the world so the camera position is in the center of screen
+            const bgW = world.offsetWidth;
+            const bgH = world.offsetHeight;
+            if(bgW === 0) return;
+
+            const winW = window.innerWidth;
+            const winH = window.innerHeight;
+
+            const px = (gameState.camera.x / 100) * bgW;
+            const py = (gameState.camera.y / 100) * bgH;
+
+            // Center of screen
+            const cx = winW / 2;
+            const cy = winH / 2;
+
+            const tx = cx - px * CFG.zoom;
+            const ty = cy - py * CFG.zoom;
+
+            world.style.transform = `translate(${tx}px, ${ty}px) scale(${CFG.zoom})`;
+
+            // B. Move Character (Visual relative to camera)
+            // Actually, since the character is always at the true coordinates, 
+            // and the camera moves the world, we just need to offset the character 
+            // from the center of the screen based on the difference between Player & Camera
+            
+            // Calculate pixel difference between Player and Camera
+            const diffX = ((gameState.player.x - gameState.camera.x) / 100) * bgW * CFG.zoom;
+            const diffY = ((gameState.player.y - gameState.camera.y) / 100) * bgH * CFG.zoom;
+
+            // Apply Z (Jump) as Y offset
+            const jumpY = gameState.player.z * 5 * CFG.zoom; 
+
+            // Bobbing animation if moving
+            const isMoving = Math.abs(gameState.player.vx) > 1 || Math.abs(gameState.player.vy) > 1;
+            const bob = isMoving ? Math.sin(performance.now() / 100) * 5 : 0;
+
+            const charTransform = `translate(calc(-50% + ${diffX}px), calc(-50% + ${diffY - jumpY + bob}px))`;
+            document.getElementById('character-container').style.transform = charTransform;
+
+            // Sprite flipping
+            const flip = gameState.player.facingRight ? 'scaleX(1)' : 'scaleX(-1)';
+            charSprite.style.transform = flip;
+        }
+
+        // --- INIT ---
+        window.addEventListener('load', () => {
+            requestAnimationFrame(tick);
+        });
+        window.addEventListener('resize', render);
+
+    </script>
+</body>
+</html>

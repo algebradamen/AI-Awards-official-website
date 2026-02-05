@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DTM i Leaflet – fargelag + hillshade</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <style>
+    html, body, #map { height: 100%; margin: 0; }
+    .leaflet-control-layers { max-height: 60vh; overflow: auto; }
+  </style>
+</head>
+<body>
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+  // Bounds i WGS84 (lat, lon)
+  const imageBounds = [
+    [57.46284937, 6.43698678],
+    [58.45931722, 8.31213043]
+  ];
+
+  const map = L.map('map', {
+    center: [57.96108330, 7.37455861],
+    zoom: 9
+  });
+
+  const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; OpenStreetMap-bidragsytere'
+  }).addTo(map);
+
+  // PNG-filer ligger i samme mappe som index.html
+  const elevation = L.imageOverlay('elevation.png', imageBounds, { opacity: 0.85 }).addTo(map);
+  const hillshade = L.imageOverlay('hillshade.png', imageBounds, { opacity: 0.60 }).addTo(map);
+
+  L.control.layers(
+    { "OpenStreetMap": osm },
+    { "Høyde (fargelag)": elevation, "Hillshade (skyggerelieff)": hillshade },
+    { collapsed: false }
+  ).addTo(map);
+
+  L.control.scale({ imperial: false }).addTo(map);
+  map.fitBounds(imageBounds);
+</script>
+</body>
+</html>

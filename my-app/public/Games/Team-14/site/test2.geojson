@@ -1,0 +1,1167 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "svartand",
+                "vitenskapeligNavn": "Melanitta nigra",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Sårbar",
+                "forvaltningskategori_beskrivelse": "Arter av særlig stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.9652292844, 58.118075432]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "lappfiskand",
+                "vitenskapeligNavn": "Mergellus albellus",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Sårbar",
+                "forvaltningskategori_beskrivelse": "Arter av særlig stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.9652292844, 58.118075432]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "ærfugl",
+                "vitenskapeligNavn": "Somateria mollissima",
+                "artsgruppe": "fugl",
+            "listeStatus_beskrivelse": "Sårbar",
+                "forvaltningskategori_beskrivelse": "Arter av særlig stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.9652292844, 58.118075432]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "alke",
+                "vitenskapeligNavn": "Alca torda",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Sårbar",
+                "forvaltningskategori_beskrivelse": "Arter av særlig stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.9652292844, 58.118075432]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "lomvi",
+                "vitenskapeligNavn": "Uria aalge",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Kritisk truet",
+                "forvaltningskategori_beskrivelse": "Arter av særlig stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.9652292844, 58.118075432]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "hettemåke",
+                "vitenskapeligNavn": "Chroicocephalus ridibundus",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Kritisk truet",
+                "forvaltningskategori_beskrivelse": "Arter av særlig stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.9518815695, 58.1195966775]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "fiskemåke",
+                "vitenskapeligNavn": "Larus canus",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Sårbar",
+                "forvaltningskategori_beskrivelse": "Arter av særlig stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [6.7052831677, 58.0768898567]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "storspove",
+                "vitenskapeligNavn": "Numenius arquata",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Sårbar",
+                "forvaltningskategori_beskrivelse": "Arter av særlig stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [6.7052831677, 58.0768898567]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "gråmåke",
+                "vitenskapeligNavn": "Larus argentatus",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Sårbar",
+                "forvaltningskategori_beskrivelse": "Arter av særlig stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [8.8951985402, 58.4654149287]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "granmeis",
+                "vitenskapeligNavn": "Poecile montanus",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "sivhøne",
+                "vitenskapeligNavn": "Gallinula chloropus",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.8261213032, 58.0792246332]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "gulspurv",
+                "vitenskapeligNavn": "Emberiza citrinella",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Sårbar",
+                "forvaltningskategori_beskrivelse": "Arter av særlig stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [8.1021258844, 58.1559039027]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "sandsvale",
+                "vitenskapeligNavn": "Riparia riparia",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Sårbar",
+                "forvaltningskategori_beskrivelse": "Arter av særlig stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "makrellterne",
+                "vitenskapeligNavn": "Sterna dougallii",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Sårbar",
+                "forvaltningskategori_beskrivelse": "Arter av særlig stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.9518815695, 58.1195966775]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "vipe",
+                "vitenskapeligNavn": "Vanellus vanellus",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Sårbar",
+                "forvaltningskategori_beskrivelse": "Arter av særlig stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [6.7052831677, 58.0768898567]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "havørn",
+                "vitenskapeligNavn": "Haliaeetus albicilla",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Livskraftig",
+                "forvaltningskategori_beskrivelse": "Ansvarsarter"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [6.6120254467, 58.0839265888]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "tyrkerdue",
+                "vitenskapeligNavn": "Streptopelia decaocto",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [6.7157916981, 58.1008420264]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "sanglerke",
+                "vitenskapeligNavn": "Alauda arvensis",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "bjørkefink",
+                "vitenskapeligNavn": "Fringilla montifringilla",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Livskraftig",
+                "forvaltningskategori_beskrivelse": "Ansvarsarter"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "taksvale",
+                "vitenskapeligNavn": "Delichon urbicum",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.8238116206, 58.0786973105]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "heipiplerke",
+                "vitenskapeligNavn": "Anthus pratensis",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Livskraftig",
+                "forvaltningskategori_beskrivelse": "Ansvarsarter"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [6.6231482441, 58.0860352654]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "stær",
+                "vitenskapeligNavn": "Sturnus vulgaris",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [6.5814679797, 58.1029170037]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "bergirisk",
+                "vitenskapeligNavn": "Linaria flavirostris",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.9518815695, 58.1195966775]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "grønnfink",
+                "vitenskapeligNavn": "Chloris chloris",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Sårbar",
+                "forvaltningskategori_beskrivelse": "Arter av særlig stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.9518815695, 58.1195966775]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "tårnseiler",
+                "vitenskapeligNavn": "Apus apus",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [6.6509634982, 58.0882526496]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "tjeld",
+                "vitenskapeligNavn": "Haematopus ostralegus",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [6.7167205828, 58.0696258889]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "gråspurv",
+                "vitenskapeligNavn": "Passer domesticus",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.9525566754, 58.1073505229]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "storskarv",
+                "vitenskapeligNavn": "Phalacrocorax carbo",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [6.6156566478, 58.0882465566]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "rødstilk",
+                "vitenskapeligNavn": "Tringa totanus",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.3069573308, 58.0009281965]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "svartbak",
+                "vitenskapeligNavn": "Larus marinus",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Livskraftig",
+                "forvaltningskategori_beskrivelse": "Ansvarsarter"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.3069573308, 58.0009281965]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "sothøne",
+                "vitenskapeligNavn": "Fulica atra",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.8261213032, 58.0792246332]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "brunsisik",
+                "vitenskapeligNavn": "Acanthis flammea",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Livskraftig",
+                "forvaltningskategori_beskrivelse": "Ansvarsarter"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [6.6345906832, 58.0737063585]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "hvitryggspett",
+                "vitenskapeligNavn": "Dendrocopos leucotos",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Sårbar",
+                "forvaltningskategori_beskrivelse": "Arter av særlig stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "gråspett",
+                "vitenskapeligNavn": "Picus canus",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "svartrødstjert",
+                "vitenskapeligNavn": "Phoenicurus ochruros",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [6.7052831677, 58.0768898567]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "vandrefalk",
+                "vitenskapeligNavn": "Falco peregrinus",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Livskraftig",
+                "forvaltningskategori_beskrivelse": "Arter av særlig stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [6.5548539273, 58.118527202]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "småspove",
+                "vitenskapeligNavn": "Numenius phaeopus",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Sårbar",
+                "forvaltningskategori_beskrivelse": "Arter av særlig stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [6.7052831677, 58.0768898567]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "kornkråke",
+                "vitenskapeligNavn": "Corvus frugilegus",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.8238116206, 58.0786973105]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "dvergfalk",
+                "vitenskapeligNavn": "Falco columbarius",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Livskraftig",
+                "forvaltningskategori_beskrivelse": "Arter av særlig stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [6.5548539273, 58.118527202]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "lerkefalk",
+                "vitenskapeligNavn": "Falco subbuteo",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [6.6509634982, 58.0882526496]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "krykkje",
+                "vitenskapeligNavn": "Rissa tridactyla",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Kritisk truet",
+                "forvaltningskategori_beskrivelse": "Arter av særlig stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.9652292844, 58.118075432]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "sjøorre",
+                "vitenskapeligNavn": "Melanitta fusca",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Sårbar",
+                "forvaltningskategori_beskrivelse": "Arter av særlig stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.9652292844, 58.118075432]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "skjærpiplerke",
+                "vitenskapeligNavn": "Anthus petrosus",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Livskraftig",
+                "forvaltningskategori_beskrivelse": "Ansvarsarter"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [6.6924722659, 58.0676478741]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "hønsehauk",
+                "vitenskapeligNavn": "Accipiter gentilis",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Sårbar",
+                "forvaltningskategori_beskrivelse": "Arter av særlig stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "nattergal",
+                "vitenskapeligNavn": "Luscinia luscinia",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Sårbar",
+                "forvaltningskategori_beskrivelse": "Arter av særlig stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "furukorsnebb",
+                "vitenskapeligNavn": "Loxia pytyopsittacus",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [6.5746915758, 58.1186667272]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "konglebit",
+                "vitenskapeligNavn": "Pinicola enucleator",
+                "artsgruppe": "fugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "nordflaggermus",
+                "vitenskapeligNavn": "Myotis brandtii",
+                "artsgruppe": "pattedyr",
+                "listeStatus_beskrivelse": "Livskraftig",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.8261213032, 58.0792246332]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "piggsvin",
+                "vitenskapeligNavn": "Erinaceus europaeus",
+                "artsgruppe": "pattedyr",
+                "listeStatus_beskrivelse": "Sårbar",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.8261213032, 58.0792246332]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "mink",
+                "vitenskapeligNavn": "Neovison vison",
+                "artsgruppe": "pattedyr",
+                "listeStatus_beskrivelse": "Svært høy risiko",
+                "forvaltningskategori_beskrivelse": "Fremmede arter"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.8261213032, 58.0792246332]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "havert",
+                "vitenskapeligNavn": "Halichoerus grypus",
+                "artsgruppe": "pattedyr",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av særlig stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.9652292844, 58.118075432]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "skimmelflaggermus",
+                "vitenskapeligNavn": "Vespertilio murinus",
+                "artsgruppe": "pattedyr",
+                "listeStatus_beskrivelse": "Sårbar",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.8261213032, 58.0792246332]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "karminspinner",
+                "vitenskapeligNavn": "Tyria jacobaeae",
+                "artsgruppe": "insekter",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "harlekinmarihøne",
+                "vitenskapeligNavn": "Harmonia axyridis",
+                "artsgruppe": "insekter",
+                "listeStatus_beskrivelse": "Svært høy risiko",
+                "forvaltningskategori_beskrivelse": "Fremmede arter"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.8261213032, 58.0792246332]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "brunskogsnegl",
+                "vitenskapeligNavn": "Arion vulgaris",
+                "artsgruppe": "bløtdyr",
+                "listeStatus_beskrivelse": "Svært høy risiko",
+                "forvaltningskategori_beskrivelse": "Fremmede arter"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.8261213032, 58.0792246332]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "boakjølsnegl",
+                "vitenskapeligNavn": "Limax maximus",
+                "artsgruppe": "bløtdyr",
+                "listeStatus_beskrivelse": "Høy risiko",
+                "forvaltningskategori_beskrivelse": "Fremmede arter"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.8261213032, 58.0792246332]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "mørk jordhumle",
+                "vitenskapeligNavn": "Bombus terrestris",
+                "artsgruppe": "insekter",
+                "listeStatus_beskrivelse": "Høy risiko",
+                "forvaltningskategori_beskrivelse": "Fremmede arter"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "brakkvannsrur",
+                "vitenskapeligNavn": "Balanus improvisus",
+                "artsgruppe": "krepsdyr",
+                "listeStatus_beskrivelse": "Svært høy risiko",
+                "forvaltningskategori_beskrivelse": "Fremmede arter"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.9652292844, 58.118075432]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "alvesmyger",
+                "vitenskapeligNavn": "Pyrgus malvae",
+                "artsgruppe": "sommerfugl",
+                "listeStatus_beskrivelse": "Sårbar",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "hvit tigerspinner",
+                "vitenskapeligNavn": "Spilosoma lubricipeda",
+                "artsgruppe": "mott",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "tiriltungesmalmott",
+                "vitenskapeligNavn": "Pyrausta nigrata",
+                "artsgruppe": "mott",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "hagtornsigdvikler",
+                "vitenskapeligNavn": "Archips crataegana",
+                "artsgruppe": "sommerfugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "almegulfly",
+                "vitenskapeligNavn": "Xanthia gilvago",
+                "artsgruppe": "sommerfugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "almepraktmåler",
+                "vitenskapeligNavn": "Lycia zonaria",
+                "artsgruppe": "sommerfugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "hvit dammott",
+                "vitenskapeligNavn": "Nymphula nymphaeata",
+                "artsgruppe": "mott",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "trollheggsigdvikler",
+                "vitenskapeligNavn": "Acleris cristana",
+                "artsgruppe": "sommerfugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "rotstrekmosemott",
+                "vitenskapeligNavn": "Crambus perlella",
+                "artsgruppe": "mott",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "fjærepraktvikler",
+                "vitenskapeligNavn": "Aethes tesserana",
+                "artsgruppe": "sommerfugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "sandsmalmott",
+                "vitenskapeligNavn": "Agriphila straminella",
+                "artsgruppe": "mott",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "karminpraktvikler",
+                "vitenskapeligNavn": "Aethes cnicana",
+                "artsgruppe": "sommerfugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "piggknopprørfly",
+                "vitenskapeligNavn": "Phragmatiphila nexa",
+                "artsgruppe": "sommerfugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "almestjertvinge",
+                "vitenskapeligNavn": "Satyrium w-album",
+                "artsgruppe": "sommerfugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "langsabeledderkopp",
+                "vitenskapeligNavn": "Tetragnatha extensa",
+                "artsgruppe": "edderkoppdyr",
+                "listeStatus_beskrivelse": "Livskraftig",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "rappnebbmott",
+                "vitenskapeligNavn": "Crambus lathoniellus",
+                "artsgruppe": "mott",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "båndringspinner",
+                "vitenskapeligNavn": "Malacosoma neustria",
+                "artsgruppe": "sommerfugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "myrstengelfly",
+                "vitenskapeligNavn": "Hydraecia micacea",
+                "artsgruppe": "sommerfugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "almebladsikade",
+                "vitenskapeligNavn": "Ribautiana ulmi",
+                "artsgruppe": "insekter",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.9792895378, 58.1689430111]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "linjefly",
+                "vitenskapeligNavn": "Charanyca trigrammica",
+                "artsgruppe": "sommerfugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "hvitbåndnellikfly",
+                "vitenskapeligNavn": "Hadena compta",
+                "artsgruppe": "sommerfugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "malurtdvergmåler",
+                "vitenskapeligNavn": "Eupithecia absinthiata",
+                "artsgruppe": "sommerfugl",
+            "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "hagtornfrøvikler",
+                "vitenskapeligNavn": "Pammene rhediella",
+                "artsgruppe": "sommerfugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "slåpetornvikler",
+                "vitenskapeligNavn": "Archips podana",
+                "artsgruppe": "sommerfugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "norskNavn": "irisrørfly",
+                "vitenskapeligNavn": "Senta flammea",
+                "artsgruppe": "sommerfugl",
+                "listeStatus_beskrivelse": "Nær truet",
+                "forvaltningskategori_beskrivelse": "Arter av stor forvaltningsinteresse"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [7.0769962899, 58.1446195864]
+            }
+        }
+    ]
+}

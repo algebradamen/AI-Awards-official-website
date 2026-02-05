@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="no">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEONATURE | Redd Norsk Natur</title>
+
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Oswald (Lando style bold) & Inter (Clean body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Custom Design Variables based on LandoNorris x MyFahlo */
+        :root {
+            --neon-lime: #ccff00;
+            /* Lando Signature Color */
+            --dark-slate: #0f172a;
+            --norway-green: #1a2e1a;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-slate);
+            color: white;
+            overflow-x: hidden;
+            /* Hindrer markering av tekst for en mer "app-like" følelse */
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        h1,
+        h2,
+        h3,
+        .brand-font {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Hero Image Overlay */
+        .hero-bg {
+            background-image: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1518182170546-0766cac6ff56?q=80&w=2574&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* Card Hover Effects */
+        .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(204, 255, 0, 0.3);
+        }
+
+        /* Neon Button Styles */
+        .btn-neon {
+            background-color: var(--neon-lime);
+            color: black;
+            font-weight: 700;
+            text-transform: uppercase;
+            clip-path: polygon(10% 0, 100% 0, 100% 80%, 90% 100%, 0 100%, 0 20%);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .btn-neon:hover:not(:disabled) {
+            background-color: white;
+            transform: scale(1.05);
+        }
+
+        .btn-neon:disabled {
+            background-color: #4b5563;
+            color: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-remove {
+            transition: color 0.2s;
+        }
+
+        .btn-remove:hover {
+            color: #ef4444;
+        }
+
+        /* Stock Status Animations */
+        @keyframes pulse-red {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .low-stock-dot {
+            animation: pulse-red 2s infinite;
+        }
+
+        /* Cart Sidebar Transitions */
+        #cart-sidebar {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .cart-open {
+            transform: translateX(0) !important;
+        }
+
+        .cart-closed {
+            transform: translateX(100%);
+        }
+
+        /* Marquee Hover */
+        .marquee-container:hover .animate-marquee {
+            animation-play-state: paused;
+        }
+
+        .marquee-link {
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .marquee-link:hover {
+            color: white;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body class="flex flex-col min-h-screen relative">
+
+    <!-- NAVIGATION -->
+    <nav class="fixed w-full z-50 bg-slate-900/90 backdrop-blur-md border-b border-gray-800">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-3xl brand-font font-bold text-white tracking-wider">
+                NEO<span class="text-[#ccff00]">NATURE</span>
+            </a>
+            <div class="flex items-center gap-6">
+                <!-- Hjem-knapp (Tilbake til hovedmeny) -->
+                <a href="index.html" class="hover:text-[#ccff00] transition cursor-pointer flex items-center gap-2"
+                    title="Hovedmeny">
+                    <i class="fa-solid fa-house text-xl"></i>
+                    <span class="hidden md:inline text-sm font-bold uppercase">Hjem</span>
+                </a>
+
+                <a href="#shop" class="hidden md:block hover:text-[#ccff00] transition cursor-pointer">Shop</a>
+                <a href="#about-animals" class="hidden md:block hover:text-[#ccff00] transition cursor-pointer">Om
+                    Dyrene</a>
+
+                <!-- Kart-knapp (Til map.html) -->
+                <a href="map.html" class="hover:text-[#ccff00] transition cursor-pointer flex items-center gap-2"
+                    title="Se Kart">
+                    <i class="fa-solid fa-map-location-dot text-2xl"></i>
+                    <span class="hidden md:inline text-sm font-bold uppercase">Kart</span>
+                </a>
+
+                <div class="relative cursor-pointer" onclick="toggleCart()">
+                    <i class="fa-solid fa-bag-shopping text-2xl text-[#ccff00]"></i>
+                    <span id="cart-badge"
+                        class="absolute -top-2 -right-2 bg-white text-black text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center opacity-0 transition-opacity">0</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CART SIDEBAR (Hidden by default) -->
+    <div id="cart-overlay" class="fixed inset-0 bg-black/50 z-[60] hidden backdrop-blur-sm" onclick="toggleCart()">
+    </div>
+    <div id="cart-sidebar"
+        class="fixed top-0 right-0 h-full w-full md:w-96 bg-slate-900 z-[70] shadow-2xl border-l border-gray-800 transform translate-x-full flex flex-col">
+        <div class="p-6 border-b border-gray-800 flex justify-between items-center bg-slate-900">
+            <h2 class="text-2xl brand-font text-white">Din Kurv</h2>
+            <button onclick="toggleCart()" class="text-gray-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-2xl"></i>
+            </button>
+        </div>
+
+        <div id="cart-items" class="flex-grow overflow-y-auto p-6 space-y-4">
+            <!-- Cart items injected here -->
+            <div class="text-center text-gray-500 mt-10">Kurven din er tom.</div>
+        </div>
+
+        <div class="p-6 border-t border-gray-800 bg-slate-900">
+            <div class="flex justify-between items-center mb-4 text-xl font-bold">
+                <span>Totalt:</span>
+                <span id="cart-total">0,-</span>
+            </div>
+            <button onclick="checkout()" class="btn-neon w-full py-4 text-lg">
+                Gå til kassen
+            </button>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="hero-bg h-screen flex items-center justify-center text-center px-4 relative">
+        <div class="max-w-4xl pt-20">
+            <span
+                class="text-[#ccff00] tracking-[0.3em] uppercase text-sm font-bold mb-4 block animate-fade-in-up">Norsk
+                Naturarv</span>
+            <h1 class="text-6xl md:text-8xl font-bold mb-6 leading-tight">
+                BÆR NATUREN.<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">REDD
+                    HABITATET.</span>
+            </h1>
+            <p class="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto mb-10">
+                Norske rovdyr og sjøpattedyr mister leveområdene sine. Hvert kjøp sporer og beskytter en utrydningstruet
+                art.
+            </p>
+            <a href="#shop" class="btn-neon px-8 py-4 text-xl inline-block brand-font">
+                Kjøp Kolleksjonen
+            </a>
+        </div>
+
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-10 animate-bounce">
+            <i class="fa-solid fa-chevron-down text-2xl text-gray-500"></i>
+        </div>
+    </section>
+
+    <!-- MISSION STRIP (Clickable) -->
+    <a href="#about-animals"
+        class="block bg-[#ccff00] text-black py-4 overflow-hidden whitespace-nowrap marquee-container hover:bg-[#b3e600] transition cursor-pointer decoration-none flex justify-center items-center">
+        <div class="inline-block animate-marquee brand-font text-xl font-bold tracking-wider">
+            <span class="marquee-link">FJELLREV</span> // <span class="marquee-link">ULV</span> // <span
+                class="marquee-link">HVAL</span> // <span class="marquee-link">SEL</span> // <span
+                class="marquee-link">GAUPE</span> // <span class="marquee-link">KLIKK HER FOR Å LÆRE MER</span> // REDD
+            HAVET // BEVAR SKOGEN
+            //
+        </div>
+    </a>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow container mx-auto px-4 py-20">
+
+        <!-- Filters -->
+        <div class="flex flex-wrap justify-center gap-4 mb-16" id="filters">
+            <button
+                class="filter-btn active px-6 py-2 border border-gray-700 hover:border-[#ccff00] hover:text-[#ccff00] rounded-full transition cursor-pointer"
+                data-filter="all">Alle</button>
+            <button
+                class="filter-btn px-6 py-2 border border-gray-700 hover:border-[#ccff00] hover:text-[#ccff00] rounded-full transition cursor-pointer"
+                data-filter="Bamse">Bamser</button>
+            <button
+                class="filter-btn px-6 py-2 border border-gray-700 hover:border-[#ccff00] hover:text-[#ccff00] rounded-full transition cursor-pointer"
+                data-filter="Armbånd">Armbånd</button>
+        </div>
+
+        <!-- Shop Grid -->
+        <div id="shop" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Products will be injected here by JavaScript -->
+        </div>
+
+    </main>
+
+    <!-- ABOUT ANIMALS SECTION (New) -->
+    <section id="about-animals" class="bg-slate-900 py-20 border-t border-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="text-[#ccff00] font-bold tracking-widest uppercase">Vår Misjon</span>
+                <h2 class="text-4xl md:text-5xl text-white font-bold mt-2">Vi beskytter de som ikke blir hørt</h2>
+                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Norsk utbygging truer habitatene til våre mest sårbare
+                    arter, både til lands og til vanns. Når du kjøper fra NEONATURE, går 20% av overskuddet direkte til
+                    vern av disse områdene.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div class="bg-slate-800 p-6 rounded-xl border-l-4 border-[#ccff00]">
+                        <h3 class="text-2xl text-white font-bold mb-2">Fjellreven (Vulpes lagopus)</h3>
+                        <p class="text-gray-400">En av Norges mest truede arter. Klimaendringer og konkurranse fra
+                            rødrev truer dens eksistens på høyfjellet. Vi støtter avlsprosjekter og fôringsstasjoner.
+                        </p>
+                    </div>
+                    <div class="bg-slate-800 p-6 rounded-xl border-l-4 border-[#ccff00]">
+                        <h3 class="text-2xl text-white font-bold mb-2">Ulven (Canis lupus)</h3>
+                        <p class="text-gray-400">Sterkt truet i Norge. Ulvesonen blir stadig mindre. Vi jobber for å
+                            bevare sammenhengende skogsområder der ulven kan leve i fred.</p>
+                    </div>
+                    <div class="bg-slate-800 p-6 rounded-xl border-l-4 border-[#ccff00]">
+                        <h3 class="text-2xl text-white font-bold mb-2">Livet i havet</h3>
+                        <p class="text-gray-400">Fra den enorme knølhvalen til steinkobben langs kysten. Havforsøpling
+                            og tråling truer det marine livet. Våre sporingsarmbånd støtter rydding av norske fjorder.
+                        </p>
+                    </div>
+                </div>
+                <div class="relative h-[500px] rounded-xl overflow-hidden shadow-2xl group">
+                    <img src="https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?q=80&w=2574&auto=format&fit=crop"
+                        alt="Norwegian Nature"
+                        class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                    <div class="absolute bottom-8 left-8">
+                        <h3 class="text-3xl font-bold text-white mb-2">Bli en Vokter</h3>
+                        <p class="text-gray-300">Ditt bidrag hjelper oss å kjøpe opp skogområder for vern.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-12 border-t border-gray-800">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl brand-font text-white mb-4">NEO<span class="text-[#ccff00]">NATURE</span></h2>
+            <p class="text-gray-500 mb-8 max-w-md mx-auto">Vi samarbeider med norske verneorganisasjoner. En
+                prosentandel av hvert salg går direkte til bevaring av norsk fauna.</p>
+            <div class="flex justify-center gap-6 text-2xl text-gray-400">
+                <i class="fa-brands fa-instagram hover:text-white cursor-pointer"></i>
+                <i class="fa-brands fa-tiktok hover:text-white cursor-pointer"></i>
+                <i class="fa-brands fa-facebook hover:text-white cursor-pointer"></i>
+            </div>
+            <p class="text-gray-700 text-sm mt-8">&copy; 2024 Neonature Norge AS. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- LAGERSTYRING (INVENTORY) ---
+        const products = [
+            {
+                id: 1,
+                name: "Fjellreven",
+                tagline: "Den Arktiske Overleveren",
+                type: "Bamse",
+                price: 399,
+                stock: 12,
+                image: "Bilder/Snørev.png"
+            },
+            {
+                id: 2,
+                name: "Ulv",
+                tagline: "Skogens Vokter",
+                type: "Armbånd",
+                price: 249,
+                stock: 4,
+                image: "Bilder/Gråulv.png"
+            },
+            {
+                id: 3,
+                name: "Gaupe",
+                tagline: "Skyggejegeren",
+                type: "Bamse",
+                price: 399,
+                stock: 1,
+                image: "Bilder/Gaupe.png"
+            },
+            {
+                id: 4,
+                name: "Jerv",
+                tagline: "Nordens Kjempe",
+                type: "Armbånd",
+                price: 249,
+                stock: 2,
+                image: "Bilder/Jerv.png"
+            },
+            {
+                id: 5,
+                name: "Isbjørn",
+                tagline: "Kongen av Svalbard",
+                type: "Bamse",
+                price: 449,
+                stock: 2,
+                image: "Bilder/Isbjørn.png"
+            },
+            {
+                id: 6,
+                name: "Elg",
+                tagline: "Skogens Konge",
+                type: "Armbånd",
+                price: 249,
+                stock: 8,
+                image: "Bilder/Elg.png"
+            },
+            // NYTT PRODUKT: HVAL
+            {
+                id: 7,
+                name: "Hval",
+                tagline: "Havets Sang",
+                type: "Bamse",
+                price: 449,
+                stock: 6,
+                image: "Bilder/Hval.png"
+            },
+            // NYTT PRODUKT: SEL
+            {
+                id: 8,
+                name: "Sel",
+                tagline: "Kystens Sjarmør",
+                type: "Bamse",
+                price: 399,
+                stock: 15,
+                image: "Bilder/Sel.png"
+            }
+        ];
+
+        // --- STATE MANAGEMENT ---
+        let cart = [];
+
+        // --- RENDER SHOP ---
+        const shopContainer = document.getElementById('shop');
+
+        function renderProducts(filter = 'all') {
+            shopContainer.innerHTML = '';
+
+            products.forEach(product => {
+                if (filter !== 'all' && product.type !== filter) return;
+
+                let stockStatusHTML = '';
+                let buttonState = '';
+                let buttonText = 'Legg i kurv';
+                let opacityClass = '';
+
+                if (product.stock === 0) {
+                    stockStatusHTML = `<span class="text-gray-500 font-bold"><i class="fa-solid fa-circle-xmark"></i> Utsolgt</span>`;
+                    buttonState = 'disabled';
+                    buttonText = 'Utsolgt';
+                    opacityClass = 'opacity-75 grayscale';
+                } else if (product.stock <= 10) {
+                    stockStatusHTML = `<span class="text-red-500 font-bold flex items-center gap-2"><div class="w-2 h-2 bg-red-500 rounded-full low-stock-dot"></div> Kun ${product.stock} igjen!</span>`;
+                } else {
+                    stockStatusHTML = `<span class="text-[#ccff00] font-bold"><i class="fa-solid fa-check-circle"></i> På lager (${product.stock})</span>`;
+                }
+
+                // Pass ID to addToCart
+                const cardHTML = `
+                    <div class="product-card bg-slate-800 rounded-xl overflow-hidden border border-gray-700 flex flex-col ${opacityClass}">
+                        <div class="relative h-64 overflow-hidden group">
+                            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" onerror="this.src='https://images.unsplash.com/photo-1555685812-4b943f3db990?q=80&w=2670&auto=format&fit=crop'">
+                            <div class="absolute top-4 left-4 bg-black/70 px-3 py-1 text-xs uppercase font-bold tracking-widest text-white border-l-2 border-[#ccff00]">
+                                ${product.type}
+                            </div>
+                        </div>
+                        
+                        <div class="p-6 flex flex-col flex-grow">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <h3 class="text-2xl text-white font-bold">${product.name}</h3>
+                                    <p class="text-gray-400 text-sm uppercase tracking-wide">${product.tagline}</p>
+                                </div>
+                                <span class="text-xl font-bold text-white">${product.price},-</span>
+                            </div>
+                            
+                            <div class="mt-4 mb-6 text-sm">
+                                ${stockStatusHTML}
+                            </div>
+                            
+                            <button onclick="addToCart(${product.id})" ${buttonState} class="mt-auto btn-neon w-full py-3 flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-cart-plus"></i> ${buttonText}
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                shopContainer.innerHTML += cardHTML;
+            });
+        }
+
+        // --- CART FUNCTIONALITY ---
+        function toggleCart() {
+            const sidebar = document.getElementById('cart-sidebar');
+            const overlay = document.getElementById('cart-overlay');
+
+            if (sidebar.classList.contains('cart-closed')) {
+                sidebar.classList.remove('cart-closed');
+                sidebar.classList.add('cart-open');
+                overlay.classList.remove('hidden');
+                renderCartItems();
+            } else {
+                sidebar.classList.add('cart-closed');
+                sidebar.classList.remove('cart-open');
+                overlay.classList.add('hidden');
+            }
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product && product.stock > 0) {
+                cart.push(product);
+                updateCartBadge();
+                renderCartItems();
+
+                // Open cart automatically to show feedback
+                const sidebar = document.getElementById('cart-sidebar');
+                if (sidebar.classList.contains('cart-closed')) {
+                    toggleCart();
+                }
+            }
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartBadge();
+            renderCartItems();
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cart-badge');
+            badge.innerText = cart.length;
+            if (cart.length > 0) {
+                badge.classList.remove('opacity-0');
+            } else {
+                badge.classList.add('opacity-0');
+            }
+        }
+
+        function renderCartItems() {
+            const container = document.getElementById('cart-items');
+            const totalElement = document.getElementById('cart-total');
+
+            if (cart.length === 0) {
+                container.innerHTML = `<div class="text-center text-gray-500 mt-10">Kurven din er tom.</div>`;
+                totalElement.innerText = "0,-";
+                return;
+            }
+
+            let html = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price;
+                html += `
+                    <div class="flex items-center gap-4 bg-slate-800 p-3 rounded-lg border border-gray-700 animate-fade-in">
+                        <img src="${item.image}" class="w-16 h-16 object-cover rounded-md" alt="${item.name}" onerror="this.src='https://images.unsplash.com/photo-1555685812-4b943f3db990?q=80&w=2670&auto=format&fit=crop'">
+                        <div class="flex-grow">
+                            <h4 class="font-bold text-white text-sm">${item.name}</h4>
+                            <p class="text-gray-400 text-xs">${item.type}</p>
+                            <span class="text-[#ccff00] font-bold text-sm">${item.price},-</span>
+                        </div>
+                        <button onclick="removeFromCart(${index})" class="text-gray-500 hover:text-red-500 transition px-2">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            totalElement.innerText = total + ",-";
+        }
+
+        function checkout() {
+            if (cart.length === 0) return;
+            alert("Takk for at du støtter NEONATURE! \nDette er en demo, så ingen penger ble trukket.");
+            cart = [];
+            updateCartBadge();
+            renderCartItems();
+            toggleCart();
+        }
+
+        // --- FILTER LISTENERS ---
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-[#ccff00]', 'text-black', 'border-[#ccff00]');
+                    b.classList.add('border-gray-700');
+                });
+                btn.classList.remove('border-gray-700');
+                btn.classList.add('bg-[#ccff00]', 'text-black', 'border-[#ccff00]');
+                renderProducts(btn.dataset.filter);
+            });
+        });
+
+        // Initialize
+        renderProducts();
+        document.getElementById('cart-sidebar').classList.add('cart-closed'); // Ensure closed on load
+
+    </script>
+</body>
+
+</html>

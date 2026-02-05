@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - N.A.B.O</title>
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+      margin-top: 3rem;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+    }
+
+    .contact-icon {
+      width: 60px;
+      height: 60px;
+      min-width: 60px;
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(157, 0, 255, 0.2));
+      border: 2px solid var(--primary-blue);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+    }
+
+    .contact-item h3 {
+      color: var(--primary-blue);
+      margin-bottom: 0.3rem;
+      text-transform: uppercase;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+    }
+
+    .contact-item p {
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .contact-item a {
+      color: var(--primary-green);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .contact-item a:hover {
+      color: var(--primary-blue);
+      text-shadow: 0 0 10px var(--primary-blue);
+    }
+
+    .form-wrapper {
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(157, 0, 255, 0.05));
+      border: 2px solid rgba(0, 212, 255, 0.2);
+      border-radius: 25px;
+      padding: 2.5rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .form-title {
+      font-size: 1.5rem;
+      color: var(--primary-blue);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .form-subtitle {
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 1024px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-wrapper {
+        grid-column: 1;
+        grid-row: 1;
+      }
+
+      .contact-info {
+        grid-column: 1;
+        grid-row: 2;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .contact-grid {
+        gap: 2rem;
+      }
+
+      .form-wrapper {
+        padding: 1.5rem;
+      }
+
+      .contact-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+      }
+    }
+
+    .success-message {
+      display: none;
+      background: linear-gradient(135deg, rgba(0, 255, 65, 0.2), rgba(0, 212, 255, 0.2));
+      border: 2px solid #00FF41;
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      color: #00FF41;
+      text-align: center;
+      animation: fade-in 0.5s ease-out;
+    }
+
+    .success-message.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html" class="logo">N.A.B.O</a>
+    <ul>
+      <li><a href="index.html" class="nav-home">Home</a></li>
+      <li><a href="team.html" class="nav-team">Team</a></li>
+      <li><a href="products.html" class="nav-products">Products</a></li>
+      <li><a href="contact.html" class="active nav-contact">Contact</a></li>
+      <li style="margin-left: 2rem;">
+        <button id="langToggle" class="lang-btn" style="background: linear-gradient(135deg, #00D4FF, #9D00FF); border: none; color: #0A0E27; padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer; font-weight: 700; font-size: 0.9rem;">NO / EN</button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="hero" style="padding-top: 80px; padding-bottom: 40px; min-height: auto;">
+    <div class="hero-content" data-animation="fade-in">
+      <h1 data-i18n="contact-title">Contact N.A.B.O</h1>
+      <p data-i18n="contact-new-subtitle">Get in touch for partnerships, pilots, or general inquiries</p>
+    </div>
+  </div>
+
+  <!-- Contact Section -->
+  <section class="section" id="contact">
+    <div class="container">
+      <h2 class="section-title" data-animation="slide-in-left" data-i18n="contact-title">Contact Us</h2>
+      <p class="section-subtitle" data-animation="slide-in-left" data-i18n="contact-new-subtitle">
+        We'd love to hear from municipalities, partners, schools, and collaborators
+      </p>
+
+      <div class="contact-grid" data-animation="fade-in">
+        <!-- Contact Form -->
+        <div class="form-wrapper">
+          <h3 class="form-title" data-i18n="contact-form-title">Send Us a Message</h3>
+          <p class="form-subtitle" data-i18n="contact-form-new-subtitle">We'd love to hear from municipalities, partners, schools, and collaborators. We aim to respond within 24–48 hours.</p>
+
+          <div class="success-message" id="successMessage">
+            ✓ Message sent successfully! We'll be in touch soon.
+          </div>
+
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                placeholder="Your name" 
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                placeholder="you@example.com" 
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="company" data-i18n="form-org">Organization (Optional)</label>
+              <input 
+                type="text" 
+                id="company" 
+                name="company" 
+                placeholder="Municipality, school, company, or organization"
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input 
+                type="text" 
+                id="subject" 
+                name="subject" 
+                placeholder="What would you like to contact us about?" 
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea 
+                id="message" 
+                name="message" 
+                placeholder="Tell us a bit about your idea, project, or question." 
+                required
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+              Send Message
+            </button>
+          </form>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="contact-info" data-animation="slide-in-right">
+          <div class="contact-item">
+            <div class="contact-icon">📧</div>
+            <div>
+              <h3 data-i18n="contact-email">Email</h3>
+              <p><a href="mailto:contact@nabo.ai" data-i18n="contact-email-new">contact@nabo.ai</a></p>
+              <p style="font-size: 0.85rem; margin-top: 0.3rem;" data-i18n="contact-email-response-new">Response within 1–2 business days</p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div>
+              <h3 data-i18n="contact-phone">Phone</h3>
+              <p data-i18n="contact-phone-new">Available upon request</p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div>
+              <h3 data-i18n="contact-office">Location</h3>
+              <p data-i18n="contact-location">Norway</p>
+              <span style="font-size: 0.85rem; color: var(--text-muted);" data-i18n="contact-location-desc">(Working digitally with local partners and municipalities)</span>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">💬</div>
+            <div>
+              <h3 data-i18n="contact-social">Social Media</h3>
+              <p data-i18n="contact-social-new">Follow us for updates, pilots, and community stories</p>
+              <p style="font-size: 0.95rem; margin-top: 1rem;"><a href="#" style="color: var(--primary-green);">LinkedIn</a> · <a href="#" style="color: var(--primary-green);">Instagram</a> · <a href="#" style="color: var(--primary-green);">X</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section" style="background: linear-gradient(135deg, #1a1f4d 0%, #2d1b5f 100%);">
+    <div class="container">
+      <h2 class="section-title" data-animation="fade-in" data-i18n="faq-title">Frequently Asked Questions</h2>
+      <p class="section-subtitle" data-animation="fade-in" data-i18n="faq-subtitle">
+        Quick answers to common questions
+      </p>
+
+      <div class="grid grid-2" style="margin-top: 3rem;">
+        <div class="bubble" data-animation="fade-in">
+          <h3 style="color: #00D4FF; margin-bottom: 0.5rem; text-transform: uppercase;" data-i18n="faq-who-q">Who is N.A.B.O for?</h3>
+          <p data-i18n="faq-who-a">
+            N.A.B.O works with municipalities, schools, youth organizations, and partners who want to strengthen local engagement and youth participation.
+          </p>
+        </div>
+
+        <div class="bubble" data-animation="fade-in">
+          <h3 style="color: #9D00FF; margin-bottom: 0.5rem; text-transform: uppercase;" data-i18n="faq-naer-q">What is NÆR?</h3>
+          <p data-i18n="faq-naer-a">
+            NÆR is our mobile app designed for young people (16–25) to engage in their local community through information, dialogue, and digital democracy.
+          </p>
+        </div>
+
+        <div class="bubble" data-animation="fade-in">
+          <h3 style="color: #00FF41; margin-bottom: 0.5rem; text-transform: uppercase;" data-i18n="faq-municipality-q">How can a municipality work with you?</h3>
+          <p data-i18n="faq-municipality-a">
+            We offer pilot projects, tailored implementations, and long-term partnerships. Contact us to explore how NÆR can fit your local needs.
+          </p>
+        </div>
+
+        <div class="bubble" data-animation="fade-in">
+          <h3 style="color: #FF006E; margin-bottom: 0.5rem; text-transform: uppercase;" data-i18n="faq-free-q">Is the app free for young users?</h3>
+          <p data-i18n="faq-free-a">
+            Yes. NÆR is free to use for young people. The business model is based on partnerships with municipalities and organizations.
+          </p>
+        </div>
+
+        <div class="bubble" data-animation="fade-in">
+          <h3 style="color: #00D4FF; margin-bottom: 0.5rem; text-transform: uppercase;" data-i18n="faq-privacy-q">How do you handle privacy and data protection?</h3>
+          <p data-i18n="faq-privacy-a">
+            We prioritize privacy and comply with GDPR. Data is handled responsibly, securely, and transparently — especially because our users are young.
+          </p>
+        </div>
+
+        <div class="bubble" data-animation="fade-in">
+          <h3 style="color: #9D00FF; margin-bottom: 0.5rem; text-transform: uppercase;" data-i18n="faq-pilot-q">Can we participate in a pilot or test project?</h3>
+          <p data-i18n="faq-pilot-a">
+            Absolutely. We actively look for municipalities and partners interested in piloting and shaping the future of NÆR.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 N.A.B.O - Next-Gen AI Solutions. All rights reserved.</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-link">Twitter</a>
+        <a href="#" class="footer-link">LinkedIn</a>
+        <a href="#" class="footer-link">GitHub</a>
+        <a href="#" class="footer-link">Discord</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script src="js/languages.js"></script>
+  <script>
+    // Enhanced form submission with success message
+    const contactForm = document.getElementById('contactForm');
+    const successMessage = document.getElementById('successMessage');
+
+    if (contactForm) {
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData(contactForm);
+        const data = Object.fromEntries(formData);
+        
+        // Show success message
+        successMessage.classList.add('active');
+        
+        // Log the data (in a real app, send to backend)
+        console.log('Contact Form Data:', data);
+        
+        // Spawn bubble effect
+        const submitBtn = contactForm.querySelector('[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = '✓ Message Sent!';
+        submitBtn.disabled = true;
+        submitBtn.style.background = 'linear-gradient(135deg, #00FF41, #00D4FF)';
+        
+        // Reset after 3 seconds
+        setTimeout(() => {
+          contactForm.reset();
+          successMessage.classList.remove('active');
+          submitBtn.textContent = originalText;
+          submitBtn.style.background = '';
+          submitBtn.disabled = false;
+        }, 3000);
+      });
+    }
+  </script>
+</body>
+</html>

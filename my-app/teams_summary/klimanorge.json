@@ -1,0 +1,51 @@
+{
+  "teamNumber": 10,
+  "projectName": "KlimaNorge",
+  "projectType": "Interactive Web Application",
+  "description": "Solves the difficulty of understanding long-term climate trends by visualizing 125 years (1900-2025) of Norwegian historical weather data. Demonstrates real climate change through accessible heatmaps, charts, and station-specific analysis. Democratizes access to meteorological information from the Norwegian Meteorological Institute and helps communities understand local climate trends. Targets UN SDG 13 (Climate Action), SDG 4 (Quality Education), and SDG 17 (Partnerships for the Goals).",
+  "technologies": [
+    "HTML5",
+    "JavaScript (ES6+)",
+    "CSS3",
+    "Tailwind CSS",
+    "Leaflet.js",
+    "Chart.js",
+    "FontAwesome"
+  ],
+  "logo": null,
+  "teamMembers": [
+    {
+      "name": "Martin D. E.",
+      "role": null
+    },
+    {
+      "name": "Nora",
+      "role": null
+    },
+    {
+      "name": "Alice",
+      "role": null
+    },
+    {
+      "name": "Ivan",
+      "role": null
+    },
+    {
+      "name": "Heorgii Ty",
+      "role": null
+    }
+  ],
+  "additionalFiles": [
+    "BTS video",
+    "Grupperapport.docx",
+    "prosjektplan.docx",
+    "Reklame video",
+    "video av nettsiden"
+  ],
+  "dataSources": [
+    "Norwegian Meteorological Institute (Frost API)",
+    "Esri World Topo Map"
+  ],
+  "promotionalVideo": "../promotional_videos/Team_10_KlimaNorge_Promo.mp4",
+  "folderPath": "Games/Team-10/site/"
+}

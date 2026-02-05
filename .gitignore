@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+*.cache
+
+# IDE settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Next.js
+.next/
+out/
+
+# Vercel
+.vercel
+
+# Large image files
+my-app/public/Games/Team-14/site/images/
+
+

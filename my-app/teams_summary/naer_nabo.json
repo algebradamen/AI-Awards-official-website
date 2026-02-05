@@ -1,0 +1,45 @@
+{
+  "teamNumber": 3,
+  "projectName": "NÆR / N.A.B.O",
+  "projectType": "Web App (PWA) + Company Website",
+  "description": "Solves youth disengagement from local politics by creating a modern platform for civic participation. Empowers youth (13-25 years) to propose community improvements, engage in local democracy, and influence decisions through AI-assisted features and gamification. Includes interactive maps with environmental awareness layers (deforestation zones) and enables sustainable community development. Targets UN SDG 11 (Sustainable Cities), SDG 16 (Peace, Justice and Strong Institutions), SDG 10 (Reduced Inequalities), and SDG 17 (Partnerships for the Goals).",
+  "technologies": [
+    "React 19",
+    "Vite 7",
+    "Firebase (Auth/Firestore/Storage)",
+    "Leaflet/React-Leaflet",
+    "Google Gemini AI",
+    "PWA/Workbox",
+    "Vitest"
+  ],
+  "logo": "Team 3/N.A.B.O-nettside/assets/images/logo.png",
+  "teamMembers": [
+    {
+      "name": "Lars Joakim",
+      "role": null
+    },
+    {
+      "name": "Victor",
+      "role": null
+    },
+    {
+      "name": "Carsten",
+      "role": null
+    },
+    {
+      "name": "Fabian Espedalen-Larsen",
+      "role": null
+    },
+    {
+      "name": "Jesper Thorgersen Torp",
+      "role": null
+    }
+  ],
+  "additionalFiles": [
+    "video-nær.mp4",
+    "Production plan and budget documents",
+    "README.md"
+  ],
+  "promotionalVideo": "../promotional_videos/Team_03_NAER_NABO_Promo_Landscape.mp4",
+  "folderPath": "Games/Team-3/"
+}

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="no">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeoNature - Spor ville norske dyr</title>
+    <!-- Henter inn ikoner fra FontAwesome for visuell pynt -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Henter inn bibliotek for QR-koding -->
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
+    <style>
+        /* --- Generell Stil --- */
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --primary-dark: #1a252f;
+            --accent-green: #27ae60;
+            --accent-green-hover: #219150;
+            --text-white: #ffffff;
+        }
+
+        /* --- Navigasjon --- */
+        nav {
+            position: absolute;
+            /* Legger menyen over bildet */
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            box-sizing: border-box;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-white);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-white);
+            margin-left: 20px;
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* --- Hero Seksjon (Hovedbildet) --- */
+        .hero {
+            position: relative;
+            height: 100vh;
+            /* Dekker hele skjermhøyden */
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--text-white);
+
+            /* BAKGRUNNSBILDE HER - ULV */
+            background-color: #2c3e50;
+            /* Reservefarge */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1470093851219-69951fcbb533?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            max-width: 600px;
+            line-height: 1.6;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        /* --- Knapper --- */
+        .button-container {
+            display: flex;
+            gap: 20px;
+            /* Mellomrom mellom knappene */
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Knapp 1: Butikk */
+        .btn-primary {
+            background-color: var(--accent-green);
+            color: var(--text-white);
+            border: 2px solid var(--accent-green);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-green-hover);
+            border-color: var(--accent-green-hover);
+            transform: scale(1.05);
+        }
+
+        /* Knapp 2: Spor dyret ditt */
+        .btn-secondary {
+            background-color: transparent;
+            /* Gjennomsiktig */
+            color: var(--text-white);
+            border: 2px solid var(--text-white);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--text-white);
+            color: var(--primary-dark);
+            transform: scale(1.05);
+        }
+
+        /* Knapp 3: QR Kode */
+        .btn-qr {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: var(--text-white);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-qr:hover {
+            background-color: var(--text-white);
+            color: var(--primary-dark);
+            transform: scale(1.05);
+        }
+
+
+        /* --- Infoseksjon under bildet --- */
+        .info-section {
+            padding: 80px 20px;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+
+        .info-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .info-card {
+            max-width: 300px;
+            padding: 20px;
+        }
+
+        .icon-circle {
+            width: 70px;
+            height: 70px;
+            background: #e8f5e9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px auto;
+            color: var(--accent-green);
+            font-size: 1.5rem;
+        }
+
+        /* --- QR Scanner Overlay --- */
+        #scanner-overlay {
+            display: none;
+            /* Skjult som standard */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            /* Litt mørkere for bedre fokus */
+            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        #reader {
+            width: 100%;
+            max-width: 400px;
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 2px solid #555;
+        }
+
+        .close-scanner {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        /* Manuell Inntasting Stiler */
+        .manual-entry-container {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin: 10px 0;
+            color: #aaa;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #555;
+        }
+
+        .divider::before {
+            margin-right: 10px;
+        }
+
+        .divider::after {
+            margin-left: 10px;
+        }
+
+        .manual-input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid #555;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .manual-input::placeholder {
+            color: #aaa;
+        }
+
+        .manual-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--accent-green);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .manual-btn:hover {
+            background-color: var(--accent-green-hover);
+        }
+
+        /* Mobil-tilpasning */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            /* Skjuler meny linker på mobil for enkelhets skyld */
+            nav {
+                justify-content: center;
+            }
+
+            .button-container {
+                flex-direction: column;
+                width: 80%;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            #reader {
+                height: 250px;
+            }
+
+            /* Mindre kamera vindu på mobil for å gi plass til input */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigasjon -->
+    <nav>
+        <div class="logo">NeoNature</div>
+        <div class="nav-links">
+            <a href="Butikk.html">Kolleksjon</a>
+            <a href="#">Om oss</a>
+            <a href="#">Kontakt</a>
+        </div>
+    </nav>
+
+    <!-- Hero Seksjon -->
+    <section class="hero">
+        <h1>Bær naturen med deg</h1>
+        <p>Hvert armbånd og hver bamse bidrar til å beskytte norsk dyreliv. Skann koden og følg ditt eget dyr gjennom
+            skog og mark.</p>
+
+        <div class="button-container">
+            <!-- Knapp 1: Butikk -->
+            <a href="Butikk.html" class="btn btn-primary">
+                Butikk
+            </a>
+
+            <!-- Knapp 2: Spor dyret ditt -->
+            <a href="map.html" class="btn btn-secondary">
+                Spor dyret ditt
+            </a>
+
+            <!-- Knapp 3: QR Kode -->
+            <button onclick="openScanner()" class="btn btn-qr">
+                <i class="fas fa-qrcode"></i> Skann QR
+            </button>
+        </div>
+    </section>
+
+    <!-- Enkel info seksjon -->
+    <section class="info-section">
+        <div class="info-grid">
+            <div class="info-card">
+                <div class="icon-circle"><i class="fas fa-paw"></i></div>
+                <h3>Ekte sporing</h3>
+                <p>Motta navnet og historien til ditt dyr, og se hvor det befinner seg.</p>
+            </div>
+            <div class="info-card">
+                <div class="icon-circle"><i class="fas fa-tree"></i></div>
+                <h3>Støtt naturen</h3>
+                <p>En del av overskuddet går direkte til organisasjoner som verner norsk fauna.</p>
+            </div>
+            <div class="info-card">
+                <div class="icon-circle"><i class="fas fa-mobile-alt"></i></div>
+                <h3>Interaktivt</h3>
+                <p>Logg inn på kartet når som helst for å se nye bevegelser.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- QR Scanner Overlay (Skjult til den aktiveres) -->
+    <div id="scanner-overlay">
+        <div class="close-scanner" onclick="closeScanner()">&times;</div>
+
+        <h2 style="margin-bottom: 10px; font-size: 1.5rem;">Skann QR-kode</h2>
+        <div id="reader"></div>
+        <p style="margin-top: 5px; margin-bottom: 20px; color: #ccc; font-size: 0.9rem;">Pek kameraet mot koden på
+            armbåndet.</p>
+
+        <!-- Manuell inntasting -->
+        <div class="manual-entry-container">
+            <div class="divider">ELLER</div>
+            <input type="text" id="manual-code-input" class="manual-input"
+                placeholder="Skriv inn koden (f.eks. ULV2024)">
+            <button onclick="submitManualCode()" class="manual-btn">Spor Manuelt</button>
+        </div>
+    </div>
+
+    <script>
+        let html5QrcodeScanner;
+
+        function openScanner() {
+            const overlay = document.getElementById('scanner-overlay');
+            overlay.style.display = 'flex';
+
+            // Initialiserer scanneren
+            html5QrcodeScanner = new Html5Qrcode("reader");
+
+            // Konfigurasjon for skanning
+            const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+
+            // Start kamera (bruker bakkamera som standard på mobil)
+            html5QrcodeScanner.start({ facingMode: "environment" }, config, onScanSuccess)
+                .catch(err => {
+                    console.error("Klarte ikke starte kameraet", err);
+                    // Ikke vis alert hvis brukeren avbryter, men logg det
+                });
+        }
+
+        function closeScanner() {
+            const overlay = document.getElementById('scanner-overlay');
+            overlay.style.display = 'none';
+
+            if (html5QrcodeScanner) {
+                html5QrcodeScanner.stop().then(() => {
+                    html5QrcodeScanner.clear();
+                }).catch(err => {
+                    console.error("Feil ved stopp av scanner", err);
+                });
+            }
+        }
+
+        function onScanSuccess(decodedText, decodedResult) {
+            // Hva som skjer når en QR-kode blir lest
+            console.log(`Code matched = ${decodedText}`, decodedResult);
+            redirectToMap(decodedText);
+        }
+
+        function submitManualCode() {
+            const code = document.getElementById('manual-code-input').value;
+            if (code && code.trim() !== "") {
+                redirectToMap(code.trim());
+            } else {
+                alert("Vennligst skriv inn en kode først.");
+            }
+        }
+
+        function redirectToMap(code) {
+            closeScanner();
+            // I en ekte app ville dette tatt deg til dyrets side
+            // Vi later som koden er gyldig og sender brukeren til kartet
+            if (confirm("Kode funnet: " + code + "\nVil du gå til kartet for dette dyret?")) {
+                window.location.href = "map.html?id=" + encodeURIComponent(code);
+            }
+        }
+    </script>
+
+</body>
+
+</html>

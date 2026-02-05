@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rødlistet - Hovedmeny</title>
+    
+    <!-- Ikon -->
+    <link rel="icon" type="image/x-icon" href="images/logo.jpg">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Kobling til CSS -->
+    <link rel="stylesheet" href="start.css">
+</head>
+<body>
+
+    <div class="menu-container">
+        <!-- Logo og Tittel -->
+        <div class="logo-section">
+            <div class="logo-wrapper">
+                <img src="images/logo.jpg" alt="Rødlistet Logo" onerror="this.style.display='none'">
+            </div>
+            <h1 class="game-title">RØDLISTET</h1>
+            <p class="subtitle">Naturens Vokter</p>
+        </div>
+
+        <!-- Gamemode Valg -->
+        <h2 class="section-title">VELG GAMEMODE</h2>
+        
+        <div class="gamemode-grid">
+            <!-- Nåværende spill -->
+            <div class="gamemode-card active" onclick="startGame('quizlet')">
+                <div class="icon">🧠</div>
+                <div class="info">
+                    <h3>Quizlet</h3>
+                    <p>Balanser økosystemet ved å fjerne fremmede arter. Klarer du 100 dager?</p>
+                </div>
+                <div class="arrow">➤</div>
+            </div>
+
+            <!-- Ny modus: Naturens Liv -->
+            <div class="gamemode-card active" onclick="startGame('life')">
+                <div class="icon">🐾</div>
+                <div class="info">
+                    <h3>Naturens Liv</h3>
+                    <p>Lev som et truet dyr i Agder. Ta valg, overlev farer og skap din egen historie.</p>
+                </div>
+                <div class="arrow">➤</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2026 Agder Fylkeskommune & Naturens Vokter</p>
+        </div>
+    </div>
+
+    <!-- Kobling til JS -->
+    <script src="start.js"></script>
+</body>
+</html>

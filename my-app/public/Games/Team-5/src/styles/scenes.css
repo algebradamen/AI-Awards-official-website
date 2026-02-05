@@ -1,0 +1,371 @@
+/* Scene Container */
+.scene {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Text-only Scene */
+.scene--text {
+  background: var(--color-black);
+  padding: 2rem;
+}
+
+.scene--text .scene__text {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  font-style: italic;
+  text-align: center;
+  max-width: 800px;
+  opacity: 0;
+  animation: fadeInText 1.5s ease forwards;
+}
+
+.scene--text .scene__text--small {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  font-style: normal;
+  font-weight: 300;
+  opacity: 0.8;
+}
+
+.scene--text .scene__text--data {
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+  font-style: normal;
+  font-weight: 400;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1.5rem;
+  border-radius: 4px;
+  margin-top: 1rem;
+}
+
+.scene--text .scene__text--distorted {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  font-style: italic;
+  opacity: 0.7;
+  animation: distortedText 3s ease-in-out infinite;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+@keyframes distortedText {
+  0%, 100% { 
+    opacity: 0.6; 
+    filter: blur(0px);
+    transform: translateX(0);
+  }
+  25% { 
+    opacity: 0.8; 
+    filter: blur(1px);
+    transform: translateX(-2px);
+  }
+  50% { 
+    opacity: 0.5; 
+    filter: blur(0px);
+    transform: translateX(2px);
+  }
+  75% { 
+    opacity: 0.9; 
+    filter: blur(0.5px);
+    transform: translateX(-1px);
+  }
+}
+
+/* Image Scene */
+.scene--image {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.scene--image .scene__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+}
+
+.scene--image .scene__caption {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(10px);
+  padding: 1.25rem 2.5rem;
+  border-radius: 8px;
+  max-width: 80%;
+  text-align: center;
+  opacity: 0;
+  animation: slideUp 0.8s ease 0.3s forwards;
+}
+
+.scene--image .scene__caption-text {
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.scene--image .scene__location {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.7;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+/* Video Scene */
+.scene--video {
+  background: var(--color-black);
+}
+
+.scene--video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+}
+
+.scene--video .scene__caption {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(10px);
+  padding: 1.25rem 2.5rem;
+  border-radius: 8px;
+  max-width: 80%;
+  text-align: center;
+  z-index: 10;
+}
+
+/* Choice Scene */
+.scene--choice {
+  background: var(--color-black);
+  position: relative;
+  overflow: hidden;
+}
+
+.scene--choice .choice__background {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: opacity 0.6s ease-in-out;
+  z-index: 1;
+}
+
+.scene--choice .choice__background--take {
+  transition: opacity 0.8s ease-out;
+}
+
+.scene--choice .choice__background--refuse {
+  transition: opacity 0.4s ease-in;
+}
+
+.scene--choice .choice__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+.scene--choice .choice__container {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+
+.scene--choice .choice__question {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-style: italic;
+  text-align: center;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+.scene--choice .choice__buttons {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.scene--choice .choice__button {
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid var(--color-white);
+  color: var(--color-white);
+  padding: 1rem 3rem;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: all var(--transition-fast);
+  backdrop-filter: blur(4px);
+}
+
+.scene--choice .choice__button--take:hover {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--color-black);
+  border-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+}
+
+.scene--choice .choice__button--refuse:hover {
+  background: rgba(139, 0, 0, 0.8);
+  color: var(--color-white);
+  border-color: rgba(255, 100, 100, 0.8);
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+  animation: buttonGlitch 0.15s steps(2) infinite;
+}
+
+@keyframes buttonGlitch {
+  0%, 100% { transform: translate(0); }
+  25% { transform: translate(-1px, 1px); }
+  50% { transform: translate(1px, -1px); }
+  75% { transform: translate(-1px, -1px); }
+}
+
+/* Glitch Scene */
+.scene--glitch {
+  position: relative;
+}
+
+.scene--glitch .glitch__layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: opacity 0.1s;
+}
+
+.scene--glitch .glitch__layer--utopia {
+  z-index: 1;
+}
+
+.scene--glitch .glitch__layer--dystopia {
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.05s ease;
+}
+
+/* Montage Scene */
+.scene--montage {
+  background: var(--color-black);
+}
+
+.scene--montage .montage__image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.scene--montage .montage__image.is-active {
+  opacity: 1;
+}
+
+.scene--montage .montage__data {
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(139, 0, 0, 0.9);
+  padding: 1rem 2rem;
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  font-weight: 500;
+  text-align: center;
+  max-width: 90%;
+  z-index: 10;
+}
+
+/* Dystopia styling */
+.scene--dystopia {
+  background-color: var(--color-dystopia-bg);
+}
+
+.scene--dystopia .scene__caption {
+  background: rgba(139, 0, 0, 0.8);
+}
+
+/* Internal thought styling */
+.scene__thought {
+  font-family: var(--font-display);
+  font-style: italic;
+  opacity: 0.9;
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+}
+
+/* Professor style */
+.scene__text--professor {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 3vw, 2.2rem);
+  font-style: italic;
+  font-weight: 400;
+  max-width: 900px;
+  line-height: 1.6;
+}
+
+/* Animations */
+@keyframes fadeInText {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 30px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes glitchFlicker {
+  0%, 100% { opacity: 0; }
+  10% { opacity: 1; }
+  20% { opacity: 0; }
+  30% { opacity: 0.7; }
+  40% { opacity: 0; }
+  50% { opacity: 1; }
+  60% { opacity: 0; }
+  70% { opacity: 0.5; }
+  80% { opacity: 0; }
+  90% { opacity: 0.8; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}

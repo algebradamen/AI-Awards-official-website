@@ -1,0 +1,110 @@
+{
+  "metadata": {
+    "projectContext": "AI for Sustainability - Tangen VGS 2026",
+    "totalTeams": 17,
+    "generatedDate": "2026-01-21",
+    "description": "Summary of all team projects from the AI Awards competition"
+  },
+  "teams": [
+    {
+      "teamNumber": 1,
+      "projectName": "Eco Friend",
+      "file": "eco_friend.json",
+      "price": "Next gen app",
+      "imageSrc": "/media/Bilder/team1.jpg"
+    },
+    {
+      "teamNumber": 2,
+      "projectName": "Trivsel App",
+      "file": "trivsel_app.json",
+      "price": "Best use of tech",
+      "imageSrc": "/media/Bilder/team2.jpg"
+    },
+    {
+      "teamNumber": 3,
+      "projectName": "NÆR / N.A.B.O",
+      "file": "naer_nabo.json",
+      "price": "The best AD",
+      "goat": true,
+      "imageSrc": "/media/Bilder/team3.jpg"
+    },
+    {
+      "teamNumber": 4,
+      "projectName": "EcoTrace",
+      "file": "ecotrace.json",
+      "price": "Best app concept",
+      "imageSrc": "/media/Bilder/team4.jpg"
+    },
+    {
+      "teamNumber": 5,
+      "projectName": "AFTERTASTE",
+      "file": "aftertaste.json"
+    },
+    {
+      "teamNumber": 6,
+      "projectName": "EcoDex",
+      "file": "ecodex.json"
+    },
+    {
+      "teamNumber": 7,
+      "projectName": "Klimablikk Norge",
+      "file": "klimablikk_norge.json"
+    },
+    {
+      "teamNumber": 8,
+      "projectName": "Solarpunk Saga",
+      "file": "solarpunk_saga.json"
+    },
+    {
+      "teamNumber": 9,
+      "projectName": "Eco Brawl",
+      "file": "eco_brawl.json"
+    },
+    {
+      "teamNumber": 10,
+      "projectName": "KlimaNorge",
+      "file": "klimanorge.json"
+    },
+    {
+      "teamNumber": 11,
+      "projectName": "The Price of Progress",
+      "file": "price_of_progress.json",
+      "price": "Best videogame",
+      "imageSrc": "/media/Bilder/team11.jpg"
+    },
+    {
+      "teamNumber": 12,
+      "projectName": "Syntetisk Sannhet",
+      "file": "syntetisk_sannhet.json",
+      "price": "Best film",
+      "imageSrc": "/media/Bilder/team12-vinner.jpg"
+    },
+    {
+      "teamNumber": 13,
+      "projectName": "NeoNature",
+      "file": "neonature.json"
+    },
+    {
+      "teamNumber": 14,
+      "projectName": "Rødlistet",
+      "price": "Most credible solution",
+      "file": "rodlistet.json",
+      "imageSrc": "/media/Bilder/team14.jpg"
+    },
+    {
+      "teamNumber": 15,
+      "projectName": "GreenShift",
+      "file": "greenshift.json"
+    },
+    {
+      "teamNumber": 16,
+      "projectName": "FutureMap Agder",
+      "file": "futuremap_agder.json"
+    },
+    {
+      "teamNumber": 17,
+      "projectName": "Vision Shift",
+      "file": "vision_shift.json"
+    }
+  ]
+}

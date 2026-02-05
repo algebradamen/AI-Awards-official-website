@@ -1,0 +1,45 @@
+{
+  "teamNumber": 15,
+  "projectName": "GreenShift",
+  "projectType": "Web Application (React)",
+  "description": "Bridges the gap between climate data and everyday life by providing interactive tools for calculating personal CO2 emissions from transport, tracking sustainable habits, and building knowledge. Gamifies climate action with XP system, leaderboards, and challenges focused on the local Agder area. Shows that sustainability is about smarter choices, not sacrifice. Targets UN SDG 13 (Climate Action), SDG 11 (Sustainable Cities and Communities), SDG 12 (Responsible Consumption and Production), and SDG 7 (Affordable and Clean Energy).",
+  "technologies": [
+    "React 19",
+    "Vite 7",
+    "Tailwind CSS",
+    "PostCSS",
+    "Lucide React icons"
+  ],
+  "logo": "Team 15/ai prosjekt/GreenShift codes/public/vite.svg",
+  "teamMembers": [
+    {
+      "name": "Mathias",
+      "role": null
+    },
+    {
+      "name": "Lars Georg",
+      "role": null
+    },
+    {
+      "name": "Ignas",
+      "role": null
+    },
+    {
+      "name": "Magnus",
+      "role": null
+    },
+    {
+      "name": "Adem",
+      "role": null
+    }
+  ],
+  "additionalFiles": [
+    "GreenShift rapport.docx",
+    "GreenShift__Koden_for_en_Grønnere_Reise.mp4",
+    "Prosjektplan.docx",
+    "reklamevideogreenshift.mp4",
+    "Nettside link.txt"
+  ],
+  "promotionalVideo": "../promotional_videos/Team_15_GreenShift_Promo.mp4",
+  "projectUrl": "/games/team-15"
+}

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Level 1 - Solar Wasteland</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            /* Background Image */
+            background: url('Gemini_Generated_Image_ze03lgze03lgze03.jpg') no-repeat center center fixed; 
+            background-size: cover;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        canvas {
+            display: block;
+        }
+        #ui-layer {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px #000;
+        }
+        .btn-back {
+            padding: 10px 20px;
+            background: #ff4400;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: 2px solid white;
+            font-family: sans-serif;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+        }
+        .btn-back:hover {
+            background: #ff6600;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="ui-layer">
+        <a href="index.html" class="btn-back">← Back to Map</a>
+        <p>Current Location: Solar Plant</p>
+    </div>
+
+    <canvas id="gameCanvas"></canvas>
+
+    <script>
+        // --- SETUP ---
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Load your character
+        const heroImg = new Image();
+        heroImg.src = "ejhfhefsfd-removebg-preview(1).png"; 
+
+        // --- PHYSICS SETTINGS ---
+        const GRAVITY = 0.8;
+        const FRICTION = 0.85; 
+        const MOVE_SPEED = 1.5; 
+        const MAX_SPEED = 8;    
+        const JUMP_FORCE = 18;
+
+        // --- PLAYER OBJECT ---
+        const player = {
+            x: 100,
+            y: 300,
+            // UPDATED DIMENSIONS HERE TO FIX SQUASHING
+            width: 80,   // Made thinner (was 80)
+            height: 130, // Made taller (was 110)
+            vx: 0,       
+            vy: 0,       
+            grounded: false,
+            facingRight: true
+        };
+
+        // --- LEVEL DESIGN ---
+        const platforms = [
+            // The Main Floor
+            { x: -100, y: window.innerHeight - 80, w: 3000, h: 100, type: 'ground' },
+            
+            // Floating "Solar" Platforms
+            { x: 400, y: window.innerHeight - 250, w: 200, h: 20, type: 'plat' },
+            { x: 700, y: window.innerHeight - 400, w: 200, h: 20, type: 'plat' },
+            { x: 200, y: window.innerHeight - 500, w: 150, h: 20, type: 'plat' },
+        ];
+
+        const keys = { right: false, left: false, up: false };
+
+        // --- RESIZE HANDLING ---
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            platforms[0].y = window.innerHeight - 80; 
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // --- INPUTS ---
+        window.addEventListener('keydown', (e) => {
+            const k = e.key.toLowerCase();
+            if (k === 'd' || k === 'arrowright') keys.right = true;
+            if (k === 'a' || k === 'arrowleft') keys.left = true;
+            if (k === ' ' || k === 'w' || k === 'arrowup') {
+                if (player.grounded) {
+                    player.vy = -JUMP_FORCE;
+                    player.grounded = false;
+                }
+            }
+        });
+
+        window.addEventListener('keyup', (e) => {
+            const k = e.key.toLowerCase();
+            if (k === 'd' || k === 'arrowright') keys.right = false;
+            if (k === 'a' || k === 'arrowleft') keys.left = false;
+        });
+
+        // --- GAME LOOP ---
+        function update() {
+            // 1. Acceleration
+            if (keys.right) {
+                if (player.vx < MAX_SPEED) player.vx += MOVE_SPEED;
+                player.facingRight = true;
+            }
+            if (keys.left) {
+                if (player.vx > -MAX_SPEED) player.vx -= MOVE_SPEED;
+                player.facingRight = false;
+            }
+
+            // 2. Friction & Gravity
+            player.vx *= FRICTION; 
+            player.vy += GRAVITY;
+
+            // 3. Apply Velocity
+            player.x += player.vx;
+            player.y += player.vy;
+
+            // 4. Collision
+            player.grounded = false;
+            platforms.forEach(p => {
+                // Modified hitbox logic to account for new height
+                if (player.x + 15 < p.x + p.w &&   
+                    player.x + player.width - 15 > p.x &&
+                    player.y < p.y + p.h &&
+                    player.y + player.height > p.y) {
+                    
+                    if (player.vy > 0 && player.y + player.height - player.vy <= p.y + 20) {
+                        player.grounded = true;
+                        player.vy = 0;
+                        player.y = p.y - player.height;
+                    }
+                }
+            });
+
+            // Boundaries
+            if (player.x < 0) player.x = 0;
+            if (player.y > canvas.height) { 
+                player.x = 50;
+                player.y = 100;
+                player.vy = 0;
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw Platforms
+            platforms.forEach(p => {
+                ctx.fillStyle = 'rgba(40, 40, 50, 0.8)'; 
+                ctx.fillRect(p.x, p.y, p.w, p.h);
+                
+                ctx.strokeStyle = '#00ffff'; 
+                ctx.lineWidth = 2;
+                ctx.strokeRect(p.x, p.y, p.w, p.h);
+            });
+
+            // --- CHARACTER DRAWING ---
+            ctx.save(); 
+
+            if (!player.facingRight) {
+                ctx.translate(player.x + player.width, player.y);
+                ctx.scale(-1, 1);
+                ctx.drawImage(heroImg, 0, 0, player.width, player.height);
+            } else {
+                ctx.drawImage(heroImg, player.x, player.y, player.width, player.height);
+            }
+
+            ctx.restore(); 
+        }
+
+        function loop() {
+            update();
+            draw();
+            requestAnimationFrame(loop);
+        }
+
+        loop();
+
+    </script>
+</body>
+</html>

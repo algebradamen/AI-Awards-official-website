@@ -1,0 +1,44 @@
+{
+  "teamNumber": 11,
+  "projectName": "The Price of Progress",
+  "projectType": "Web-based Incremental/Clicker Game",
+  "description": "Explores sustainability trade-offs through an incremental clicker game that illustrates the conflict between economic growth and environmental protection. Players balance progress against CO2 emissions and environmental harm (EVH), making difficult decisions between industrial vs. eco-friendly choices. Shows multiple endings based on player choices and teaches about balancing development with sustainability. Targets UN SDG 13 (Climate Action), SDG 12 (Responsible Consumption and Production), SDG 9 (Industry, Innovation and Infrastructure), and SDG 8 (Decent Work and Economic Growth).",
+  "technologies": [
+    "HTML5",
+    "CSS3",
+    "JavaScript",
+    "Press Start 2P font"
+  ],
+  "logo": "Team 11/Price of Progress ver.1.5~/Price of Progress ver.1.5/images/favicon.png",
+  "teamMembers": [
+    {
+      "name": "Iris",
+      "role": null
+    },
+    {
+      "name": "Martin SG",
+      "role": null
+    },
+    {
+      "name": "Kamil",
+      "role": null
+    },
+    {
+      "name": "Mihael Nudel",
+      "role": null
+    },
+    {
+      "name": "Erik P",
+      "role": null
+    }
+  ],
+  "additionalFiles": [
+    "Grupperapport.pdf",
+    "Prosjektlogg.pdf",
+    "Prosjektplan.pdf",
+    "dokumentar video",
+    "reklame video"
+  ],
+  "promotionalVideo": "../promotional_videos/Team_11_Price_of_Progress_Promo.mp4",
+  "folderPath": "Games/Team-11/site/"
+}

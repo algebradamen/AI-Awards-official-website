@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Price of Progress</title>
+    <link rel="icon" type="image/png" href="images/PoP_web_icon.png">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <audio id="bgm-player" src="PoP_bgm.mp3" loop></audio>
+
+    <div id="fade-overlay"></div>
+
+    <div id="main-menu">
+        <h1 class="game-title-large">THE PRICE OF PROGRESS</h1>
+        <div class="menu-buttons">
+            <button id="btn-main-start" class="menu-btn">START</button>
+            <button id="btn-main-tutorial" class="menu-btn">TUTORIAL</button>
+            <button id="btn-main-sound" class="menu-btn">AUDIO</button>
+            <button id="btn-main-endings" class="menu-btn">ENDINGS</button>
+            <button id="btn-main-achievements" class="menu-btn">ACHIEVEMENTS</button>
+        </div>
+    </div>
+
+    <div id="difficulty-screen" class="hidden">
+        <h1 class="game-title-large">SELECT PROTOCOL</h1>
+        <p class="subtitle">Choose Difficulty:</p>
+        <div class="difficulty-buttons">
+            <button onclick="selectDifficulty(1.0, true)" class="diff-btn nightmare">NIGHTMARE (2x CO2)</button>
+            <button onclick="selectDifficulty(1.0, false)" class="diff-btn hard">HARD (+0% $)</button>
+            <button onclick="selectDifficulty(1.25, false)" class="diff-btn medium">MEDIUM (+25% $)</button>
+            <button onclick="selectDifficulty(1.5, false)" class="diff-btn easy">EASY (+50% $)</button>
+            <button onclick="selectDifficulty(2.0, false)" class="diff-btn baby">BABY (+100% $)</button>
+        </div>
+    </div>
+
+    <div id="tutorial-modal" class="hidden">
+        <div class="popup-header">TUTORIAL SEQUENCE</div>
+        <div id="tutorial-content"></div>
+        <button id="btn-tutorial-next" class="menu-btn small-btn">NEXT</button>
+    </div>
+
+    <div id="snark-modal" class="hidden">
+        <div class="popup-header">SYSTEM ALERT</div>
+        <p style="color: var(--red); line-height: 1.6; font-size: 10px; margin-bottom: 20px;">
+            Ugh. Seriously? You just did it? *sigh* FINE, I guess you could do it again...
+        </p>
+        <button id="btn-snark-confirm" class="menu-btn small-btn">WHATEVER</button>
+    </div>
+
+    <div id="reset-confirm-modal" class="hidden">
+        <div class="popup-header" style="color: var(--red);">DANGER ZONE</div>
+        <p style="color: #fff; font-size: 10px; margin-bottom: 20px; line-height: 1.6;">
+            This will PERMANENTLY delete all earned achievements.
+            <br><br>
+            Are you sure you want to reset?
+        </p>
+        <div style="display: flex; gap: 20px; justify-content: center;">
+            <button id="btn-confirm-reset" class="menu-btn small-btn"
+                style="width: 120px; background-color: var(--red); margin-top: 10px;">YES</button>
+            <button id="btn-cancel-reset" class="menu-btn small-btn" style="width: 120px; margin-top: 10px;">NO</button>
+        </div>
+    </div>
+
+    <div id="idol-modal" class="hidden">
+        <div class="popup-header" style="color: var(--yellow);">CORPORATE SURVEY</div>
+        <p style="color: #fff; font-size: 12px; margin-bottom: 30px; line-height: 1.6;">
+            Hey, quick question, who do you think is better?
+        </p>
+        <div style="display: flex; gap: 20px; justify-content: center;">
+            <button id="btn-vote-teto" class="menu-btn" style="background-color: #d0132d; border-color: #fff;">Kasane
+                Teto</button>
+            <button id="btn-vote-miku" class="menu-btn" style="background-color: #39c5bb; border-color: #fff;">Hatsune
+                Miku</button>
+        </div>
+    </div>
+
+    <div id="pause-menu" class="hidden">
+        <h1 class="game-title-large">PAUSED</h1>
+        <div class="menu-buttons">
+            <button id="btn-continue" class="menu-btn">CONTINUE</button>
+            <button id="btn-endings" class="menu-btn">ENDINGS</button>
+            <button id="btn-achievements" class="menu-btn">ACHIEVEMENTS</button>
+            <button id="btn-sound" class="menu-btn">AUDIO</button>
+            <button id="btn-restart" class="menu-btn">RESTART</button>
+        </div>
+    </div>
+
+    <div id="achievements-menu" class="hidden">
+        <h2 class="section-header">ACHIEVEMENTS</h2>
+        <div class="progress-container">
+            <div class="progress-label">COMPLETION: <span id="ach-percent">0%</span></div>
+            <div class="progress-track">
+                <div id="ach-bar" class="progress-fill"></div>
+            </div>
+        </div>
+        <div id="achievement-list" class="scrollable-list"></div>
+        <div style="display: flex; gap: 10px;">
+            <button id="btn-back-ach" class="menu-btn small-btn">BACK</button>
+            <button id="btn-reset-ach-trigger" class="menu-btn small-btn"
+                style="background-color: var(--red);">RESET</button>
+        </div>
+    </div>
+
+    <div id="endings-menu" class="hidden">
+        <h2 class="section-header">DISCOVERED ENDINGS</h2>
+        <div id="endings-view-list" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+            <div class="progress-container">
+                <div class="progress-label">DISCOVERY: <span id="end-percent">0%</span></div>
+                <div class="progress-track">
+                    <div id="end-bar" class="progress-fill"></div>
+                </div>
+            </div>
+            <div id="ending-list" class="scrollable-list"></div>
+            <button id="btn-back-end" class="menu-btn small-btn">BACK</button>
+        </div>
+
+        <div id="endings-view-preview" class="hidden"
+            style="width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <h1 id="preview-title"
+                style="font-size: 30px; margin-bottom: 20px; color: var(--yellow); text-shadow: 4px 4px 0 #000; line-height: 1.5;">
+                TITLE</h1>
+            <p id="preview-msg"
+                style="font-size: 14px; max-width: 700px; line-height: 1.8; margin-bottom: 30px; color: #ccc;"></p>
+            <div id="preview-img-container" class="ending-image-container">
+                <img id="preview-img" src="" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <button id="btn-preview-back" class="menu-btn small-btn">BACK TO LIST</button>
+        </div>
+    </div>
+
+    <div id="achievement-modal" class="hidden">
+        <div class="ach-modal-content">
+            <div class="ach-img-container">
+                <img id="ach-modal-img" src="" alt="Achievement Icon">
+            </div>
+            <h3 id="ach-modal-title">ACHIEVEMENT NAME</h3>
+            <p id="ach-modal-flavor" style="color: #40c4ff; font-size: 9px; font-style: italic; margin-bottom: 10px;">
+                Flavor text...</p>
+            <hr class="industrial-pipe small-pipe">
+            <p id="ach-modal-desc">Description goes here...</p>
+            <button id="btn-close-ach-modal" class="menu-btn small-btn" style="margin-top: 15px;">CLOSE</button>
+        </div>
+    </div>
+
+    <div id="sound-menu" class="hidden">
+        <h2 class="section-header">AUDIO CONFIG</h2>
+
+        <div class="audio-panel">
+            <div class="audio-row">
+                <label>MASTER VOLUME</label>
+                <input type="range" id="slider-master" min="0" max="100" value="100" class="pixel-slider">
+            </div>
+            <div class="audio-row">
+                <label>MUSIC VOLUME</label>
+                <input type="range" id="slider-music" min="0" max="100" value="100" class="pixel-slider">
+            </div>
+            <div class="audio-row">
+                <label>SFX VOLUME</label>
+                <input type="range" id="slider-sfx" min="0" max="100" value="100" class="pixel-slider">
+            </div>
+        </div>
+
+        <button id="btn-back-snd" class="menu-btn small-btn">BACK</button>
+    </div>
+
+    <div id="ending-screen" class="hidden">
+        <h1 id="ending-title">GAME OVER</h1>
+        <p id="ending-message">...</p>
+        <div class="ending-image-container">
+            <img id="ending-img" src="" alt="Ending Scene">
+        </div>
+        <button id="btn-ending-reset" class="menu-btn">CONTINUE</button>
+    </div>
+
+    <div id="credits-screen" class="hidden">
+        <div class="credits-content">
+            <h1 class="credits-title">THE PRICE OF PROGRESS</h1>
+
+            <div class="credit-role">Project Manager</div>
+            <div class="credit-name">Iris Kleijnen</div>
+
+            <div class="credit-role">Creative Director</div>
+            <div class="credit-name">Mihael Nudel</div>
+
+            <div class="credit-role">Art Director</div>
+            <div class="credit-name">Erik Pham</div>
+
+            <div class="credit-role">Lead Playtester</div>
+            <div class="credit-name">Kamil Krystian</div>
+
+            <div class="credit-role">Lead Developer/Prompter</div>
+            <div class="credit-name">Martin S. Gabrielsen</div>
+
+            <div class="credit-ai-group">
+                <div class="credit-ai">Made with AI</div>
+                <div class="credit-duh">Duh</div>
+            </div>
+
+            <div id="credits-thankyou" class="hidden">THANK YOU FOR PLAYING</div>
+        </div>
+    </div>
+
+    <div id="notification-popup" class="hidden">
+        <div class="popup-header">NEW ACQUISITION</div>
+        <h3 id="popup-title">ITEM NAME</h3>
+        <p id="popup-stat">Stat info here</p>
+        <hr class="industrial-pipe small-pipe">
+        <p id="popup-desc">Flavor text here</p>
+        <div id="popup-source">Source: ...</div>
+    </div>
+
+    <div id="achievement-toast" class="hidden">
+        <div class="toast-content">
+            <img id="toast-img" src="" alt="Icon">
+            <div class="toast-text">
+                <span class="toast-header">ACHIEVEMENT UNLOCKED</span>
+                <span id="toast-title">Title Here</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="money-crate" class="hidden">
+        <img src="images/moneycrate.png" alt="Crate" class="crate-img">
+    </div>
+
+    <div id="black-market" class="hidden">
+        <img src="images/black_market.png" alt="Black Market" class="bm-header-img">
+        <div class="bm-timer">CLOSING IN: <span id="bm-timer-val">60</span>s</div>
+        <div id="bm-items"></div>
+        <button id="btn-close-bm" class="menu-btn small-btn" style="margin-top: 10px; width: 100%;">LEAVE</button>
+    </div>
+
+    <div id="dev-console" class="hidden">
+        <div class="dev-header">DEV MODE</div>
+        <button id="dev-speed" class="dev-btn">>> 100x</button>
+        <button id="dev-money" class="dev-btn">+$10,000,000</button>
+        <button id="dev-crate" class="dev-btn">SPAWN CRATE</button>
+        <button id="dev-market" class="dev-btn">OPEN MARKET</button>
+        <button id="dev-reset" class="dev-btn">RESET STATE</button>
+    </div>
+
+    <div class="game-wrapper">
+        <aside class="sidebar industrial-panel">
+            <h1 class="game-title industrial-text">THE PRICE OF PROGRESS</h1>
+
+            <div class="timer-box industrial-readout">
+                <span>TIME LEFT:</span>
+                <span id="timer-display">20:00</span>
+            </div>
+
+            <div class="stats-container industrial-screen">
+                <div class="stat-row">
+                    <span>CAPITAL:</span>
+                    <span id="money-display" class="highlight-money">$0</span>
+                </div>
+                <div class="stat-row">
+                    <span>CO2 LEVEL:</span>
+                    <span id="evh-display" class="highlight-evh">0</span>
+                </div>
+                <hr class="industrial-pipe">
+                <div class="stat-row">
+                    <span style="font-size: 10px; color: #aaa;">EFFICIENCY:</span>
+                    <span id="efficiency-display" style="font-size: 10px; color: #fff;">100%</span>
+                </div>
+                <hr class="industrial-pipe">
+                <div class="sub-stat">Income: <span id="income-rate">0</span> $/sec</div>
+                <div class="sub-stat">Click Value: <span id="click-strength">1</span> $</div>
+                <div class="sub-stat">CO2 Emissions: <span id="harm-rate">0</span> /sec</div>
+            </div>
+
+            <button id="manual-click" class="click-btn industrial-button">MANUAL LABOR</button>
+
+            <div class="circles-container">
+                <div id="circle-co2" class="ability-circle" title="Reduce CO2 (ONE TIME USE)">
+                    <img src="images/active_skill1.png" class="circle-img">
+                    <div class="cooldown-overlay"></div>
+                </div>
+                <div id="circle-money" class="ability-circle" title="2x Cash (ONE TIME USE)">
+                    <img src="images/active_skill2.png" class="circle-img">
+                    <div class="cooldown-overlay"></div>
+                </div>
+                <div id="circle-free" class="ability-circle" title="Free Copy (ONE TIME USE)">
+                    <img src="images/active_skill3.png" class="circle-img">
+                    <div class="cooldown-overlay"></div>
+                </div>
+            </div>
+
+            <div class="upgrades-area">
+                <h2 class="section-header industrial-text-sm">MARKETPLACE</h2>
+                <div id="unified-upgrade-list" class="upgrade-list"></div>
+            </div>
+        </aside>
+
+        <main class="visuals">
+            <div class="viewport">
+                <div class="overlay-label">THE CITY (Industrial Growth)</div>
+                <img id="city-img" src="images/citystate_0.png" alt="City">
+            </div>
+
+            <div class="viewport" id="factory-viewport">
+                <div class="overlay-label">FACTORY FLOOR (Production)</div>
+                <img id="factory-bg" src="images/factory_floor.png" alt="Factory Interior">
+                <div id="factory-items-container"></div>
+            </div>
+        </main>
+    </div>
+
+    <script src="game_data.js"></script>
+    <script src="game_logic.js"></script>
+</body>
+
+</html>
