@@ -12,15 +12,7 @@ const nextConfig = {
         // your project has ESLint errors.
         ignoreDuringBuilds: true,
     },
-
-    // my-app/next.config.js
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  output: 'export', // <- dette erstatter behovet for `next export`
-  // (valgfritt) basePath/assetPrefix etc. om du trenger
+    output: 'export', // Erstatter behovet for `next export`
 };
 
 module.exports = nextConfig;
-}
-
-module.exports = nextConfig
