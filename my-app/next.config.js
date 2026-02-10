@@ -12,7 +12,7 @@ const nextConfig = {
         // your project has ESLint errors.
         ignoreDuringBuilds: true,
     },
-    output: 'export', // Erstatter behovet for `next export`
+//   output: 'export', // Erstatter behovet for `next export`
 };
 
 module.exports = nextConfig;
