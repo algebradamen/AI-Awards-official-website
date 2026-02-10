@@ -19,9 +19,9 @@ let isAiThinking = false, currentSpeciesInInfo = null, recentlySeen = [];
 const apiKey = "AIzaSyDTerFa3TI_p4mSGPAadO8pQUoGPLyVg84", aiModel = "gemini-2.5-flash";
 function fixAudioPath(name) { return encodeURIComponent(name).replace(/%20/g, ' '); }
 const bgMusic = new Audio('Silent Circuits.mp3'); bgMusic.loop = true; bgMusic.volume = 0.3;
-const startSound = new Audio(fixAudioPath('Style_Clean,_tech-in_#4-1767785643771.mp3'));
-const correctSound = new Audio(fixAudioPath('Style_Clean,_tech-in_#3-1767786160447.mp3'));
-const wrongSound = new Audio(fixAudioPath('Style_Clean,_tech-in_#4-1767785841191.mp3'));
+const startSound = new Audio(fixAudioPath('Style_Clean,_tech-in_.mp3'));
+const correctSound = new Audio(fixAudioPath('Style_Clean,_tech-in__1.mp3'));
+const wrongSound = new Audio(fixAudioPath('Style_Clean,_tech-in__2.mp3'));
 
 // --- DYREFAKTA DATABASE (Forkortet for oversikt, full database beholdes i bakgrunnen) ---
 // (Jeg inkluderer hele databasen her for å være sikker på at ingenting mangler)
