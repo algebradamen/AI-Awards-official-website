@@ -1,0 +1,8 @@
+﻿ecodex.json|6|Team 6/
+ecotrace.json|4|Team 4/drive-download-20260114T095724Z-1-001/AI-Teammedlem-main/
+eco_friend.json|1|Team 1/Eco-friend/
+futuremap_agder.json|16|Team 16/maps/
+greenshift.json|15|Team 15/ai prosjekt/GreenShift codes/
+syntetisk_sannhet.json|12|Team 12/
+trivsel_app.json|2|Team 2/mobilapp/
+vision_shift.json|17|Team 17/

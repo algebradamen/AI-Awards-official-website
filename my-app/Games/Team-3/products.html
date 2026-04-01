@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products - N.A.B.O</title>
+  <link rel="stylesheet" href="css/main.css">
+  <script>
+    // Load language on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const lang = localStorage.getItem('language') || 'en';
+      setLanguage(lang);
+    });
+  </script>
+  <style>
+    /* Lightbox styles */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(10, 14, 39, 0.95);
+      animation: fade-in 0.3s ease-out;
+      backdrop-filter: blur(10px);
+    }
+
+    .lightbox.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      animation: scale-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .lightbox-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 20px;
+      border: 2px solid #00D4FF;
+      box-shadow: 0 0 40px #00D4FF, 0 0 80px #9D00FF;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      background: linear-gradient(135deg, #00D4FF, #9D00FF);
+      color: #0A0E27;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .lightbox-close:hover {
+      transform: scale(1.1) rotate(90deg);
+      box-shadow: 0 0 20px #00D4FF;
+    }
+
+    @media (max-width: 768px) {
+      .lightbox-close {
+        top: 10px;
+        right: 10px;
+      }
+
+      .lightbox-image {
+        max-width: 100%;
+        max-height: 70vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html" class="logo">N.A.B.O</a>
+    <ul>
+      <li><a href="index.html" class="nav-home">Home</a></li>
+      <li><a href="team.html" class="nav-team">Team</a></li>
+      <li><a href="products.html" class="active nav-products">Products</a></li>
+      <li><a href="contact.html" class="nav-contact">Contact</a></li>
+      <li style="margin-left: 2rem;">
+        <button id="langToggle" class="lang-btn" style="background: linear-gradient(135deg, #00D4FF, #9D00FF); border: none; color: #0A0E27; padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer; font-weight: 700; font-size: 0.9rem;">NO / EN</button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="hero" style="padding-top: 80px; padding-bottom: 40px; min-height: auto;">
+    <div class="hero-content" data-animation="fade-in">
+      <h1 class="products-hero-title">Our Products</h1>
+      <p class="products-hero-subtitle">Powerful AI solutions designed for enterprise success</p>
+    </div>
+  </div>
+
+  <!-- Products Grid Section -->
+  <section class="section" id="products">
+    <div class="container">
+      <h2 class="section-title products-title" data-animation="slide-in-left">Featured Solutions</h2>
+      <p class="section-subtitle products-subtitle" data-animation="slide-in-left">
+        Cutting-edge AI products transforming industries worldwide
+      </p>
+
+      <div class="grid grid-2" style="margin-top: 3rem;">
+        <!-- Product 1: NORA -->
+        <div class="card product-card" data-animation="scale-in" style="animation-delay: 0s;">
+          <div class="product-image">
+            <img src="assets/images/N.O.R.A.png" alt="N.O.R.A" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <h3 class="product-name nora-name">N.O.R.A</h3>
+          <p class="product-desc nora-desc">Intelligent conversational AI for customer support automation</p>
+          
+          <div class="product-specs">
+            <h4 style="color: #00D4FF; margin-bottom: 0.5rem; text-transform: uppercase;">
+              <span class="text-features">Key Features:</span>
+            </h4>
+            <ul class="nora-features">
+              <li class="nora-feature-1">Natural language processing</li>
+              <li class="nora-feature-2">24/7 customer engagement</li>
+              <li class="nora-feature-3">Multi-language support</li>
+              <li class="nora-feature-4">Real-time learning</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Product 2: NÆR -->
+        <div class="card product-card" data-animation="scale-in" style="animation-delay: 0.1s;">
+          <div class="product-image">
+            <img src="assets/images/NÆR_app_logo.png" alt="NÆR" style="width: 100%; height: 100%; object-fit: cover;">
+          </div>
+          <h3 class="product-name naer-name">NÆR</h3>
+          <p class="product-desc naer-desc">Advanced proximity and location-based AI platform</p>
+          
+          <div class="product-specs">
+            <h4 style="color: #9D00FF; margin-bottom: 0.5rem; text-transform: uppercase;">
+              <span class="text-features">Key Features:</span>
+            </h4>
+            <ul class="naer-features">
+              <li class="naer-feature-1">Real-time location tracking</li>
+              <li class="naer-feature-2">Proximity marketing</li>
+              <li class="naer-feature-3">Context-aware analytics</li>
+              <li class="naer-feature-4">Location intelligence</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="section" style="background: linear-gradient(135deg, #1a1f4d 0%, #2d1b5f 100%);">
+    <div class="container">
+      <h2 class="section-title pricing-title" data-animation="fade-in">Flexible Pricing</h2>
+      <p class="section-subtitle pricing-subtitle" data-animation="fade-in">
+        Plans designed for businesses of all sizes
+      </p>
+
+      <div class="grid grid-3" style="margin-top: 3rem;">
+        <div class="card" data-animation="scale-in" style="animation-delay: 0s; border-color: #00D4FF;">
+          <h3 style="color: #00D4FF; margin-bottom: 1rem; text-transform: uppercase;">
+            <span class="pricing-starter">Starter</span>
+          </h3>
+          <p style="font-size: 2rem; font-weight: 800; color: #00FF41; margin-bottom: 1rem;">$499<span style="font-size: 1rem; color: var(--text-muted);">/mo</span></p>
+          <ul style="list-style: none; margin-bottom: 2rem;">
+            <li style="margin-bottom: 0.5rem; color: var(--text-muted);">✓ <span class="pricing-feature-1">Up to 1,000 API calls</span></li>
+            <li style="margin-bottom: 0.5rem; color: var(--text-muted);">✓ <span class="pricing-feature-2">Email support</span></li>
+            <li style="margin-bottom: 0.5rem; color: var(--text-muted);">✓ <span class="pricing-feature-3">Basic analytics</span></li>
+            <li style="margin-bottom: 0.5rem; color: var(--text-muted);">✓ <span class="pricing-feature-4">1 user seat</span></li>
+          </ul>
+          <button class="btn btn-secondary" style="width: 100%;"><span class="btn-get-started">Get Started</span></button>
+        </div>
+
+        <div class="card" data-animation="scale-in" style="animation-delay: 0.1s; border-color: #9D00FF; border-width: 3px; position: relative;">
+          <div style="position: absolute; top: -15px; right: 20px; background: linear-gradient(135deg, #9D00FF, #FF006E); color: #0A0E27; padding: 0.3rem 1rem; border-radius: 20px; font-weight: 700; font-size: 0.85rem; text-transform: uppercase;"><span class="pricing-popular">Popular</span></div>
+          <h3 style="color: #9D00FF; margin-bottom: 1rem; text-transform: uppercase;">
+            <span class="pricing-pro">Professional</span>
+          </h3>
+          <p style="font-size: 2rem; font-weight: 800; color: #00FF41; margin-bottom: 1rem;">$1,999<span style="font-size: 1rem; color: var(--text-muted);">/mo</span></p>
+          <ul style="list-style: none; margin-bottom: 2rem;">
+            <li style="margin-bottom: 0.5rem; color: var(--text-muted);">✓ <span class="pricing-feature-5">Up to 50,000 API calls</span></li>
+            <li style="margin-bottom: 0.5rem; color: var(--text-muted);">✓ <span class="pricing-feature-6">Priority support</span></li>
+            <li style="margin-bottom: 0.5rem; color: var(--text-muted);">✓ <span class="pricing-feature-7">Advanced analytics</span></li>
+            <li style="margin-bottom: 0.5rem; color: var(--text-muted);">✓ <span class="pricing-feature-8">Up to 10 user seats</span></li>
+          </ul>
+          <button class="btn btn-primary" style="width: 100%;"><span class="btn-get-started">Get Started</span></button>
+        </div>
+
+        <div class="card" data-animation="scale-in" style="animation-delay: 0.2s; border-color: #00FF41;">
+          <h3 style="color: #00FF41; margin-bottom: 1rem; text-transform: uppercase;">
+            <span class="pricing-ent">Enterprise</span>
+          </h3>
+          <p style="font-size: 1.5rem; font-weight: 800; color: #00D4FF; margin-bottom: 1rem;"><span class="pricing-custom">Custom Pricing</span></p>
+          <ul style="list-style: none; margin-bottom: 2rem;">
+            <li style="margin-bottom: 0.5rem; color: var(--text-muted);">✓ <span class="pricing-feature-9">Unlimited API calls</span></li>
+            <li style="margin-bottom: 0.5rem; color: var(--text-muted);">✓ <span class="pricing-feature-10">24/7 dedicated support</span></li>
+            <li style="margin-bottom: 0.5rem; color: var(--text-muted);">✓ <span class="pricing-feature-11">Custom integrations</span></li>
+            <li style="margin-bottom: 0.5rem; color: var(--text-muted);">✓ <span class="pricing-feature-12">Unlimited user seats</span></li>
+          </ul>
+          <button class="btn btn-secondary" style="width: 100%;"><span class="btn-contact-sales">Contact Sales</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+      <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+      <img id="lightbox-image" class="lightbox-image" src="" alt="Product Image">
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 N.A.B.O - Next-Gen AI Solutions. All rights reserved.</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-link">Twitter</a>
+        <a href="#" class="footer-link">LinkedIn</a>
+        <a href="#" class="footer-link">GitHub</a>
+        <a href="#" class="footer-link">Discord</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script src="js/languages.js"></script>
+  <script>
+    // Lightbox functionality
+    function openLightbox(imageSrc) {
+      const lightbox = document.getElementById('lightbox');
+      const img = document.getElementById('lightbox-image');
+      img.src = imageSrc;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      const lightbox = document.getElementById('lightbox');
+      lightbox.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close lightbox when clicking outside image
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeLightbox();
+      }
+    });
+
+    // Close lightbox on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeLightbox();
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+
+# Next.js
+/.next/
+/out/
+
+# Production
+build/
+
+# Misc
+.DS_Store
+*.pem
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+ts-debug.log*
+
+# Local env files
+.env*.local
+
+# Vercel
+.vercel
+
+# IDE settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Block specific large files (>100MB) preventing push
+dtm10_6400_1_10m_z33.tif
+*.tif
+*.tiff
+
+# Team-5 build artifacts
+public/Games/Team-5/dist/
+public/Games/Team-5/.vite/
+public/Games/Team-5/node_modules/

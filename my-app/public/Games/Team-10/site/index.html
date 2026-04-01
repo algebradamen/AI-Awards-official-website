@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<html lang="no">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- VIKTIG: Denne linjen hjelper kartet å laste inn uten å bli blokkert -->
+    <meta name="referrer" content="no-referrer">
+    <title>Historisk Værdata Norge</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        /* Leaflet fix for Tailwind */
+        .leaflet-pane img,
+        .leaflet-tile {
+            max-width: none !important;
+            max-height: none !important;
+        }
+
+        /* Map Container - Fixed positioning to ensure coverage */
+        #map {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: #e2e8f0;
+        }
+
+        .overlay-control {
+            z-index: 1000;
+        }
+
+        .weather-overlay {
+            pointer-events: none;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .station-tooltip {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 0.70rem;
+            font-weight: 600;
+            color: #334155;
+            padding: 2px 6px;
+            white-space: nowrap;
+        }
+
+        .leaflet-tooltip-top:before {
+            border-top-color: rgba(255, 255, 255, 0.95);
+        }
+
+        #drop-message {
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Select */
+        select {
+            background-color: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 0.75rem;
+            border-radius: 0.375rem;
+            padding: 0.25rem 0.5rem;
+            outline: none;
+        }
+
+        select:hover {
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Light Mode Overrides */
+        body.light-mode {
+            background-color: #f1f5f9;
+            color: #1e293b;
+        }
+
+        /* Map Background */
+        body.light-mode #map {
+            background: #cbd5e1;
+        }
+
+        /* Panels (Info, Chart, Controls, Settings) */
+        body.light-mode .md\:bg-slate-900\/90,
+        body.light-mode .bg-slate-900\/90,
+        body.light-mode .bg-slate-900\/95,
+        body.light-mode .bg-slate-900\/50,
+        body.light-mode .bg-slate-900 {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            border-color: #cbd5e1 !important;
+            color: #0f172a !important;
+        }
+
+        body.light-mode .md\:bg-slate-800,
+        body.light-mode .bg-slate-800,
+        body.light-mode .bg-slate-800\/50 {
+            background-color: #f8fafc !important;
+            border-color: #e2e8f0 !important;
+            color: #334155 !important;
+        }
+
+        /* Text Fixes */
+        body.light-mode .text-white {
+            color: #0f172a !important;
+        }
+
+        body.light-mode .text-slate-200 {
+            color: #1e293b !important;
+        }
+
+        body.light-mode .text-slate-400 {
+            color: #64748b !important;
+        }
+
+        body.light-mode .text-slate-500 {
+            color: #475569 !important;
+        }
+
+        body.light-mode .text-blue-400 {
+            color: #2563eb !important;
+        }
+
+        /* Inputs */
+        body.light-mode input[type="text"],
+        body.light-mode input[type="date"] {
+            background-color: #ffffff !important;
+            color: #0f172a !important;
+            border-color: #94a3b8 !important;
+        }
+
+        /* Specific IDs */
+        body.light-mode #avg-temp {
+            color: #2563eb !important;
+        }
+
+        body.light-mode #display-year {
+            color: #0f172a !important;
+        }
+
+        /* Border Fix */
+        body.light-mode .md\:border-slate-700\/50,
+        body.light-mode .md\:border-slate-700,
+        body.light-mode .border-slate-700,
+        body.light-mode .border-slate-700\/50 {
+            border-color: #cbd5e1 !important;
+        }
+
+
+        /* Buttons & Icons */
+
+
+        /* Category/Season Buttons */
+        body.light-mode .datatype-btn,
+        body.light-mode .season-btn {
+            color: #64748b;
+            /* slate-500 */
+        }
+
+        body.light-mode .datatype-btn:hover,
+        body.light-mode .season-btn:hover {
+            background-color: #e2e8f0 !important;
+            /* light gray hover */
+            color: #1e293b !important;
+            /* dark text on hover */
+        }
+
+        /* Active State (Blue) */
+        body.light-mode .text-blue-400 {
+            color: #2563eb !important;
+            /* Darker blue for light mode */
+        }
+
+        body.light-mode .bg-slate-700 {
+            background-color: #cbd5e1 !important;
+            /* Lighter "active" background */
+            color: #2563eb !important;
+        }
+
+        /* Settings Modal */
+        #settings-modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        #settings-modal.hidden-modal {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        #settings-modal.visible-modal {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        /* Floating Panel Transitions */
+        .hidden-panel {
+            opacity: 0;
+            transform: translate(-20px, -50%);
+            pointer-events: none;
+            visibility: hidden;
+        }
+
+        .visible-panel {
+            opacity: 1;
+            transform: translate(0, -50%);
+            pointer-events: auto;
+            visibility: visible;
+        }
+
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+
+<body class="text-slate-200">
+
+    <!-- Settings Modal -->
+    <div id="settings-modal"
+        class="hidden-modal fixed inset-0 z-[2500] flex items-center justify-center bg-black/60 backdrop-blur-sm">
+        <div class="bg-slate-900 p-6 rounded-2xl border border-slate-700 w-[90%] max-w-md md:w-96 shadow-2xl relative">
+            <button id="close-settings" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i
+                    class="fa-solid fa-times text-lg"></i></button>
+            <h2 class="text-xl font-bold text-white mb-6 flex items-center gap-2"><i
+                    class="fa-solid fa-sliders text-blue-500"></i> Innstillinger</h2>
+
+            <!-- Theme -->
+            <div class="mb-6">
+                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Utseende</label>
+                <div class="flex bg-slate-800 rounded-lg p-1">
+                    <button id="theme-dark"
+                        class="flex-1 py-1.5 rounded text-sm font-medium transition-colors">Mørk</button>
+                    <button id="theme-light"
+                        class="flex-1 py-1.5 rounded text-sm font-medium transition-colors">Lys</button>
+                </div>
+            </div>
+
+            <button id="save-settings"
+                class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 rounded-lg transition-colors shadow-lg shadow-blue-500/20 active:scale-95">Lagre
+                & Lukk</button>
+        </div>
+    </div>
+
+    <!-- Info Panel (Floating) -->
+    <div id="info-panel"
+        class="hidden-panel fixed top-1/2 left-4 z-[1500] w-80 bg-slate-900/95 backdrop-blur-md p-6 rounded-2xl border border-slate-700/50 shadow-2xl transition-all duration-300">
+        <button id="close-info" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i
+                class="fa-solid fa-times text-lg"></i></button>
+        <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2"><i
+                class="fa-solid fa-leaf text-green-500"></i> Klima og Miljø</h2>
+        
+        <div class="space-y-4 text-sm text-slate-300 leading-relaxed max-h-[45vh] overflow-y-auto pr-2 custom-scrollbar">
+                <p>
+                    Visualiseringen viser historiske værdata som indikerer klimaendringer i Norge. Disse endringene har betydelige konsekvenser for miljøet:
+                </p>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li>
+                        <strong class="text-white">Økende temperaturer:</strong> 
+                        Grafene viser en stigende trend i gjennomsnittstemperatur. Dette fører til kortere snøsesonger, smelting av isbreer og endringer i vekstsesongen, som påvirker balansen i økosystemene.
+                    </li>
+                    <li>
+                        <strong class="text-white">Endret nedbørsmønster:</strong> 
+                        Økt nedbør, spesielt som regn om vinteren, øker risikoen for flom, jordskred og erosjon. Dette kan skade både infrastruktur og naturlige habitater.
+                    </li>
+                    <li>
+                        <strong class="text-white">Biologisk mangfold:</strong> 
+                        Arter som er tilpasset et kaldere klima presses nordover eller opp i høyden. Raske endringer gjør det vanskelig for mange arter å tilpasse seg, noe som truer biomangfoldet.
+                    </li>
+                </ul>
+                <div class="mt-6 pt-4 border-t border-slate-700/50 text-xs text-slate-500 space-y-2">
+                    <p><strong class="text-slate-400">Kilder:</strong> Observasjonsdata fra Meteorologisk institutt (Frost API).</p>
+                    <p><strong class="text-slate-400">Kartgrunnlag:</strong> &copy; Esri World Topo Map</p>
+                    <p>
+                        <strong class="text-slate-400">Vibe-kodet med:</strong> 
+                        <span class="inline-flex items-center gap-1">
+                            <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 4.5C13.5 8.5 16.5 10.5 20.5 12C16.5 13.5 13.5 15.5 12 19.5C10.5 15.5 7.5 13.5 3.5 12C7.5 10.5 10.5 8.5 12 4.5Z" />
+                            </svg>
+                            Gemini
+                        </span>
+                    </p>
+                    <p>
+                        <strong class="text-slate-400">Utviklet av:</strong> 
+                        <span class="inline-flex items-center gap-1"><i class="fa-solid fa-brain"></i> GreenMind AI</span>
+                    </p>
+                </div>
+        </div>
+    </div>
+
+    <!-- Drop Zone Indicator -->
+    <div id="drop-message"
+        class="absolute inset-0 z-[2000] flex items-center justify-center bg-slate-900/80 backdrop-blur-sm opacity-0">
+        <div class="bg-slate-800 p-6 md:p-8 rounded-2xl border-2 border-dashed border-blue-500 text-center">
+            <i class="fa-solid fa-file-import text-4xl text-blue-400 mb-4"></i>
+            <h2 class="text-2xl font-bold text-white">Slipp filen her</h2>
+            <p class="text-slate-400">Last inn .json (eller .gdbtable via konvertering)</p>
+        </div>
+    </div>
+
+    <!-- Info Panel -->
+    <div id="top-panel"
+        class="fixed top-0 left-0 right-0 z-[1000] bg-slate-900/95 backdrop-blur-xl rounded-b-3xl border-b border-slate-700/50 shadow-2xl transition-all duration-300 md:absolute md:top-4 md:left-16 md:right-16 md:bg-slate-900/90 md:backdrop-blur-md md:px-6 md:py-8 md:rounded-2xl md:shadow-2xl md:overlay-control md:border md:border-slate-700/50">
+
+        <div id="top-panel-content" class="relative transition-all duration-300 overflow-hidden md:overflow-visible md:static">
+            <div class="p-5 md:p-0 md:flex md:items-center md:justify-between md:gap-6 relative">
+
+                <!-- Left Side: Title -->
+                <div class="flex justify-between items-center mb-4 md:mb-0 md:flex-1 md:justify-start">
+                    <div class="flex flex-col items-start">
+                        <h1 class="text-lg md:text-xl font-bold text-white flex items-center"><i class="fa-solid fa-map text-blue-500 mr-2"></i>KlimaNorge</h1>
+                        <div class="hidden md:flex items-center gap-1.5 opacity-90 hover:opacity-100 transition-opacity">
+                            <span class="text-[10px] text-slate-500">by</span>
+                            <i class="fa-solid fa-brain text-green-500 text-sm"></i>
+                            <span class="text-xs font-bold text-slate-400 tracking-wide">GreenMind AI</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Center Group: Filters & Display -->
+                <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-12 mb-4 md:mb-0">
+                    <!-- Data Type Controls -->
+                    <div class="w-full md:w-[260px] flex md:justify-end">
+                        <div id="datatype-controls" class="flex bg-slate-800 rounded-lg p-0.5 gap-0.5 w-full md:w-auto">
+                            <button data-type="temp" class="datatype-btn flex-1 py-1 md:px-4 md:py-1.5 rounded hover:bg-slate-700 text-blue-400 bg-slate-700 transition-colors" title="Temperatur"><i class="fa-solid fa-temperature-half"></i></button>
+                            <button data-type="rain" class="datatype-btn flex-1 py-1 md:px-4 md:py-1.5 rounded hover:bg-slate-700 text-slate-400 transition-colors" title="Nedbør"><i class="fa-solid fa-cloud-rain"></i></button>
+                            <button data-type="cloud" class="datatype-btn flex-1 py-1 md:px-4 md:py-1.5 rounded hover:bg-slate-700 text-slate-400 transition-colors" title="Skydekke"><i class="fa-solid fa-cloud"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Year/Temp Display -->
+                    <div id="normal-display" class="flex flex-col items-center justify-center text-center bg-slate-800/50 rounded-xl p-2 md:p-0 border border-slate-700 md:bg-transparent md:border-0 w-full md:w-auto">
+                        <p class="text-xl md:text-4xl font-black text-white leading-none whitespace-nowrap" id="display-year">-</p>
+                        <p class="text-lg md:text-xl font-bold text-blue-400 leading-none whitespace-nowrap mt-1" id="avg-temp">-</p>
+                    </div>
+
+                    <!-- Season Controls -->
+                    <div class="w-full md:w-[260px] flex md:justify-start">
+                        <div id="season-controls" class="flex bg-slate-800 rounded-lg p-0.5 gap-0.5 w-full md:w-auto">
+                            <button data-season="all"
+                                class="season-btn flex-1 py-1 md:px-4 md:py-1.5 rounded hover:bg-slate-700 text-blue-400 bg-slate-700 transition-colors"
+                                title="Årsgjennomsnitt"><i class="fa-solid fa-calendar-days"></i></button>
+                            <button data-season="0"
+                                class="season-btn flex-1 py-1 md:px-4 md:py-1.5 rounded hover:bg-slate-700 text-slate-400 transition-colors"
+                                title="Vinter"><i class="fa-regular fa-snowflake"></i></button>
+                            <button data-season="1"
+                                class="season-btn flex-1 py-1 md:px-4 md:py-1.5 rounded hover:bg-slate-700 text-slate-400 transition-colors"
+                                title="Vår"><i class="fa-solid fa-seedling"></i></button>
+                            <button data-season="2"
+                                class="season-btn flex-1 py-1 md:px-4 md:py-1.5 rounded hover:bg-slate-700 text-slate-400 transition-colors"
+                                title="Sommer"><i class="fa-solid fa-sun"></i></button>
+                            <button data-season="3"
+                                class="season-btn flex-1 py-1 md:px-4 md:py-1.5 rounded hover:bg-slate-700 text-slate-400 transition-colors"
+                                title="Høst"><i class="fa-solid fa-leaf"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-xs text-slate-400 mb-4 leading-relaxed md:hidden text-center">
+                    <span class="text-blue-300" id="loading-status">Laster værdata...</span>
+                </p>
+
+                <!-- Right Side: Buttons -->
+                <div class="absolute top-4 right-4 md:static md:flex-1 md:flex md:justify-end md:gap-2">
+                    <div class="flex gap-2">
+                        <!-- Search (Expandable) -->
+                        <div id="search-container" class="flex items-center bg-slate-800/50 rounded-xl border border-slate-700 transition-all duration-300 w-10 h-10 overflow-hidden md:bg-slate-800 md:shadow-sm">
+                            <input type="text" id="station-search" placeholder="Søk..." class="flex-1 min-w-0 bg-transparent border-none text-white text-xs px-0 outline-none transition-all duration-300 placeholder-slate-500 opacity-0 ml-0">
+                            <button id="search-trigger" class="w-10 h-10 flex items-center justify-center text-slate-400 hover:text-white shrink-0 transition-colors">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </div>
+                        <button id="info-btn" class="w-10 h-10 bg-slate-800/50 rounded-xl text-slate-400 hover:text-green-400 hover:bg-slate-800 flex items-center justify-center transition-all active:scale-95 md:bg-slate-800 md:border md:border-slate-700 md:shadow-sm">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </button>
+                        <button id="settings-btn" class="w-10 h-10 bg-slate-800/50 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 flex items-center justify-center transition-all active:scale-95 md:bg-slate-800 md:border md:border-slate-700 md:shadow-sm">
+                            <i class="fa-solid fa-gear"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Mobile Handle -->
+        <div id="top-mobile-handle"
+            class="w-full h-8 flex flex-col items-center justify-center cursor-pointer md:hidden active:opacity-50 pb-1 gap-0.5">
+            <div class="w-12 h-1 bg-slate-700/50 rounded-full"></div>
+            <i class="fa-solid fa-chevron-up text-[10px] text-slate-600 transition-transform duration-300" id="top-handle-icon"></i>
+        </div>
+    </div>
+
+    <div id="map"></div>
+
+    <!-- Bottom Panel Wrapper (Chart + Controls) -->
+    <div id="bottom-panel"
+        class="fixed bottom-4 left-4 right-4 flex flex-col gap-0 z-[1000] bg-slate-900/95 backdrop-blur-xl rounded-3xl border border-slate-700/50 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] pb-4 transition-all duration-300 md:fixed md:bottom-8 md:left-16 md:right-16 md:rounded-2xl md:border md:border-slate-700/50 md:shadow-2xl md:bg-slate-900/90 md:backdrop-blur-md md:pb-4">
+        <!-- Mobile Handle -->
+        <div id="mobile-handle"
+            class="w-full h-8 flex items-center justify-center cursor-pointer md:hidden active:opacity-50 shrink-0">
+            <div class="w-12 h-1.5 bg-slate-700/50 rounded-full"></div>
+        </div>
+
+        <!-- Chart Panel -->
+        <div id="chart-panel-wrapper"
+            class="relative w-full px-4 md:px-6 transition-all duration-300 overflow-hidden md:overflow-visible md:pt-4 md:!h-auto md:!opacity-100">
+            <div class="flex justify-center items-center mb-2 px-2 relative">
+                <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider select-none" id="chart-title">Årlig snitt-temperatur</h2>
+                <button id="export-csv-btn" class="hidden md:block absolute right-2 text-xs text-slate-500 hover:text-blue-400 transition-colors" title="Last ned CSV"><i class="fa-solid fa-download"></i></button>
+            </div>
+            <div class="flex items-stretch gap-3 w-full">
+                <div class="flex-grow relative min-w-0 h-16 md:h-24 group">
+                    <div id="chart-scroll-container" class="w-full h-full overflow-x-auto overflow-y-hidden custom-scrollbar relative">
+                        <div id="chart-inner-wrapper" class="h-full w-full"><canvas id="tempChart" class="cursor-crosshair active:cursor-grabbing w-full h-full"></canvas></div>
+                    </div>
+                    <div id="chart-hint" class="absolute top-2 right-2 pointer-events-none bg-slate-800/80 text-slate-300 text-[10px] px-2 py-1 rounded opacity-60 group-hover:opacity-100 transition-opacity duration-300 border border-slate-600">
+                        <i id="chart-hint-icon" class="fa-solid fa-hand-pointer mr-1"></i> Dra i grafen for å endre tid
+                    </div>
+                </div>
+                <div class="flex gap-1 items-center shrink-0 h-16 md:h-24">
+                <div class="h-full w-3 rounded-full shadow-inner relative" id="legend-bar">
+                    <div id="legend-indicator" class="absolute left-1/2 -translate-x-1/2 w-5 h-1 bg-white border border-slate-900 rounded-sm shadow-md transition-all duration-300 opacity-0 pointer-events-none"></div>
+                </div>
+                    <div class="flex flex-col justify-between h-full text-[9px] font-bold text-slate-400 py-0.5 leading-none" id="legend-labels"></div>
+                </div>
+            </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // --- 1. SETUP UI ---
+            const timeState = { min: 1900, max: 2025, value: 2023, step: 1 };
+            const seasonControls = document.getElementById('season-controls');
+            const avgDisplay = document.getElementById('avg-temp');
+            const displayYear = document.getElementById('display-year');
+            const legendBar = document.getElementById('legend-bar');
+            const legendLabels = document.getElementById('legend-labels');
+            const loadingStatus = document.getElementById('loading-status');
+            const exportCsvBtn = document.getElementById('export-csv-btn');
+
+            // Search UI
+            const searchInput = document.getElementById('station-search');
+            const searchTrigger = document.getElementById('search-trigger');
+            const searchContainer = document.getElementById('search-container');
+
+            let STATIONS = {}; // Format: Index -> { data: [Lat, Lon, Name, StartYear], marker: L.circleMarker }
+            let WEATHER_DATA = {};
+            let imageOverlay = null;
+            let currentChartColors = [];
+            let selectedStationId = null;
+            let tempChart = null;
+            let activeSeasonFilter = "all";
+            let activeDataType = "temp";
+            let availableYears = [];
+
+            let isDraggingChart = false;
+
+            const SEASONS = ["Vinter", "Vår", "Sommer", "Høst"];
+            const DATA_TYPES = {
+                temp: { label: "Temperatur", unit: "°C" },
+                rain: { label: "Nedbør", unit: "mm" },
+                cloud: { label: "Skydekke", unit: "%" }
+            };
+
+            // --- 2. MAP SETUP ---
+            const map = L.map('map', { zoomControl: false, center: [65.0, 13.0], zoom: 5, minZoom: 2, attributionControl: true, keyboard: false });
+
+            // ESRI WORLD TOPOGRAPHIC MAP - Stabil kilde
+            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri',
+                maxZoom: 18
+            }).addTo(map);
+
+            // Clean up attribution prefix
+            map.attributionControl.setPrefix(false);
+
+            const markers = L.layerGroup().addTo(map);
+
+            // --- 3. CHART SETUP ---
+            const ctx = document.getElementById('tempChart').getContext('2d');
+
+            function initChart(labels, data, labelText, colors) {
+                if (tempChart) tempChart.destroy();
+
+                // Calculate 11-year moving average for a smoother "curve"
+                let trendData = [];
+
+                for (let i = 0; i < data.length; i++) {
+                    // Cut off trend line if no data for the current year (handles gaps and start/end)
+                    if (data[i] === null || data[i] === undefined) {
+                        trendData.push(null);
+                        continue;
+                    }
+
+                    let sum = 0;
+                    let count = 0;
+                    for (let j = Math.max(0, i - 5); j <= Math.min(data.length - 1, i + 5); j++) {
+                        if (data[j] !== null && data[j] !== undefined) {
+                            sum += parseFloat(data[j]);
+                            count++;
+                        }
+                    }
+                    trendData.push(count > 0 ? sum / count : null);
+                }
+
+                // Calculate scale limits
+                const validValues = data.filter(v => v !== null && v !== undefined).map(v => parseFloat(v));
+                
+                let yScaleConfig = {
+                    display: true,
+                    ticks: { color: '#94a3b8', precision: 0 },
+                    grid: { color: 'rgba(255,255,255,0.1)' }
+                };
+
+                if (validValues.length > 0) {
+                    const maxVal = Math.max(...validValues);
+                    const minVal = Math.min(...validValues);
+                    
+                    if (activeDataType === 'temp') {
+                        yScaleConfig.suggestedMin = Math.floor((minVal - 1) / 2) * 2;
+                        yScaleConfig.suggestedMax = Math.ceil((maxVal + 1) / 2) * 2;
+                        yScaleConfig.ticks.stepSize = 2;
+                    } else if (activeDataType === 'cloud') {
+                        yScaleConfig.min = 0;
+                        yScaleConfig.max = 8;
+                        yScaleConfig.ticks.stepSize = 2;
+                    } else {
+                        yScaleConfig.min = 0;
+                        yScaleConfig.suggestedMax = maxVal * 1.1;
+                    }
+                }
+
+                tempChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            type: 'line',
+                            label: 'Trend',
+                            data: trendData,
+                            borderColor: '#facc15',
+                            borderWidth: 2,
+                            tension: 0.4,
+                            pointRadius: 0,
+                            order: 0
+                        }, {
+                            label: labelText,
+                            data: data,
+                            backgroundColor: colors || '#3b82f6',
+                            borderRadius: 2,
+                            borderSkipped: false,
+                            order: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false }, tooltip: { mode: 'index', intersect: false } },
+                        scales: {
+                            x: {
+                                display: true,
+                                ticks: {
+                                    color: '#94a3b8',
+                                    autoSkip: false,
+                                    maxRotation: 0,
+                                    callback: function (val, index) { 
+                                        const y = this.getLabelForValue(val); 
+                                        const total = this.chart.data.labels.length;
+                                        let step = 25;
+                                        if (total <= 15) step = 1; else if (total <= 50) step = 5;
+                                        return (y % step === 0 || index === 0 || index === total - 1) ? y : null; 
+                                    }
+                                },
+                                grid: { display: false }
+                            },
+                            y: yScaleConfig
+                        },
+                        animation: false
+                    }
+                });
+            }
+
+            // --- 5. UI UPDATES ---
+            const seasonBtns = document.querySelectorAll('.season-btn');
+            seasonBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    activeSeasonFilter = btn.dataset.season;
+                    seasonBtns.forEach(b => {
+                        b.classList.remove('bg-slate-700', 'text-blue-400');
+                        b.classList.add('text-slate-400');
+                    });
+                    btn.classList.remove('text-slate-400');
+                    btn.classList.add('bg-slate-700', 'text-blue-400');
+                    updateLegend();
+                    timeState.step = 1;
+                    timeState.value = Math.floor(timeState.value);
+                    updateMap(timeState.value);
+                    refreshChart();
+                });
+            });
+
+            const dataTypeBtns = document.querySelectorAll('.datatype-btn');
+            dataTypeBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    activeDataType = btn.dataset.type;
+                    dataTypeBtns.forEach(b => {
+                        b.classList.remove('bg-slate-700', 'text-blue-400');
+                        b.classList.add('text-slate-400');
+                    });
+                    btn.classList.remove('text-slate-400');
+                    btn.classList.add('bg-slate-700', 'text-blue-400');
+                    updateLegend();
+                    updateMap(timeState.value);
+                    refreshChart();
+                });
+            });
+
+            function updateLegend() {
+                let grad, labels;
+                if (activeDataType === 'temp') {
+                    grad = 'linear-gradient(0deg, rgb(255,255,255) 0%, rgb(0,255,255) 33%, rgb(0,0,255) 50%, rgb(0,255,0) 66%, rgb(255,255,0) 83%, rgb(255,0,0) 100%)';
+                    labels = `<span>15°C</span><span>0°C</span><span>-15°C</span>`;
+                } else if (activeDataType === 'rain') {
+                    grad = 'linear-gradient(0deg, rgb(255,255,255) 0%, rgb(135,206,250) 12.5%, rgb(30,144,255) 25%, rgb(0,0,255) 50%, rgb(128,0,128) 75%, rgb(0,0,0) 100%)';
+                    labels = `<span>4000mm</span><span>2000mm</span><span>0mm</span>`;
+                } else {
+                    grad = 'linear-gradient(0deg, rgb(135,206,250) 0%, rgb(255,255,255) 50%, rgb(80,80,80) 100%)';
+                    labels = `<span>8/8</span><span>4/8</span><span>0/8</span>`;
+                }
+                legendBar.style.background = grad;
+                legendLabels.innerHTML = labels;
+            }
+
+            function updateLegendIndicator(val) {
+                const indicator = document.getElementById('legend-indicator');
+                if (!indicator) return;
+
+                if (val === "-" || val === null || val === undefined) {
+                    indicator.style.opacity = '0';
+                    return;
+                }
+                
+                let percent = 0;
+                let v = parseFloat(val);
+
+                if (activeDataType === 'temp') {
+                    percent = ((v + 15) / 30) * 100;
+                } else if (activeDataType === 'rain') {
+                    percent = (v / 4000) * 100;
+                } else if (activeDataType === 'cloud') {
+                    percent = (v / 8) * 100;
+                }
+
+                if (percent < 0) percent = 0;
+                if (percent > 100) percent = 100;
+
+                indicator.style.bottom = `${percent}%`;
+                indicator.style.opacity = '1';
+            }
+
+            function refreshChart() {
+                const labels = []; const data = [];
+                
+                // Detect mode based on keys
+                const keys = Object.keys(WEATHER_DATA).sort();
+                const isDaily = keys.some(k => k.length === 10 && k.split('-').length === 3);
+                
+                let sortedKeys;
+                if (isDaily) {
+                    // Filter only daily keys
+                    sortedKeys = keys.filter(k => k.length === 10);
+                } else {
+                    // Filter yearly keys
+                    const years = keys.map(k => parseInt(k.split('-')[0])).filter((v, i, a) => !isNaN(v) && a.indexOf(v) === i).sort((a, b) => a - b);
+                    // Fill gaps to ensure linear slider alignment
+                    if (years.length > 0) {
+                        const minYear = years[0];
+                        const maxYear = years[years.length - 1];
+                        sortedKeys = [];
+                        for (let y = minYear; y <= maxYear; y++) {
+                            sortedKeys.push(y);
+                        }
+                    } else {
+                        sortedKeys = [];
+                    }
+                }
+                
+                let title = "";
+                if (selectedStationId !== null && STATIONS[selectedStationId]) {
+                    title = `${STATIONS[selectedStationId][2]} - ${DATA_TYPES[activeDataType].label}`;
+                } else {
+                    title = `Snitt ${DATA_TYPES[activeDataType].label}`;
+                }
+
+                if (isDaily) title += " (Daglig)";
+                else if (activeSeasonFilter !== 'all') title += ` (${SEASONS[activeSeasonFilter]})`;
+                else title += ` (Årlig)`;
+
+                sortedKeys.forEach(keyItem => {
+                    let k;
+                    if (isDaily) k = keyItem;
+                    else k = `${keyItem}-${activeSeasonFilter}`;
+
+                    let val = null;
+                    if (WEATHER_DATA[k] && WEATHER_DATA[k][activeDataType]) {
+                        if (selectedStationId !== null) {
+                            const found = WEATHER_DATA[k][activeDataType].find(d => d[0] === selectedStationId);
+                            if (found) val = found[1];
+                        } else if (WEATHER_DATA[k][activeDataType].avg) {
+                            val = WEATHER_DATA[k][activeDataType].avg;
+                        }
+                    }
+                    labels.push(keyItem);
+                    data.push(val);
+                });
+
+                // Adjust chart width for scrolling if sequential
+                const chartInner = document.getElementById('chart-inner-wrapper');
+                chartInner.style.width = '100%';
+
+                // Calculate colors based on value
+                currentChartColors = [];
+                data.forEach(v => {
+                    if (v === null) {
+                        currentChartColors.push('rgba(0,0,0,0)');
+                    } else {
+                        const [r, g, b] = getColor(v);
+                        currentChartColors.push(`rgb(${r}, ${g}, ${b})`);
+                    }
+                });
+
+                document.getElementById('chart-title').textContent = title;
+                initChart(labels, data, title, currentChartColors);
+            }
+
+            function updateMap(sliderVal) {
+                let key, yearLabel;
+                
+                if (sliderVal > 3000) { // Timestamp (Daily mode)
+                    const date = new Date(parseInt(sliderVal));
+                    const y = date.getFullYear();
+                    const m = String(date.getMonth() + 1).padStart(2, '0');
+                    const d = String(date.getDate()).padStart(2, '0');
+                    key = `${y}-${m}-${d}`;
+                    yearLabel = `${d}.${m}.${y}`;
+                } else { // Year mode
+                    let year = parseInt(sliderVal);
+                    key = `${year}-${activeSeasonFilter}`;
+                    yearLabel = `${year}`;
+                }
+
+                const activeIndices = new Set();
+                const stationValues = {};
+                let avgVal = "-";
+
+                if (WEATHER_DATA[key] && WEATHER_DATA[key][activeDataType]) {
+                    const d = WEATHER_DATA[key][activeDataType];
+                    d.forEach(item => {
+                        activeIndices.add(item[0]);
+                        stationValues[item[0]] = item[1];
+                    });
+
+                    avgVal = (d.avg ? d.avg : "-");
+
+                    const url = generateHeatmap(key);
+                    const bounds = map.getBounds();
+                    if (!url) {
+                        if (imageOverlay) { map.removeLayer(imageOverlay); imageOverlay = null; }
+                    } else {
+                        if (imageOverlay) { imageOverlay.setUrl(url); imageOverlay.setBounds(bounds); }
+                        else { imageOverlay = L.imageOverlay(url, bounds, { className: 'weather-overlay' }).addTo(map); }
+                    }
+                } else {
+                    if (imageOverlay) { map.removeLayer(imageOverlay); imageOverlay = null; }
+                }
+
+                // Deselect station if no data for current year
+                if (selectedStationId !== null && !activeIndices.has(selectedStationId)) {
+                    selectedStationId = null;
+                    map.flyTo([65.0, 13.0], 5, { duration: 1.5 });
+                    refreshChart();
+                }
+
+                // Update Labels
+                if (selectedStationId !== null && STATIONS[selectedStationId]) {
+                    const stName = STATIONS[selectedStationId][2];
+                    displayYear.innerHTML = `${yearLabel}<span class="text-[10px] text-slate-400 block truncate max-w-[140px] mx-auto leading-tight mt-1">${stName}</span>`;
+
+                    if (stationValues[selectedStationId] !== undefined) {
+                        avgDisplay.textContent = stationValues[selectedStationId] + DATA_TYPES[activeDataType].unit;
+                        updateLegendIndicator(stationValues[selectedStationId]);
+                    } else {
+                        avgDisplay.textContent = "-";
+                        updateLegendIndicator(null);
+                    }
+                } else {
+                    displayYear.innerHTML = `${yearLabel}`;
+                    avgDisplay.textContent = avgVal + (avgVal !== "-" ? DATA_TYPES[activeDataType].unit : "");
+                    updateLegendIndicator(avgVal);
+                }
+
+                // Chart Highlight
+                if (tempChart) {
+                    let idx;
+                    if (sliderVal > 3000) {
+                        idx = tempChart.data.labels.indexOf(key); 
+                    } else {
+                        idx = tempChart.data.labels.indexOf(parseInt(sliderVal));
+                    }
+                    if (currentChartColors.length > 0) {
+                        const colors = [...currentChartColors];
+                        if (idx >= 0) colors[idx] = '#ffffff';
+                        tempChart.data.datasets[1].backgroundColor = colors;
+                        tempChart.update('none');
+                    }
+                }
+                updateMarkers(activeIndices, stationValues);
+            }
+
+            // --- 6. FILE HANDLING ---
+            const dropZone = document.body;
+            const dropMsg = document.getElementById('drop-message');
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(e => dropZone.addEventListener(e, ev => { ev.preventDefault(); ev.stopPropagation(); }, false));
+            ['dragenter', 'dragover'].forEach(e => dropZone.addEventListener(e, () => dropMsg.style.opacity = '1'));
+            ['dragleave', 'drop'].forEach(e => dropZone.addEventListener(e, () => dropMsg.style.opacity = '0'));
+            dropZone.addEventListener('drop', handleDrop);
+
+            function handleDrop(e) {
+                dropMsg.style.opacity = '0';
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    const combinedData = { stations: {}, observations: {} };
+                    let processedCount = 0;
+
+                    Array.from(files).forEach(f => {
+                        const r = new FileReader();
+                        r.onload = ev => {
+                            try {
+                                let cleanText = ev.target.result.trim();
+                                if (cleanText.charCodeAt(0) === 0xFEFF) cleanText = cleanText.slice(1);
+                                const json = JSON.parse(cleanText);
+                                if (json.stations) Object.assign(combinedData.stations, json.stations);
+                                if (json.observations) {
+                                    for (const [id, obs] of Object.entries(json.observations)) {
+                                        if (!combinedData.observations[id]) combinedData.observations[id] = {};
+                                        for (const [year, data] of Object.entries(obs)) {
+                                            if (!combinedData.observations[id][year]) {
+                                                combinedData.observations[id][year] = data;
+                                            } else {
+                                                Object.assign(combinedData.observations[id][year], data);
+                                            }
+                                        }
+                                    }
+                                }
+                            } catch (x) { console.error("Error parsing " + f.name, x); }
+                            finally {
+                                processedCount++;
+                                if (processedCount === files.length) {
+                                    if (Object.keys(combinedData.stations).length > 0 || Object.keys(combinedData.observations).length > 0) {
+                                        // Merge into GLOBAL_RAW_DATA
+                                        if (combinedData.stations) Object.assign(GLOBAL_RAW_DATA.stations, combinedData.stations);
+                                        if (combinedData.observations) {
+                                            for (const [id, obs] of Object.entries(combinedData.observations)) {
+                                                if (!GLOBAL_RAW_DATA.observations[id]) GLOBAL_RAW_DATA.observations[id] = {};
+                                                for (const [timeStr, data] of Object.entries(obs)) {
+                                                    if (!GLOBAL_RAW_DATA.observations[id][timeStr]) {
+                                                        GLOBAL_RAW_DATA.observations[id][timeStr] = data;
+                                                    } else {
+                                                        Object.assign(GLOBAL_RAW_DATA.observations[id][timeStr], data);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        processUploadedData(GLOBAL_RAW_DATA, true);
+                                    }
+                                }
+                            }
+                        };
+                        r.readAsText(f);
+                    });
+                }
+            }
+
+            function processUploadedData(json, suppressAlert = false) {
+                STATIONS = {};
+                WEATHER_DATA = {};
+                markers.clearLayers();
+                // Do not reset selectedStationId here, to allow chart to persist if station still exists
+
+                // If the incoming data is empty, reflect that in the UI
+                if (!json || !json.stations || Object.keys(json.stations).length === 0) {
+                    loadingStatus.textContent = "Ingen data for dette filteret.";
+                    timeState.min = 1900; timeState.max = 2025; timeState.value = 2023;
+                    if (tempChart) tempChart.destroy();
+                    displayYear.textContent = "-";
+                    avgDisplay.textContent = "-";
+                    if (imageOverlay) { map.removeLayer(imageOverlay); imageOverlay = null; }
+                    return;
+                }
+
+                let sIdx = 0; const sMap = {};
+
+
+                // Representative stations (approx 1 per county) for balanced graph calculation
+                const REFERENCE_STATIONS = [
+                    "SN18700", // Oslo (Oslo)
+                    "SN17850", // Akershus (Ås)
+                    "SN11900", // Innlandet (Biri)
+                    "SN27500", // Vestfold (Færder Fyr)
+                    "SN41770", // Agder (Lindesnes Fyr)
+                    "SN44640", // Rogaland (Stavanger)
+                    "SN50450", // Vestland (Bergen/Fana)
+                    "SN60800", // Møre og Romsdal (Ørskog)
+                    "SN69550", // Trøndelag (Stjørdal/Østås)
+                    "SN77850", // Nordland (Hattfjelldal/Susendal)
+                    "SN90450", // Troms (Tromsø)
+                    "SN93700", // Finnmark (Kautokeino)
+                    "SN3190",  // Østfold (Sarpsborg)
+                    "SN24600", // Buskerud (Krødsherad)
+                    "SN31900", // Telemark (Tuddal)
+                    "SN57480"  // Vestland (Førde)
+                ];
+
+                // 1. Stations
+                for (let id in json.stations) {
+                    const s = json.stations[id];
+
+                    if (s.lat && s.lon) {
+                        STATIONS[sIdx] = [s.lat, s.lon, s.name, s.id]; sMap[id] = sIdx; if (s.id) sMap[s.id] = sIdx; sIdx++;
+                    }
+                }
+
+                // 2. Observations
+                let hasMonthlyData = false;
+                let hasDailyData = false;
+                let minTs = Infinity, maxTs = -Infinity;
+
+                for (let sid in json.observations) {
+                    if (sMap[sid] === undefined) continue;
+                    const idx = sMap[sid];
+                    const obs = json.observations[sid];
+                    const seasonAgg = {};
+                    const yearAgg = {};
+
+                    // Check if data is monthly (heuristic: check if any year has > 1 entry)
+                    let isStationMonthly = false;
+                    const yearCounts = {};
+                    for (let timeStr in obs) {
+                        const y = parseInt(timeStr.substring(0, 4));
+                        yearCounts[y] = (yearCounts[y] || 0) + 1;
+                        if (yearCounts[y] > 1) { isStationMonthly = true; break; }
+                    }
+                    if (isStationMonthly) hasMonthlyData = true;
+
+                    for (let timeStr in obs) {
+                        const vals = obs[timeStr];
+                        const year = parseInt(timeStr.substring(0, 4));
+                        if (year > 2025) continue;
+
+                        // Check for daily data
+                        if (timeStr.length === 10) {
+                            hasDailyData = true;
+                            const ts = new Date(timeStr).getTime();
+                            if (ts < minTs) minTs = ts;
+                            if (ts > maxTs) maxTs = ts;
+                        }
+
+                        let month = -1;
+                        if (timeStr.length >= 7) month = parseInt(timeStr.substring(5, 7)) - 1;
+
+                        const kAll = `${year}-all`;
+                        if (!yearAgg[kAll]) yearAgg[kAll] = { tS: 0, tC: 0, rS: 0, rC: 0, cS: 0, cC: 0 };
+
+                        let sKey = null;
+                        if (month >= 0) {
+                            let sIdx = 0, sY = year;
+                            if (month === 11) { sIdx = 0; sY++; } else if (month <= 1) sIdx = 0; else if (month <= 4) sIdx = 1; else if (month <= 7) sIdx = 2; else sIdx = 3;
+                            if (sY <= 2025) {
+                                sKey = `${sY}-${sIdx}`;
+                                if (!seasonAgg[sKey]) seasonAgg[sKey] = { tS: 0, tC: 0, rS: 0, rC: 0, cS: 0, cC: 0 };
+                            }
+                        }
+
+                        if (vals.temp !== undefined && vals.temp !== null) {
+                            yearAgg[kAll].tS += vals.temp; yearAgg[kAll].tC++;
+                            if (sKey) { seasonAgg[sKey].tS += vals.temp; seasonAgg[sKey].tC++; }
+                        }
+                        if (vals.rain !== undefined && vals.rain !== null) {
+                            yearAgg[kAll].rS += vals.rain; yearAgg[kAll].rC++;
+                            if (sKey) { seasonAgg[sKey].rS += vals.rain; seasonAgg[sKey].rC++; }
+                        }
+                        if (vals.cloud !== undefined && vals.cloud !== null) {
+                            yearAgg[kAll].cS += vals.cloud; yearAgg[kAll].cC++;
+                            if (sKey) { seasonAgg[sKey].cS += vals.cloud; seasonAgg[sKey].cC++; }
+                        }
+
+                        // Push Daily Data directly if available
+                        if (timeStr.length === 10) {
+                            if (!WEATHER_DATA[timeStr]) WEATHER_DATA[timeStr] = { temp: [], rain: [], cloud: [] };
+                            if (vals.temp !== undefined) WEATHER_DATA[timeStr].temp.push([idx, vals.temp]);
+                            if (vals.rain !== undefined) WEATHER_DATA[timeStr].rain.push([idx, vals.rain]);
+                            if (vals.cloud !== undefined) WEATHER_DATA[timeStr].cloud.push([idx, vals.cloud]);
+                        }
+                    }
+
+                    // Push Yearly Data (Aggregated)
+                    for (let k in yearAgg) {
+                        const d = yearAgg[k];
+                        if (!WEATHER_DATA[k]) WEATHER_DATA[k] = { temp: [], rain: [], cloud: [] };
+                        if (d.tC > 0) WEATHER_DATA[k].temp.push([idx, parseFloat((d.tS / d.tC).toFixed(1))]);
+                        if (d.rC > 0) WEATHER_DATA[k].rain.push([idx, parseFloat((d.rS).toFixed(1))]); // Sum for rain
+                        if (d.cC > 0) WEATHER_DATA[k].cloud.push([idx, parseFloat((d.cS / d.cC).toFixed(1))]);
+                    }
+
+                    // Push seasonal
+                    for (let k in seasonAgg) {
+                        const d = seasonAgg[k];
+                        if (!WEATHER_DATA[k]) WEATHER_DATA[k] = { temp: [], rain: [], cloud: [] };
+                        if (d.tC >= 1) WEATHER_DATA[k].temp.push([idx, parseFloat((d.tS / d.tC).toFixed(1))]);
+                        if (d.rC >= 1) WEATHER_DATA[k].rain.push([idx, parseFloat((d.rS).toFixed(1))]);
+                        if (d.cC >= 1) WEATHER_DATA[k].cloud.push([idx, parseFloat((d.cS / d.cC).toFixed(1))]);
+                    }
+                }
+
+                // --- DE-BIASED: Anomaly Method (1961-1990 Baseline) ---
+
+                // 1. Calculate Baselines for ALL stations
+                const stationBaselines = {};
+                const REF_START = 1961;
+                const REF_END = 1990;
+
+                const tempObsByStation = {};
+
+                // Gather date-sorted obs for baseline calc
+                for (let k in WEATHER_DATA) {
+                    const [yearStr, season] = k.split('-');
+                    const year = parseInt(yearStr);
+                    if (WEATHER_DATA[k].temp) {
+                        WEATHER_DATA[k].temp.forEach(obs => {
+                            const [sIdx, val] = obs;
+                            if (!tempObsByStation[sIdx]) tempObsByStation[sIdx] = {};
+                            if (!tempObsByStation[sIdx][season]) tempObsByStation[sIdx][season] = [];
+                            tempObsByStation[sIdx][season].push({ y: year, v: val });
+                        });
+                    }
+                }
+
+                // Calc baselines
+                for (let sIdx in tempObsByStation) {
+                    stationBaselines[sIdx] = {};
+                    for (let season in tempObsByStation[sIdx]) {
+                        const data = tempObsByStation[sIdx][season];
+                        const refData = data.filter(d => d.y >= REF_START && d.y <= REF_END);
+
+                        // STRICT: Only calculate baseline if we have > 5 years of data in 1961-1990
+                        if (refData.length >= 5) {
+                            const avg = refData.reduce((a, b) => a + b.v, 0) / refData.length;
+                            stationBaselines[sIdx][season] = avg;
+                        }
+                    }
+                }
+
+                // Global Reference Baseline (Weighted by # stations, but here simplified)
+                const globalBaselines = {};
+                for (let sIdx in stationBaselines) {
+                    for (let season in stationBaselines[sIdx]) {
+                        // Only use for global ref if station had valid 1961-1990 data
+                        const data = tempObsByStation[sIdx][season];
+                        if (data && data.some(d => d.y >= REF_START && d.y <= REF_END)) {
+                            if (!globalBaselines[season]) globalBaselines[season] = { sum: 0, count: 0 };
+                            globalBaselines[season].sum += stationBaselines[sIdx][season];
+                            globalBaselines[season].count++;
+                        }
+                    }
+                }
+
+                const years = new Set();
+                for (let k in WEATHER_DATA) {
+                    years.add(parseInt(k.split('-')[0]));
+                    const season = k.split('-')[1];
+
+                    // Temp
+                    const arrT = WEATHER_DATA[k].temp;
+                    if (arrT && arrT.length > 0) {
+                        let anomSum = 0;
+                        let anomCount = 0;
+                        let rawSum = 0;
+                        let rawRefSum = 0;
+                        let rawRefCount = 0;
+
+                        arrT.forEach(obs => {
+                            const [sIdx, val] = obs;
+                            rawSum += val;
+
+                            const sId = STATIONS[sIdx][3];
+                            // Only proceed if this is a REFERENCE STATION
+                            if (REFERENCE_STATIONS.includes(sId)) {
+                                rawRefSum += val;
+                                rawRefCount++;
+
+                                const base = stationBaselines[sIdx] && stationBaselines[sIdx][season];
+                                if (base !== undefined) {
+                                    anomSum += (val - base);
+                                    anomCount++;
+                                }
+                            }
+                        });
+
+
+                        if (anomCount > 0) {
+                            // MET Alignment: Average Anomaly + Global Baseline
+                            const globalBase = globalBaselines[season] ? (globalBaselines[season].sum / globalBaselines[season].count) : 0;
+                            WEATHER_DATA[k].temp.avg = (globalBase + (anomSum / anomCount)).toFixed(1);
+                        } else if (rawRefCount > 0) {
+                            // Fallback: If no baselines available for these ref stations
+                            WEATHER_DATA[k].temp.avg = (rawRefSum / rawRefCount).toFixed(1);
+                        } else {
+                            // Ultimate Fallback: Raw average of ALL stations
+                            WEATHER_DATA[k].temp.avg = (rawSum / arrT.length).toFixed(1);
+                        }
+                    }
+
+                    // Rain
+                    const arrR = WEATHER_DATA[k].rain;
+                    if (arrR && arrR.length > 0) {
+                        const tot = arrR.reduce((a, b) => a + b[1], 0);
+                        WEATHER_DATA[k].rain.avg = (tot / arrR.length).toFixed(1);
+                    }
+                    // Cloud
+                    const arrC = WEATHER_DATA[k].cloud;
+                    if (arrC && arrC.length > 0) {
+                        const tot = arrC.reduce((a, b) => a + b[1], 0);
+                        WEATHER_DATA[k].cloud.avg = (tot / arrC.length).toFixed(1);
+                    }
+                }
+
+                // UI Config
+                if (hasDailyData) {
+                    // Daily Mode
+                    seasonControls.classList.add('hidden');
+                    timeState.min = minTs;
+                    timeState.max = maxTs;
+                    timeState.step = 86400000; // 1 day in ms
+                    timeState.value = maxTs;
+                } else if (hasMonthlyData) {
+                    seasonControls.classList.remove('hidden');
+                    const sortedYears = Array.from(years).sort((a, b) => a - b);
+                    if (sortedYears.length > 0) {
+                        timeState.min = sortedYears[0]; timeState.max = sortedYears[sortedYears.length - 1]; timeState.step = 1; timeState.value = timeState.max;
+                    }
+                } else {
+                    seasonControls.classList.add('hidden');
+                    activeSeasonFilter = 'all';
+                    const sortedYears = Array.from(years).sort((a, b) => a - b);
+                    if (sortedYears.length > 0) {
+                        timeState.min = sortedYears[0]; timeState.max = sortedYears[sortedYears.length - 1]; timeState.step = 1; timeState.value = timeState.max;
+                    }
+                }
+
+                refreshChart();
+                setTimeout(() => updateMap(timeState.value), 100);
+                updateLegend();
+
+                if (loadingStatus) loadingStatus.textContent = "";
+            }
+
+            // --- 7. HEATMAP ---
+            function getColor(v) {
+                if (activeDataType === 'temp') {
+                    // Extreme & Sensible: White -> Cyan -> Blue -> Green (0) -> Yellow -> Red
+                    const stops = [
+                        [-15, 255, 255, 255], // White (Extreme Cold)
+                        [-5, 0, 255, 255],    // Cyan (Cold)
+                        [0, 0, 0, 255],    // Blue (Freezing)
+                        [5, 0, 255, 0],     // Green (Mild)
+                        [10, 255, 255, 0],   // Yellow (Warm)
+                        [15, 255, 0, 0]      // Red (Hot)
+                    ];
+                    if (v <= -15) return stops[0].slice(1); if (v >= 15) return stops[5].slice(1);
+                    for (let i = 0; i < stops.length - 1; i++) {
+                        if (v >= stops[i][0] && v <= stops[i + 1][0]) {
+                            const r = (v - stops[i][0]) / (stops[i + 1][0] - stops[i][0]);
+                            return [Math.round(stops[i][1] + (stops[i + 1][1] - stops[i][1]) * r), Math.round(stops[i][2] + (stops[i + 1][2] - stops[i][2]) * r), Math.round(stops[i][3] + (stops[i + 1][3] - stops[i][3]) * r)];
+                        }
+                    }
+                } else if (activeDataType === 'rain') {
+                    // Rain: White -> Blue -> Purple -> Black
+                    const stops = [
+                        [0, 255, 255, 255],      // White (Dry)
+                        [500, 135, 206, 250],    // Light Blue
+                        [1000, 30, 144, 255],    // Blue
+                        [2000, 0, 0, 255],       // Dark Blue
+                        [3000, 128, 0, 128],     // Purple
+                        [4000, 0, 0, 0]          // Black (Extreme Wet)
+                    ];
+                    if (v <= 0) return stops[0].slice(1); if (v >= 4000) return stops[5].slice(1);
+                    for (let i = 0; i < stops.length - 1; i++) {
+                        if (v >= stops[i][0] && v <= stops[i + 1][0]) {
+                            const r = (v - stops[i][0]) / (stops[i + 1][0] - stops[i][0]);
+                            return [Math.round(stops[i][1] + (stops[i + 1][1] - stops[i][1]) * r), Math.round(stops[i][2] + (stops[i + 1][2] - stops[i][2]) * r), Math.round(stops[i][3] + (stops[i + 1][3] - stops[i][3]) * r)];
+                        }
+                    }
+                } else {
+                    // Cloud: Sky Blue -> White -> Grey
+                    const stops = [
+                        [0, 135, 206, 250],   // Sky Blue (Clear)
+                        [4, 255, 255, 255],   // White (Partly)
+                        [8, 80, 80, 80]       // Dark Grey (Overcast)
+                    ];
+                    if (v <= 0) return stops[0].slice(1); if (v >= 8) return stops[2].slice(1);
+                    for (let i = 0; i < stops.length - 1; i++) {
+                        if (v >= stops[i][0] && v <= stops[i + 1][0]) {
+                            const r = (v - stops[i][0]) / (stops[i + 1][0] - stops[i][0]);
+                            return [Math.round(stops[i][1] + (stops[i + 1][1] - stops[i][1]) * r), Math.round(stops[i][2] + (stops[i + 1][2] - stops[i][2]) * r), Math.round(stops[i][3] + (stops[i + 1][3] - stops[i][3]) * r)];
+                        }
+                    }
+                }
+                return [128, 128, 128];
+            }
+
+            function generateHeatmap(key) {
+                if (!WEATHER_DATA[key] || !WEATHER_DATA[key][activeDataType]) return null;
+                const data = WEATHER_DATA[key][activeDataType];
+                if (!data || data.length === 0) return null;
+
+                // 1. Get valid map pixel bounds to fix shifting issue when zoomed out
+                const bounds = map.getBounds();
+                const p1 = map.latLngToContainerPoint(bounds.getNorthWest());
+                const p2 = map.latLngToContainerPoint(bounds.getSouthEast());
+
+                const pixelWidth = p2.x - p1.x;
+                const pixelHeight = p2.y - p1.y;
+
+                if (pixelWidth <= 0 || pixelHeight <= 0) return null;
+
+                const targetWidth = 250; // Lower resolution for performance
+                const scale = targetWidth / pixelWidth;
+                const targetHeight = Math.floor(pixelHeight * scale);
+
+                if (targetHeight <= 0) return null;
+
+                const canvas = document.createElement('canvas'); canvas.width = targetWidth; canvas.height = targetHeight;
+                const ctx = canvas.getContext('2d'); const imgData = ctx.createImageData(targetWidth, targetHeight);
+
+                const points = [];
+                data.forEach(item => {
+                    const st = STATIONS[item[0]];
+                    if (!st) return;
+                    const p = map.latLngToContainerPoint([st[0], st[1]]);
+                    // Calculate position relative to the valid bounds (p1)
+                    points.push({
+                        x: (p.x - p1.x) * scale,
+                        y: (p.y - p1.y) * scale,
+                        t: item[1]
+                    });
+                });
+
+                // 3. Radius relative to MAP (geographical distance)
+                // We want a fixed geographical radius (e.g., 150km) converted to pixels
+                const center = map.getCenter();
+                const centerPoint = map.latLngToContainerPoint(center);
+                // Estimate pixel radius for ~75km (approx 1.5 degrees lon at 60N)
+                const edgePoint = map.latLngToContainerPoint([center.lat, center.lng + 1.5]);
+                const radius = Math.abs(edgePoint.x - centerPoint.x) * scale;
+                const rSqMax = radius * radius;
+
+                const pExp = 2.5; let idx = 0;
+                for (let y = 0; y < targetHeight; y++) {
+                    for (let x = 0; x < targetWidth; x++) {
+                        let num = 0, den = 0, minDist = 999, cT = 0;
+                        for (let i = 0; i < points.length; i++) {
+                            const dx = x - points[i].x;
+                            const dy = y - points[i].y;
+                            if (Math.abs(dx) > radius || Math.abs(dy) > radius) continue;
+
+                            const dSq = dx * dx + dy * dy;
+                            if (dSq < 1) { minDist = 0; cT = points[i].t; break; }
+                            if (dSq > rSqMax) continue;
+                            const w = 1 / Math.pow(dSq, pExp / 2); num += points[i].t * w; den += w;
+                        }
+                        const val = minDist === 0 ? cT : num / den;
+                        if (isNaN(val)) {
+                            imgData.data[idx + 3] = 0;
+                        } else {
+                            const [r, g, b] = getColor(val);
+                            imgData.data[idx] = r; imgData.data[idx + 1] = g; imgData.data[idx + 2] = b; imgData.data[idx + 3] = 200;
+                        }
+                        idx += 4;
+                    }
+                }
+                ctx.putImageData(imgData, 0, 0);
+                return canvas.toDataURL();
+            }
+
+            function updateMarkers(activeIndices, stationValues) {
+                markers.clearLayers();
+                for (let id in STATIONS) {
+                    const sId = parseInt(id);
+                    // Show if active OR if it is the selected station (so it doesn't disappear when scrubbing)
+                    if (selectedStationId !== sId && (activeIndices && activeIndices.size > 0 && !activeIndices.has(sId))) continue;
+
+                    let s = STATIONS[id];
+
+                    let tooltipContent = s[2];
+                    if (stationValues && stationValues[sId] !== undefined) {
+                        const val = stationValues[sId];
+                        tooltipContent += ` <span class="text-blue-600 font-bold">${val}${DATA_TYPES[activeDataType].unit}</span>`;
+                    } else if (selectedStationId === sId) {
+                        tooltipContent += ` <span class="text-gray-400 text-xs">(Ingen data)</span>`;
+                    }
+
+                    const isSelected = (sId === selectedStationId);
+                    const marker = L.circleMarker([s[0], s[1]], {
+                        radius: isSelected ? 8 : 4,
+                        fillColor: isSelected ? "#3b82f6" : "#fff",
+                        color: isSelected ? "#000" : "#334155",
+                        weight: isSelected ? 2 : 1,
+                        opacity: isSelected ? 1 : 0.7,
+                        fillOpacity: isSelected ? 1 : 0.9,
+                        pane: 'markerPane',
+                        bubblingMouseEvents: false
+                    });
+
+                    marker.bindTooltip(tooltipContent, { direction: 'top', offset: [0, -5], className: 'station-tooltip' });
+                    marker.on('click', () => {
+                        if (selectedStationId === sId) {
+                            selectedStationId = null;
+                            map.flyTo([65.0, 13.0], 5, { duration: 1.5 });
+                        } else {
+                            selectedStationId = sId;
+                            map.flyTo([s[0], s[1]], 10, { duration: 1.5 });
+                        }
+                        refreshChart();
+                        updateMap(timeState.value);
+                    });
+                    marker.addTo(markers);
+                }
+            }
+
+            // --- CSV EXPORT ---
+            exportCsvBtn.addEventListener('click', () => {
+                if (!tempChart || !tempChart.data.labels.length) {
+                    alert("Ingen data å eksportere.");
+                    return;
+                }
+                
+                const labels = tempChart.data.labels;
+                const trendDataset = tempChart.data.datasets[0];
+                const valueDataset = tempChart.data.datasets[1];
+                
+                const trendValues = trendDataset.data;
+                const trendLabel = trendDataset.label;
+                const values = valueDataset.data; 
+                const valueLabel = valueDataset.label;
+                
+                let csvContent = "data:text/csv;charset=utf-8,";
+                csvContent += `Tid,${valueLabel},${trendLabel}\n`;
+                
+                labels.forEach((l, i) => {
+                    let val = values[i];
+                    if (val === null || val === undefined) val = "";
+
+                    let trendVal = trendValues[i];
+                    if (trendVal === null || trendVal === undefined) trendVal = "";
+                    else trendVal = parseFloat(trendVal).toFixed(2);
+
+                    csvContent += `${l},${val},${trendVal}\n`;
+                });
+                
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", "vaerdata_export.csv");
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+
+            map.on('click', () => {
+                if (selectedStationId !== null) {
+                    selectedStationId = null;
+                    map.flyTo([65.0, 13.0], 5, { duration: 1.5 });
+                    refreshChart();
+                    updateMap(timeState.value);
+                }
+            });
+
+            map.on('moveend', () => updateMap(timeState.value));
+            map.on('resize', () => updateMap(timeState.value));
+            
+            const stepVal = () => parseFloat(timeState.step) || 1;
+            
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+                
+                if (e.key === 'ArrowLeft') {
+                    if (parseFloat(timeState.value) > parseFloat(timeState.min)) { timeState.value = parseFloat(timeState.value) - stepVal(); updateMap(timeState.value); }
+                } else if (e.key === 'ArrowRight') {
+                    if (parseFloat(timeState.value) < parseFloat(timeState.max)) { timeState.value = parseFloat(timeState.value) + stepVal(); updateMap(timeState.value); }
+                }
+            });
+
+            // --- CHART INTERACTION (Drag to Scrub) ---
+            const chartCanvas = document.getElementById('tempChart');
+            const chartHint = document.getElementById('chart-hint');
+            const chartHintIcon = document.getElementById('chart-hint-icon');
+
+            // Set icon based on device type
+            if (chartHintIcon) {
+                if (window.matchMedia("(pointer: coarse)").matches) {
+                    chartHintIcon.className = "fa-solid fa-hand-pointer mr-1"; // Finger for touch
+                } else {
+                    chartHintIcon.className = "fa-solid fa-mouse-pointer mr-1"; // Cursor for desktop
+                }
+            }
+            
+            function handleChartInteraction(e) {
+                if (chartHint && chartHint.style.opacity !== '0') {
+                    chartHint.style.opacity = '0';
+                    setTimeout(() => { if(chartHint) chartHint.remove(); }, 300);
+                }
+                if (!tempChart) return;
+                
+                const rect = chartCanvas.getBoundingClientRect();
+                let clientX = e.clientX;
+                if (e.touches && e.touches.length > 0) {
+                    clientX = e.touches[0].clientX;
+                }
+
+                let x = clientX - rect.left;
+                const xScale = tempChart.scales.x;
+                
+                // Clamp x to chart area to allow dragging outside
+                if (x < xScale.left) x = xScale.left;
+                if (x > xScale.right) x = xScale.right;
+
+                const value = xScale.getValueForPixel(x);
+                const labels = tempChart.data.labels;
+                let index = Math.round(value);
+                
+                // Clamp index just in case
+                if (index < 0) index = 0;
+                if (index >= labels.length) index = labels.length - 1;
+                
+                if (index >= 0 && index < labels.length) {
+                    const label = labels[index];
+                    // Convert label back to slider value
+                    let newVal;
+                    if (timeState.max > 3000) { // Daily mode (timestamp)
+                            if (typeof label === 'string' && label.includes('-')) newVal = new Date(label).getTime();
+                            else newVal = label;
+                    } else {
+                            newVal = parseInt(label);
+                    }
+
+                    if (!isNaN(newVal) && timeState.value != newVal) {
+                        timeState.value = newVal;
+                        updateMap(timeState.value);
+                    }
+                }
+            }
+
+            chartCanvas.addEventListener('mousedown', (e) => { isDraggingChart = true; handleChartInteraction(e); });
+            window.addEventListener('mousemove', (e) => { if (isDraggingChart) handleChartInteraction(e); });
+            window.addEventListener('mouseup', () => { isDraggingChart = false; });
+            
+            chartCanvas.addEventListener('touchstart', (e) => { isDraggingChart = true; handleChartInteraction(e); e.preventDefault(); }, {passive: false});
+            window.addEventListener('touchmove', (e) => { if (isDraggingChart) handleChartInteraction(e); }, {passive: false});
+            window.addEventListener('touchend', () => { isDraggingChart = false; });
+
+            // Try to load local JSON file automatically
+            const loadFile = (name) => fetch(name).then(r => r.ok ? r.json() : null).catch(() => null);
+
+            Promise.all([
+                loadFile('weather_data_yearly_1900_2025.json'),
+                loadFile('weather_data_1900_2025.json')
+            ]).then(([yearly, monthly]) => {
+                if (!yearly && !monthly) throw new Error("Ingen datafiler funnet");
+
+                const combined = { stations: {}, observations: {} };
+                const merge = (source) => {
+                    if (!source) return;
+                    if (source.stations) Object.assign(combined.stations, source.stations);
+                    if (source.observations) {
+                        for (const [id, obs] of Object.entries(source.observations)) {
+                            if (!combined.observations[id]) combined.observations[id] = {};
+                            for (const [year, data] of Object.entries(obs)) {
+                                if (!combined.observations[id][year]) {
+                                    combined.observations[id][year] = data;
+                                } else {
+                                    Object.assign(combined.observations[id][year], data);
+                                }
+                            }
+                        }
+                    }
+                };
+                merge(yearly);
+                merge(monthly);
+                
+                // Initialize Global Raw Data and the initial state
+                GLOBAL_RAW_DATA = JSON.parse(JSON.stringify(combined));
+                
+                console.log("Data loaded successfully.", Object.keys(combined.stations).length, "stations.");
+                processUploadedData(combined, true);
+            })
+                .catch(e => {
+                    console.error("Critical: Could not load data.", e);
+                    // Check if running on file:// protocol which blocks fetch
+                    if (window.location.protocol === 'file:') {
+                        const msg = "Obs: Du kjører filen lokalt (file://). Nettleseren blokkerer lasting av JSON-filer. Bruk en lokal server eller dra filene inn manuelt.";
+                        alert(msg);
+                        if (loadingStatus) loadingStatus.textContent = "Autolasting blokkert.";
+                    } else {
+                        if (loadingStatus) loadingStatus.textContent = "Ingen data funnet.";
+                    }
+                });
+
+            // --- 8. SETTINGS LOGIC ---
+            const settingsBtn = document.getElementById('settings-btn');
+            const settingsModal = document.getElementById('settings-modal');
+            const closeSettingsBtn = document.getElementById('close-settings');
+            const saveSettingsBtn = document.getElementById('save-settings');
+            const themeDarkBtn = document.getElementById('theme-dark');
+            const themeLightBtn = document.getElementById('theme-light');
+
+            let currentSettings = {
+                theme: localStorage.getItem('weather_nav_theme') === 'light' ? 'light' : 'dark'
+            };
+
+            function applyTheme(selectedTheme) { // e.g., 'light', 'dark'
+                if (selectedTheme === 'light') {
+                    document.body.classList.add('light-mode');
+                } else {
+                    document.body.classList.remove('light-mode');
+                }
+
+                // Update button states
+                const buttons = {
+                    dark: themeDarkBtn,
+                    light: themeLightBtn
+                };
+
+                // Reset all buttons
+                Object.values(buttons).forEach(btn => {
+                    btn.classList.remove('bg-slate-700', 'text-white', 'shadow-sm', 'bg-white', 'text-slate-900');
+                    btn.classList.add('text-slate-400');
+                });
+
+                // Activate the correct button
+                const activeBtn = buttons[selectedTheme];
+                if (activeBtn) {
+                    activeBtn.classList.remove('text-slate-400');
+                    if (selectedTheme === 'light') {
+                        activeBtn.classList.add('bg-white', 'text-slate-900', 'shadow-sm');
+                    } else { // 'dark'
+                        activeBtn.classList.add('bg-slate-700', 'text-white', 'shadow-sm');
+                    }
+                }
+            }
+
+            // Init
+            applyTheme(currentSettings.theme);
+
+            settingsBtn.addEventListener('click', () => {
+                settingsModal.classList.remove('hidden-modal');
+                settingsModal.classList.add('visible-modal');
+            });
+
+            const closeSettings = () => {
+                settingsModal.classList.remove('visible-modal');
+                settingsModal.classList.add('hidden-modal');
+            };
+            closeSettingsBtn.addEventListener('click', closeSettings);
+            settingsModal.addEventListener('click', (e) => { if (e.target === settingsModal) closeSettings(); });
+
+            themeDarkBtn.addEventListener('click', () => { applyTheme('dark'); currentSettings.theme = 'dark'; });
+            themeLightBtn.addEventListener('click', () => { applyTheme('light'); currentSettings.theme = 'light'; });
+
+            saveSettingsBtn.addEventListener('click', () => {
+                // currentSettings.theme is already updated by the button click handlers.
+                localStorage.setItem('weather_nav_theme', currentSettings.theme);
+                applyTheme(currentSettings.theme);
+                closeSettings();
+            });
+
+            // --- INFO PANEL ---
+            const infoBtn = document.getElementById('info-btn');
+            const infoPanel = document.getElementById('info-panel');
+            const closeInfoBtn = document.getElementById('close-info');
+
+            infoBtn.addEventListener('click', () => {
+                if (infoPanel.classList.contains('visible-panel')) {
+                    closeInfo();
+                } else {
+                    infoPanel.classList.remove('hidden-panel');
+                    infoPanel.classList.add('visible-panel');
+                }
+            });
+
+            const closeInfo = () => {
+                infoPanel.classList.remove('visible-panel');
+                infoPanel.classList.add('hidden-panel');
+            };
+            closeInfoBtn.addEventListener('click', closeInfo);
+
+            // Global storage for raw data to support re-processing
+            let GLOBAL_RAW_DATA = { stations: {}, observations: {} };
+
+            // --- 10. MOBILE UI LOGIC ---
+            const mobileHandle = document.getElementById('mobile-handle');
+            const chartWrapper = document.getElementById('chart-panel-wrapper');
+            let isChartVisible = true;
+
+            if (mobileHandle && chartWrapper) {
+                mobileHandle.addEventListener('click', () => {
+                    isChartVisible = !isChartVisible;
+                    if (isChartVisible) {
+                        chartWrapper.style.height = chartWrapper.scrollHeight + "px";
+                        chartWrapper.style.opacity = "1";
+                    } else {
+                        chartWrapper.style.height = "0px";
+                        chartWrapper.style.opacity = "0";
+                    }
+                });
+                // Set initial height for transition
+                chartWrapper.style.height = chartWrapper.scrollHeight + "px";
+            }
+
+            // Top Panel Mobile Toggle & Swipe
+            const topPanel = document.getElementById('top-panel');
+            const topMobileHandle = document.getElementById('top-mobile-handle');
+            const topPanelContent = document.getElementById('top-panel-content');
+            const topHandleIcon = document.getElementById('top-handle-icon');
+            let isTopPanelVisible = true;
+
+            function updateTopPanelVisibility() {
+                if (isTopPanelVisible) {
+                    topPanelContent.style.maxHeight = topPanelContent.scrollHeight + "px";
+                    topPanelContent.style.opacity = "1";
+                    topPanelContent.style.pointerEvents = "auto";
+                    if (topHandleIcon) topHandleIcon.style.transform = "rotate(0deg)";
+                } else {
+                    topPanelContent.style.maxHeight = "0px";
+                    topPanelContent.style.opacity = "0";
+                    topPanelContent.style.pointerEvents = "none";
+                    if (topHandleIcon) topHandleIcon.style.transform = "rotate(180deg)";
+                }
+            }
+
+            if (topPanel && topMobileHandle && topPanelContent) {
+                // Click toggle
+                topMobileHandle.addEventListener('click', () => {
+                    isTopPanelVisible = !isTopPanelVisible;
+                    updateTopPanelVisibility();
+                });
+
+                // Initial set
+                setTimeout(() => {
+                    if (isTopPanelVisible) {
+                        topPanelContent.style.maxHeight = topPanelContent.scrollHeight + "px";
+                    }
+                }, 100);
+                
+                // Update on resize
+                window.addEventListener('resize', () => {
+                    if (window.getComputedStyle(topMobileHandle).display !== 'none') {
+                        if (isTopPanelVisible) {
+                            topPanelContent.style.maxHeight = topPanelContent.scrollHeight + "px";
+                        } else {
+                            topPanelContent.style.maxHeight = "0px";
+                        }
+                    } else {
+                        // Reset styles for desktop
+                        topPanelContent.style.maxHeight = "";
+                        topPanelContent.style.opacity = "";
+                        topPanelContent.style.pointerEvents = "";
+                        isTopPanelVisible = true;
+                    }
+                });
+            }
+
+            // --- 11. SEARCH FUNCTION ---
+            function searchStations() {
+                const query = searchInput.value.trim().toLowerCase();
+                if (!query) return;
+
+                // 1. Local Search (ID or Name)
+                let matches = [];
+                for (let id in STATIONS) {
+                    const s = STATIONS[id]; // [lat, lon, name, stationId]
+                    if ((s[2] && s[2].toLowerCase().includes(query)) || (s[3] && s[3].toLowerCase().includes(query))) {
+                        matches.push({ id: parseInt(id), lat: s[0], lon: s[1], name: s[2] });
+                    }
+                }
+
+                if (matches.length > 0) {
+                    // If exact match or single match
+                    if (matches.length === 1) {
+                        selectAndFlyTo(matches[0].id);
+                    } else {
+                        // Fit bounds to show all matches
+                        const bounds = L.latLngBounds(matches.map(m => [m.lat, m.lon]));
+                        map.fitBounds(bounds, { padding: [50, 50], maxZoom: 10 });
+                    }
+                    return;
+                }
+
+                // 2. Geocoding Search (City/Place)
+                loadingStatus.textContent = "Søker etter sted...";
+                fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`)
+                    .then(r => r.json())
+                    .then(data => {
+                        loadingStatus.textContent = "";
+                        if (data && data.length > 0) {
+                            const lat = parseFloat(data[0].lat);
+                            const lon = parseFloat(data[0].lon);
+                            
+                            // Find closest station
+                            let closestId = null;
+                            let minDist = Infinity;
+                            
+                            for (let id in STATIONS) {
+                                const s = STATIONS[id];
+                                const d = map.distance([lat, lon], [s[0], s[1]]);
+                                if (d < minDist) {
+                                    minDist = d;
+                                    closestId = parseInt(id);
+                                }
+                            }
+
+                            if (closestId !== null) {
+                                const s = STATIONS[closestId];
+                                selectAndFlyTo(closestId);
+                            }
+                        } else {
+                            alert("Ingen resultater funnet.");
+                        }
+                    })
+                    .catch(e => {
+                        console.error(e);
+                        loadingStatus.textContent = "";
+                    });
+            }
+
+            function selectAndFlyTo(id) {
+                selectedStationId = id;
+                const s = STATIONS[id];
+                map.flyTo([s[0], s[1]], 10, { duration: 1.5 });
+                refreshChart();
+                updateMap(timeState.value);
+            }
+
+            if (searchInput && searchTrigger && searchContainer) {
+                searchTrigger.addEventListener('click', (e) => {
+                    // Expand if not expanded
+                    if (!searchContainer.classList.contains('w-48')) {
+                        e.preventDefault();
+                        searchContainer.classList.remove('w-10');
+                        searchContainer.classList.add('w-48');
+                        searchInput.classList.remove('px-0', 'opacity-0');
+                        searchInput.classList.add('pl-3', 'opacity-100');
+                        searchInput.focus();
+                    } else {
+                        searchStations();
+                    }
+                });
+
+                searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') searchStations(); });
+                
+                // Close on click outside
+                document.addEventListener('click', (e) => {
+                    if (!searchContainer.contains(e.target) && searchContainer.classList.contains('w-48')) {
+                        searchContainer.classList.remove('w-48');
+                        searchContainer.classList.add('w-10');
+                        searchInput.classList.remove('pl-3', 'opacity-100');
+                        searchInput.classList.add('px-0', 'opacity-0');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

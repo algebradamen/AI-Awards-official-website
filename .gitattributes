@@ -1,0 +1,6 @@
+# LFS Disabled Globally
+*.tif filter=lfs diff=lfs merge=lfs -text
+my-app/public/Games/Team-14/site/ArtNasjonal_42_agder_4326_GEOJSON.json filter=lfs diff=lfs merge=lfs -text
+my-app/public/Games/Team-14/site/ArtNasjonal_42_agder_4326_GEOJSON.json filter=lfs diff=lfs merge=lfs -text
+
+my-app/public/Games/Team-3/assets/video/NABO_Dokum.mp4 filter=lfs diff=lfs merge=lfs -text

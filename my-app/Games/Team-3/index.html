@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>N.A.B.O - Next-Gen AI Tech Solutions</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html" class="logo">N.A.B.O</a>
+    <ul>
+      <li><a href="#home" class="active nav-home">Home</a></li>
+      <li><a href="team.html" class="nav-team">Team</a></li>
+      <li><a href="products.html" class="nav-products">Products</a></li>
+      <li><a href="contact.html" class="nav-contact">Contact</a></li>
+      <li style="margin-left: 2rem;">
+        <button id="langToggle" class="lang-btn" style="background: linear-gradient(135deg, #00D4FF, #9D00FF); border: none; color: #0A0E27; padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer; font-weight: 700; font-size: 0.9rem;">NO / EN</button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="hero" id="home">
+    <div class="hero-content" data-animation="fade-in">
+      <h1 class="hero-title">Next-Gen AI Technology</h1>
+      <p class="hero-subtitle">Where Innovation Meets Intelligence</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary btn-discover" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})">
+          Discover More
+        </button>
+        <a href="contact.html" class="btn btn-secondary btn-contact">Get in Touch</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Section -->
+  <section class="section" id="about">
+    <div class="container">
+      <h2 class="section-title about-title" data-animation="slide-in-left" data-i18n="about-title">About N.A.B.O</h2>
+      <p class="section-subtitle about-subtitle" data-animation="slide-in-left" data-i18n="about-new-subtitle">
+        Building technology for neighborhoods and local communities
+      </p>
+
+      <div class="grid grid-2">
+        <div class="bubble" data-animation="fade-in">
+          <h3 class="text-people-centered" style="color: #00D4FF; font-size: 1.3rem; margin-bottom: 1rem; text-transform: uppercase;" data-i18n="about-people-title">People-Centered Innovation</h3>
+          <p class="text-people-centered-desc" data-i18n="about-people-desc">
+            At N.A.B.O, we develop digital solutions that put people and communities first. Our technology is designed to strengthen local engagement, create connection, and make participation in society easier and more accessible.
+          </p>
+        </div>
+
+        <div class="bubble" data-animation="fade-in">
+          <h3 class="text-mission-driven" style="color: #9D00FF; font-size: 1.3rem; margin-bottom: 1rem; text-transform: uppercase;" data-i18n="about-mission-title">Mission-Driven</h3>
+          <p class="text-mission-desc" data-i18n="about-mission-desc">
+            Our mission is to empower young people and local communities through meaningful technology. We believe that democracy, inclusion, and sustainability should be part of everyday life — not something distant or complicated.
+          </p>
+        </div>
+
+        <div class="bubble" data-animation="fade-in">
+          <h3 class="text-local-impact" style="color: #00FF41; font-size: 1.3rem; margin-bottom: 1rem; text-transform: uppercase;" data-i18n="about-local-title">Local Impact, Scalable Vision</h3>
+          <p class="text-local-impact-desc" data-i18n="about-local-desc">
+            We focus on creating impact where it matters most: in neighborhoods and cities. Our solutions are built to scale, allowing local innovation to grow into broader societal change.
+          </p>
+        </div>
+
+        <div class="bubble" data-animation="fade-in">
+          <h3 class="text-responsible" style="color: #FF006E; font-size: 1.3rem; margin-bottom: 1rem; text-transform: uppercase;" data-i18n="about-responsible-title">Reliable & Responsible Technology</h3>
+          <p class="text-responsible-desc" data-i18n="about-responsible-desc">
+            We build secure, modern, and responsible digital products. From data protection to ethical AI, trust and transparency are central to everything we create.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Video Section -->
+  <section class="section" style="background: linear-gradient(135deg, #0A0E27 0%, #2d1b5f 100%); text-align: center;">
+    <div class="container">
+      <h2 class="section-title video-title" data-animation="fade-in">Experience the Future</h2>
+      <p class="section-subtitle video-subtitle" data-animation="fade-in">
+        Watch how N.A.B.O transforms businesses with cutting-edge AI solutions
+      </p>
+
+      <div class="video-container" data-animation="scale-in" style="margin: 2rem auto; max-width: 900px;">
+        <video width="100%" height="100%" controls style="border-radius: 30px; width: 100%; height: auto;">
+          <source src="assets/video/NABO_Dokum.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="section" id="features">
+    <div class="container">
+      <h2 class="section-title" data-animation="slide-in-right" data-i18n="features-title">Why Choose N.A.B.O?</h2>
+      <p class="section-subtitle" data-animation="slide-in-right" data-i18n="features-new-subtitle">
+        Technology built for real community impact
+      </p>
+
+      <div class="grid grid-3">
+        <div class="card" data-animation="scale-in" style="animation-delay: 0s;">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">⚡</div>
+          <h3 style="color: #00D4FF; margin-bottom: 0.5rem; text-transform: uppercase;" data-i18n="features-accessible">Fast & Accessible</h3>
+          <p style="color: var(--text-muted);" data-i18n="features-accessible-desc">
+            Lightweight and responsive technology designed to work smoothly for all users, on any device.
+          </p>
+        </div>
+
+        <div class="card" data-animation="scale-in" style="animation-delay: 0.1s;">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">🔒</div>
+          <h3 style="color: #9D00FF; margin-bottom: 0.5rem; text-transform: uppercase;" data-i18n="features-trustworthy">Secure & Trustworthy</h3>
+          <p style="color: var(--text-muted);" data-i18n="features-trustworthy-desc">
+            Strong focus on data protection, privacy, and responsible use of technology — especially for young users.
+          </p>
+        </div>
+
+        <div class="card" data-animation="scale-in" style="animation-delay: 0.2s;">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">🗺️</div>
+          <h3 style="color: #00FF41; margin-bottom: 0.5rem; text-transform: uppercase;" data-i18n="features-local">Local Insights</h3>
+          <p style="color: var(--text-muted);" data-i18n="features-local-desc">
+            Clear, visual insights into local activities, participation, and community development.
+          </p>
+        </div>
+
+        <div class="card" data-animation="scale-in" style="animation-delay: 0.3s;">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">🤖</div>
+          <h3 style="color: #FF006E; margin-bottom: 0.5rem; text-transform: uppercase;" data-i18n="features-purpose">AI with Purpose</h3>
+          <p style="color: var(--text-muted);" data-i18n="features-purpose-desc">
+            AI that helps users find relevant communities, supports safe interaction, and improves engagement over time.
+          </p>
+        </div>
+
+        <div class="card" data-animation="scale-in" style="animation-delay: 0.4s;">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">🚀</div>
+          <h3 style="color: #00D4FF; margin-bottom: 0.5rem; text-transform: uppercase;" data-i18n="features-scale">Built to Scale</h3>
+          <p style="color: var(--text-muted);" data-i18n="features-scale-desc">
+            Designed to start locally and scale to multiple cities and communities without losing its human focus.
+          </p>
+        </div>
+
+        <div class="card" data-animation="scale-in" style="animation-delay: 0.5s;">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">👥</div>
+          <h3 style="color: #9D00FF; margin-bottom: 0.5rem; text-transform: uppercase;" data-i18n="features-team">Community-Driven Team</h3>
+          <p style="color: var(--text-muted);" data-i18n="features-team-desc">
+            Built in close collaboration with young people, municipalities, and local partners.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section" style="background: linear-gradient(135deg, #2d1b5f 0%, #0A0E27 100%); text-align: center;">
+    <div class="container">
+      <h2 class="section-title" data-animation="fade-in">Ready to Transform?</h2>
+      <p class="section-subtitle" data-animation="fade-in" style="max-width: 700px; margin-left: auto; margin-right: auto;">
+        Join leading companies using N.A.B.O to unlock their AI potential
+      </p>
+      <div data-animation="scale-in">
+        <a href="contact.html" class="btn btn-primary" style="font-size: 1.1rem; padding: 1.2rem 3rem;">
+          Start Your Journey
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 N.A.B.O - Next-Gen AI Solutions. All rights reserved.</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-link">Twitter</a>
+        <a href="#" class="footer-link">LinkedIn</a>
+        <a href="#" class="footer-link">GitHub</a>
+        <a href="#" class="footer-link">Discord</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script src="js/languages.js"></script>
+</body>
+</html>
