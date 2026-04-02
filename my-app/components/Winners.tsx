@@ -31,21 +31,26 @@ const WinnerCard = ({ teamName, category, rank, imageSrc, className = "", goat }
 
     return (
         <div className={`relative group rounded-[2.5rem] overflow-hidden border border-white/10 ${className}`}>
-            {/* Background - gradient fallback */}
-            <div className={`absolute inset-0 bg-gradient-to-br ${gradient}`}></div>
+            {/* Gray gradient background - always visible */}
+            <div className="absolute inset-0 bg-gradient-to-br from-gray-400 via-gray-500 to-gray-600"></div>
 
-            {/* Team Photo - fills entire card */}
-            <img
-                src={imageSrc}
-                alt={teamName}
-                className="absolute inset-0 w-full h-full object-cover z-[1]"
-            />
+            {/* Team Photo - full bleed */}
+            <div className="absolute inset-0 z-[1]">
+                <img
+                    src={imageSrc}
+                    alt={teamName}
+                    className="w-full h-full object-cover"
+                />
+            </div>
+
+            {/* White hover overlay */}
+            <div className="absolute inset-0 z-[2] bg-white/0 group-hover:bg-white/20 transition-all duration-300"></div>
 
             {/* Overlay Gradient */}
-            <div className="absolute inset-0 z-[2] bg-gradient-to-t from-black/90 via-black/30 to-transparent transition-opacity duration-300"></div>
+            <div className="absolute inset-0 z-[3] bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
 
             {/* Content Container - Always visible */}
-            <div className="absolute inset-x-0 bottom-0 z-[3] p-6 md:p-8 flex items-end justify-between transition-opacity duration-300">
+            <div className="absolute inset-x-0 bottom-0 z-[4] p-6 md:p-8 flex items-end justify-between transition-opacity duration-300">
 
                 {/* Left: Avatar + Info */}
                 <div className="flex items-center gap-4">

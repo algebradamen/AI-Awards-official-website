@@ -45,15 +45,14 @@ export default async function Projects() {
                 // No showcase video found
             }
 
-            // Merge the info from index.json (like price, imageSrc) with the file content
-            // We verify if logo exists, but here we assume it does based on listing.
+            // Always use logo for projects page
             return {
                 ...teamData,
                 ...entry,
-                imageSrc: logoPath,
-                promotionalVideo: teamData.promotionalVideo, // Keep original trailer
-                appShowcaseVideo: hasShowcase ? showcaseVideoPath : undefined // Add showcase separately
-            }; // Use logoPath as imageSrc for projects list
+                imageSrc: logoPath, // Always use logo
+                promotionalVideo: teamData.promotionalVideo,
+                appShowcaseVideo: hasShowcase ? showcaseVideoPath : undefined
+            };
         }));
     } catch (error) {
         console.error("Error reading team data:", error);

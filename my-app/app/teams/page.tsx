@@ -31,11 +31,10 @@ export default async function Teams() {
             const fileContent = await fs.readFile(filePath, 'utf8');
             const teamData = JSON.parse(fileContent);
 
-            // Construct logo path
+            // Construct logo path (fallback)
             const logoPath = `/media/2026/logoer/Team-${entry.teamNumber}.png`;
 
-            // Merge the info from index.json (like price) with the file content
-            // If imageSrc is not present (non-winners), use the logo path
+            // Use team photo from index.json, fall back to logo
             return {
                 ...teamData,
                 ...entry,

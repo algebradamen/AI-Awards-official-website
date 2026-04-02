@@ -36,24 +36,26 @@ export default function ProjectCatalog({ projects }: { projects: ProjectData[] }
                         onClick={() => setSelectedProject(project)}
                         className="group relative h-[300px] rounded-2xl overflow-hidden cursor-pointer bg-white/5 border border-white/10 hover:border-white/30 transition-all duration-300 hover:scale-[1.02]"
                     >
-                        {/* Background gradient */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-slate-900 opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
+                        {/* Gray gradient background */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-gray-400 via-gray-500 to-gray-600" />
 
-                        {/* Team Logo */}
+                        {/* Photo - full bleed */}
                         {project.imageSrc && (
-                            <div className="absolute inset-0 flex items-center justify-center z-[1] -mt-6">
-                                <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden bg-white/10 backdrop-blur-sm border border-white/10 shadow-lg group-hover:scale-110 transition-all duration-300">
-                                    <img
-                                        src={project.imageSrc}
-                                        alt={project.projectName}
-                                        className="w-full h-full object-contain"
-                                    />
-                                </div>
+                            <div className="absolute inset-0">
+                                <img
+                                    src={project.imageSrc}
+                                    alt={project.projectName}
+                                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                    onError={(e) => e.currentTarget.style.display = 'none'}
+                                />
                             </div>
                         )}
 
+                        {/* White hover overlay */}
+                        <div className="absolute inset-0 z-[2] bg-white/0 group-hover:bg-white/15 transition-all duration-300" />
+
                         {/* Top-right Winner Badges */}
-                        <div className="absolute top-4 right-4 z-10 flex gap-2">
+                        <div className="absolute top-4 right-4 z-[5] flex gap-2">
                             {project.goat && (
                                 <div className="w-10 h-10 rounded-full bg-purple-500/20 backdrop-blur-md border border-purple-500/30 flex items-center justify-center shadow-lg" title="The GOAT">
                                     <span className="text-lg">🐐</span>
@@ -67,7 +69,7 @@ export default function ProjectCatalog({ projects }: { projects: ProjectData[] }
                         </div>
 
                         {/* Content Overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent p-6 flex flex-col justify-end">
+                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent p-6 flex flex-col justify-end z-[4]">
                             <span className="text-blue-400 text-xs font-bold tracking-wider uppercase mb-1">
                                 {project.projectType}
                             </span>
@@ -107,21 +109,19 @@ export default function ProjectCatalog({ projects }: { projects: ProjectData[] }
                                 ✕
                             </button>
 
-                            {/* Left Side: Visual */}
+                            {/* Left Side: Logo Display */}
                             <div className="w-full md:w-2/5 h-48 md:h-auto relative shrink-0">
-                                <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-slate-900 flex items-center justify-center">
-                                    <span className="text-6xl font-black text-white/10">{selectedProject.teamNumber}</span>
-                                </div>
-                                {/* Project Logo Overlay */}
+                                {/* Gray gradient background */}
+                                <div className="absolute inset-0 bg-gradient-to-br from-gray-400 via-gray-500 to-gray-600"></div>
+                                {/* Large centered logo */}
                                 {selectedProject.imageSrc && (
-                                    <div className="absolute inset-0 flex items-center justify-center p-8">
-                                        <div className="w-32 h-32 md:w-40 md:h-40 rounded-2xl overflow-hidden bg-white/90 backdrop-blur-sm border border-white/20 shadow-2xl">
-                                            <img
-                                                src={selectedProject.imageSrc}
-                                                alt={selectedProject.projectName}
-                                                className="w-full h-full object-contain p-3"
-                                            />
-                                        </div>
+                                    <div className="absolute inset-0 flex items-center justify-center p-8 md:p-12">
+                                        <img
+                                            src={selectedProject.imageSrc}
+                                            alt={selectedProject.projectName}
+                                            className="w-full h-full object-contain drop-shadow-2xl"
+                                            onError={(e) => e.currentTarget.style.display = 'none'}
+                                        />
                                     </div>
                                 )}
                             </div>
