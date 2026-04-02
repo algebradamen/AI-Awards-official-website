@@ -34,11 +34,19 @@ const WinnerCard = ({ teamName, category, rank, imageSrc, className = "", goat }
             {/* Background - gradient fallback */}
             <div className={`absolute inset-0 bg-gradient-to-br ${gradient}`}></div>
 
+            {/* Team Photo - fills entire card */}
+            <img
+                src={imageSrc}
+                alt={teamName}
+                className="absolute inset-0 w-full h-full object-cover z-[1]"
+                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+            />
+
             {/* Overlay Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-opacity duration-300"></div>
+            <div className="absolute inset-0 z-[2] bg-gradient-to-t from-black/90 via-black/30 to-transparent transition-opacity duration-300"></div>
 
             {/* Content Container - Always visible */}
-            <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 flex items-end justify-between transition-opacity duration-300">
+            <div className="absolute inset-x-0 bottom-0 z-[3] p-6 md:p-8 flex items-end justify-between transition-opacity duration-300">
 
                 {/* Left: Avatar + Info */}
                 <div className="flex items-center gap-4">

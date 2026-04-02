@@ -42,11 +42,13 @@ export default function ProjectCatalog({ projects }: { projects: ProjectData[] }
                         {/* Team Logo */}
                         {project.imageSrc && (
                             <div className="absolute inset-0 flex items-center justify-center z-[1] -mt-6">
-                                <img
-                                    src={project.imageSrc}
-                                    alt={project.projectName}
-                                    className="w-20 h-20 md:w-24 md:h-24 object-contain opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 drop-shadow-[0_0_15px_rgba(147,187,231,0.3)]"
-                                />
+                                <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden bg-white/10 backdrop-blur-sm border border-white/10 shadow-lg group-hover:scale-110 transition-all duration-300">
+                                    <img
+                                        src={project.imageSrc}
+                                        alt={project.projectName}
+                                        className="w-full h-full object-contain"
+                                    />
+                                </div>
                             </div>
                         )}
 
