@@ -1,0 +1,16 @@
+{
+  "teamNumber": 5,
+  "projectName": "AFTERTASTE",
+  "projectType": "Interactive Web Experience / Visual Novel",
+  "description": "An interactive narrative set in Kristiansand 2075, exploring consequences of extreme environmental control and societal sacrifice. Provokes critical thinking about climate solutions, freedom, and trade-offs after a fictional 2031 crisis. Targets UN SDGs 13, 16, and 4.",
+  "technologies": ["React 19", "Vite 7", "Custom scene/audio system"],
+  "teamMembers": [
+    { "name": "Dana", "role": "Team Member" },
+    { "name": "Nell", "role": "Team Member" },
+    { "name": "Yusup", "role": "Team Member" },
+    { "name": "Nailie Kerimova", "role": "Team Member" },
+    { "name": "Artem Ktitor", "role": "Team Member" }
+  ],
+  "promotionalVideo": "../promotional_videos/Team_05_AFTERTASTE_Promo.mp4",
+  "folderPath": "Games/Team-5/dist/"
+}

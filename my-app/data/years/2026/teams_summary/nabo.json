@@ -1,0 +1,17 @@
+{
+  "teamNumber": 3,
+  "projectName": "N\u00c6R / N.A.B.O",
+  "projectType": "Web App (PWA) + Company Website",
+  "description": "Combats youth disengagement from local politics via a civic participation platform for ages 13\u201325. Features AI-assisted tools, gamification, interactive maps with environmental layers (e.g., deforestation zones). Targets UN SDGs 11, 16, 10, and 17.",
+  "technologies": ["React 19", "Vite 7", "Firebase (Auth/Firestore/Storage)", "Leaflet/React-Leaflet", "Google Gemini AI", "PWA/Workbox", "Vitest"],
+  "teamMembers": [
+    { "name": "Lars Joakim", "role": "Team Member" },
+    { "name": "Victor", "role": "Team Member" },
+    { "name": "Carsten", "role": "Team Member" },
+    { "name": "Fabian Espedalen-Larsen", "role": "Team Member" },
+    { "name": "Jesper Thorgersen Torp", "role": "Team Member" }
+  ],
+  "promotionalVideo": "../promotional_videos/Team_03_NAER_NABO_Promo_Landscape.mp4",
+  "appShowcaseVideo": "/media/2026/app-showcase/Team-3.mp4",
+  "folderPath": "Games/Team-3/"
+}

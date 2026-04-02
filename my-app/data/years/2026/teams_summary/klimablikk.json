@@ -1,0 +1,16 @@
+{
+  "teamNumber": 7,
+  "projectName": "Klimablikk Norge",
+  "projectType": "Website",
+  "description": "A Norwegian-language platform for climate education covering climate, nature, and recycling content with practical sustainability tips. Supports environmental donations. Targets UN SDGs 13, 15, and 12.",
+  "technologies": ["HTML", "CSS", "JavaScript", "Python (simple HTTP server)"],
+  "teamMembers": [
+    { "name": "Adam", "role": "Team Member" },
+    { "name": "Artin", "role": "Team Member" },
+    { "name": "Carmen", "role": "Team Member" },
+    { "name": "Robin", "role": "Team Member" },
+    { "name": "T\u00f8nnes August Fischer Tjemsland", "role": "Team Member" }
+  ],
+  "promotionalVideo": "../promotional_videos/Team_07_Klimablikk_Norge_Promo.mp4",
+  "folderPath": "Games/Team-7/site/"
+}

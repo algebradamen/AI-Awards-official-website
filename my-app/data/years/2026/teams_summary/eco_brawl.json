@@ -1,0 +1,16 @@
+{
+  "teamNumber": 9,
+  "projectName": "Eco Brawl",
+  "projectType": "Web Game",
+  "description": "A boss-battle quiz game making environmental education engaging. Players face energy/sustainability challenges on a world map, learning about solar energy and renewable resources. Targets UN SDGs 7, 13, and 4.",
+  "technologies": ["HTML5", "CSS3", "JavaScript", "Canvas API"],
+  "teamMembers": [
+    { "name": "Heath", "role": "Team Member" },
+    { "name": "Frank", "role": "Team Member" },
+    { "name": "Askerov", "role": "Team Member" },
+    { "name": "B\u00e5rd Johannes Tveit Morka", "role": "Team Member" },
+    { "name": "Elias Georg Andresen", "role": "Team Member" }
+  ],
+  "promotionalVideo": "../promotional_videos/Team_09_Eco_Brawl_Promo.mp4",
+  "folderPath": "Games/Team-9/site/"
+}

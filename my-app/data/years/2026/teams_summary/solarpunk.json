@@ -1,0 +1,16 @@
+{
+  "teamNumber": 8,
+  "projectName": "Solarpunk Saga",
+  "projectType": "Video Game (Godot Engine)",
+  "description": "A 2D platformer offering a hopeful, solarpunk alternative to climate dystopia narratives. Reaches youth through gaming with messages about optimistic sustainable futures. Targets UN SDGs 13, 11, and 7.",
+  "technologies": ["Godot Engine 4.5", "GDScript", "GDShader", "Mobile rendering"],
+  "teamMembers": [
+    { "name": "Sivert", "role": "Team Member" },
+    { "name": "Herman", "role": "Team Member" },
+    { "name": "Jordi", "role": "Team Member" },
+    { "name": "Mattias", "role": "Team Member" },
+    { "name": "Mads Gilbert Henriksen", "role": "Team Member" }
+  ],
+  "promotionalVideo": "../promotional_videos/Team_08_Solarpunk_Saga_Promo.mp4",
+  "folderPath": "Games/Team-8/site/"
+}

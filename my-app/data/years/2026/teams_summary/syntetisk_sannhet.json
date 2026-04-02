@@ -1,0 +1,15 @@
+{
+  "teamNumber": 12,
+  "projectName": "Syntetisk Sannhet",
+  "projectType": "Video/Documentary Project",
+  "description": "A documentary promoting critical engagement with AI and synthetic media. Explores AI's relationship to sustainability, ethics, truth/authenticity, and societal consequences of technological progress. Targets UN SDGs 16, 4, and 9.",
+  "technologies": ["Video production"],
+  "teamMembers": [
+    { "name": "Sebastian", "role": "Team Member" },
+    { "name": "Madj", "role": "Team Member" },
+    { "name": "Aksel", "role": "Team Member" },
+    { "name": "Maksym", "role": "Team Member" },
+    { "name": "Erik H", "role": "Team Member" }
+  ],
+  "promotionalVideo": "../promotional_videos/Team_12_Syntetisk_sannhet_Promo.mp4"
+}

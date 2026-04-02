@@ -1,0 +1,15 @@
+{
+  "teamNumber": 1,
+  "projectName": "Eco Friend",
+  "projectType": "Mobile App",
+  "description": "Tackles fast fashion's environmental harm and greenwashing by helping consumers make sustainable choices. AI scans garments, delivering Eco-Scores (1\u201310 ratings) and material breakdowns. Promotes circular fashion economy. Aligned with UN SDGs 12 and 13.",
+  "technologies": ["React Native", "Expo", "TypeScript", "Google Gemini AI API", "react-native-maps", "expo-camera", "expo-location"],
+  "teamMembers": [
+    { "name": "Elias B.", "role": "Project Leader" },
+    { "name": "Benjamin R.", "role": "Producer/Tech" },
+    { "name": "Daniel H.T", "role": "Marketing" },
+    { "name": "Simen Brekke", "role": "Creative" },
+    { "name": "Iselin Idsal", "role": "Creative" }
+  ],
+  "promotionalVideo": "../promotional_videos/Team_01_Eco_Friend_Promo.mp4"
+}

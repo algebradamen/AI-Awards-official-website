@@ -1,0 +1,16 @@
+{
+  "teamNumber": 4,
+  "projectName": "EcoTrace",
+  "projectType": "Mobile App",
+  "description": "A mobile platform fighting pollution through multimodal AI. Users scan litter, get local sorting guidance, and earn points for verified cleanups. Connects citizens, schools, and municipalities in real time, gamifying waste management. Targets UN SDGs 12, 13, and 11.",
+  "technologies": ["Python", "Google Gemini 2.5 Flash", "Live2D", "SenseVoice (ASR)", "Piper TTS", "React Native", "Expo", "Supabase", "Google Maps", "Sherpa-ONNX"],
+  "teamMembers": [
+    { "name": "John Kevin", "role": "Team Member" },
+    { "name": "Cornelius J\u00f8rs", "role": "Team Member" },
+    { "name": "Ludvik", "role": "Team Member" },
+    { "name": "Andreas", "role": "Team Member" },
+    { "name": "Alexander Jonathan Lid Nilsen", "role": "Team Member" }
+  ],
+  "promotionalVideo": "../promotional_videos/Team_04_EcoTrace_Promo.mp4",
+  "appShowcaseVideo": "/media/2026/app-showcase/Team-4.mp4"
+}

@@ -1,0 +1,15 @@
+{
+  "teamNumber": 6,
+  "projectName": "EcoDex",
+  "projectType": "Web App",
+  "description": "A comprehensive web app delivering accessible environmental and nature education for students, educators, and enthusiasts. Promotes conservation and community awareness. Targets UN SDGs 15, 13, and 4.",
+  "technologies": ["HTML", "CSS", "JavaScript", "Leaflet.js", "ml5.js"],
+  "teamMembers": [
+    { "name": "Siri", "role": "Team Member" },
+    { "name": "Helle", "role": "Team Member" },
+    { "name": "Jette", "role": "Team Member" },
+    { "name": "Randi F\u00f8reland Amundsen", "role": "Team Member" },
+    { "name": "Chanel Thoresen", "role": "Team Member" }
+  ],
+  "promotionalVideo": "../promotional_videos/Team_06_EcoDex_Promo.mov"
+}

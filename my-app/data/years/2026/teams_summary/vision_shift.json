@@ -1,0 +1,16 @@
+{
+  "teamNumber": 17,
+  "projectName": "Vision Shift",
+  "projectType": "External Web Application",
+  "description": "Examines AI's \"Potential and Paradoxes\" \u2014 how it can both aid and complicate sustainability. Encourages critical thinking about ethics, societal implications, and technological progress. Targets UN SDGs 9, 13, and 4.",
+  "technologies": ["HTML", "CSS", "JavaScript"],
+  "teamMembers": [
+    { "name": "Heorhii Ad.", "role": "Team Member" },
+    { "name": "Anton", "role": "Team Member" },
+    { "name": "Munib", "role": "Team Member" },
+    { "name": "Kacper", "role": "Team Member" },
+    { "name": "Arn", "role": "Team Member" },
+    { "name": "Leander", "role": "Team Member" }
+  ],
+  "promotionalVideo": "../promotional_videos/Team_17_Vision_Shift_Promo.mp4"
+}
