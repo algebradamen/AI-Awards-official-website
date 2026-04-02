@@ -39,7 +39,6 @@ const WinnerCard = ({ teamName, category, rank, imageSrc, className = "", goat }
                 src={imageSrc}
                 alt={teamName}
                 className="absolute inset-0 w-full h-full object-cover z-[1]"
-                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
             />
 
             {/* Overlay Gradient */}

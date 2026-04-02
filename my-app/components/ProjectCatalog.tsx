@@ -112,6 +112,18 @@ export default function ProjectCatalog({ projects }: { projects: ProjectData[] }
                                 <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-slate-900 flex items-center justify-center">
                                     <span className="text-6xl font-black text-white/10">{selectedProject.teamNumber}</span>
                                 </div>
+                                {/* Project Logo Overlay */}
+                                {selectedProject.imageSrc && (
+                                    <div className="absolute inset-0 flex items-center justify-center p-8">
+                                        <div className="w-32 h-32 md:w-40 md:h-40 rounded-2xl overflow-hidden bg-white/90 backdrop-blur-sm border border-white/20 shadow-2xl">
+                                            <img
+                                                src={selectedProject.imageSrc}
+                                                alt={selectedProject.projectName}
+                                                className="w-full h-full object-contain p-3"
+                                            />
+                                        </div>
+                                    </div>
+                                )}
                             </div>
 
                             {/* Right Side: Details */}

@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import Link from 'next/link';
 import Navbar from "@/components/Navbar";
+import FloatingLines from "@/components/FloatingLines";
 import { YEARS } from '@/data/years/index';
 
 let hasIntroPlayed = false;
@@ -10,15 +11,22 @@ let hasIntroPlayed = false;
 export default function Home() {
   const [animationStage, setAnimationStage] = useState<'initial' | 'text-visible' | 'final'>(hasIntroPlayed ? 'final' : 'initial');
   const [showScrollHint, setShowScrollHint] = useState(hasIntroPlayed);
+  const [showLightRays, setShowLightRays] = useState(hasIntroPlayed);
   const [scrollY, setScrollY] = useState(0);
 
   const yearSectionRef = useRef<HTMLElement>(null);
   const mainRef = useRef<HTMLElement>(null);
 
+  const linesGradient = useMemo(() => ["#B2A7E7", "#93BBE7", "#4D8EC3"], []);
+  const enabledWaves = useMemo(() => ['top', 'middle', 'bottom'] as Array<'top' | 'middle' | 'bottom'>, []);
+  const lineCount = useMemo(() => [3, 3, 3], []);
+  const lineDistance = useMemo(() => [4, 4, 4], []);
+
   useEffect(() => {
     if (hasIntroPlayed) return;
     setTimeout(() => setAnimationStage('text-visible'), 100);
     setTimeout(() => setAnimationStage('final'), 1200);
+    setTimeout(() => setShowLightRays(true), 2000);
     setTimeout(() => {
       setShowScrollHint(true);
       hasIntroPlayed = true;
@@ -56,6 +64,22 @@ export default function Home() {
           className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[800px] md:h-[800px] bg-blue-900/10 blur-[60px] md:blur-[120px] rounded-full pointer-events-none transition-opacity duration-1000 delay-500 ${animationStage === 'final' ? 'opacity-100' : 'opacity-0'}`}
           style={{ transform: `translate(-50%, -50%) translateY(${heroTranslate * 0.2}px)` }}
         />
+
+        {/* Floating Lines Background */}
+        <div className={`absolute inset-0 transition-opacity duration-[3000ms] ease-in-out z-0 ${showLightRays ? 'opacity-100' : 'opacity-0'}`}>
+          <FloatingLines
+            enabledWaves={enabledWaves}
+            lineCount={lineCount}
+            lineDistance={lineDistance}
+            bendRadius={2}
+            bendStrength={0.5}
+            interactive={true}
+            parallax={true}
+            parallaxStrength={0.1}
+            animationSpeed={0.3}
+            linesGradient={linesGradient}
+          />
+        </div>
 
         <div
           className="relative z-10 flex flex-col items-center text-center px-4 w-full"

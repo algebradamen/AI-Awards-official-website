@@ -3,6 +3,11 @@ import Navbar from '@/components/Navbar';
 import { YEARS } from '@/data/years/index';
 
 export default function YearsPage() {
+  const gradients = [
+    'bg-gradient-to-r from-[#C9A04E] via-[#D4A843] to-[#8B6914]',
+    'bg-gradient-to-r from-[#7B5EA7] via-[#6C7EC7] to-[#4D8EC3]',
+  ];
+
   return (
     <main className="min-h-[100dvh] w-full bg-black text-white flex flex-col">
       <Navbar />
@@ -18,13 +23,18 @@ export default function YearsPage() {
           </h1>
         </div>
 
-        {/* Year buttons */}
-        <div className="flex flex-col items-center gap-3 w-full max-w-xs mt-4">
-          {YEARS.map((entry) => (
+        {/* Year buttons — same style as home page */}
+        <div className="flex flex-col items-center gap-4 w-full max-w-xs mt-4">
+          {YEARS.map((entry, i) => (
             <Link
               key={entry.year}
               href={`/years/${entry.year}`}
-              className="w-full text-center py-3 px-6 rounded-full font-bold text-white text-lg tracking-wide bg-gradient-to-r from-[#8B7BC4] via-[#6B9DD4] to-[#3B6FA3] hover:scale-105 hover:shadow-[0_0_30px_rgba(139,123,196,0.5)] transition-all duration-200"
+              className={`
+                w-full py-3 rounded-full text-center text-white font-bold text-sm tracking-widest
+                ${gradients[i] || gradients[gradients.length - 1]}
+                hover:scale-105 hover:shadow-[0_0_30px_rgba(139,123,196,0.3)]
+                transition-all duration-300
+              `}
             >
               {entry.label}
             </Link>
