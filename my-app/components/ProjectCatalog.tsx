@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
 
 interface TeamMember {
     name: string;
@@ -37,17 +36,8 @@ export default function ProjectCatalog({ projects }: { projects: ProjectData[] }
                         onClick={() => setSelectedProject(project)}
                         className="group relative h-[300px] rounded-2xl overflow-hidden cursor-pointer bg-white/5 border border-white/10 hover:border-white/30 transition-all duration-300 hover:scale-[1.02]"
                     >
-                        {/* Background Image (if available) */}
-                        {project.imageSrc ? (
-                            <Image
-                                src={project.imageSrc}
-                                alt={project.projectName}
-                                fill
-                                className="object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-300 scale-110"
-                            />
-                        ) : (
-                            <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-black opacity-60 group-hover:opacity-40" />
-                        )}
+                        {/* Background gradient */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-slate-900 opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
 
                         {/* Top-right Winner Badges */}
                         <div className="absolute top-4 right-4 z-10 flex gap-2">
@@ -104,20 +94,11 @@ export default function ProjectCatalog({ projects }: { projects: ProjectData[] }
                                 ✕
                             </button>
 
-                            {/* Left Side: Image/Visual */}
+                            {/* Left Side: Visual */}
                             <div className="w-full md:w-2/5 h-48 md:h-auto relative shrink-0">
-                                {selectedProject.imageSrc ? (
-                                    <Image
-                                        src={selectedProject.imageSrc}
-                                        alt={selectedProject.projectName}
-                                        fill
-                                        className="object-cover"
-                                    />
-                                ) : (
-                                    <div className="absolute inset-0 bg-gray-800 flex items-center justify-center text-white/20">
-                                        No Image
-                                    </div>
-                                )}
+                                <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-slate-900 flex items-center justify-center">
+                                    <span className="text-6xl font-black text-white/10">{selectedProject.teamNumber}</span>
+                                </div>
                             </div>
 
                             {/* Right Side: Details */}
@@ -167,7 +148,7 @@ export default function ProjectCatalog({ projects }: { projects: ProjectData[] }
                                         <h4 className="text-xs md:text-sm font-bold text-gray-400 uppercase tracking-widest mb-2 md:mb-3">Project Trailer</h4>
                                         <div className="relative aspect-video rounded-xl overflow-hidden bg-white/5 border border-white/10">
                                             <video
-                                                src={selectedProject.promotionalVideo.replace('../', '/media/')}
+                                                src={selectedProject.promotionalVideo.replace('../', '/media/2026/')}
                                                 controls
                                                 className="w-full h-full"
                                                 poster={selectedProject.imageSrc}

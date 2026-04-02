@@ -2,6 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import Navbar from "@/components/Navbar";
 import ProjectCatalog from "@/components/ProjectCatalog";
+import { getLatestYearWithTeams } from "@/data/years/index";
 
 interface TeamEntry {
     teamNumber: number;
@@ -13,8 +14,9 @@ interface TeamEntry {
 }
 
 export default async function Projects() {
-    // Read index.json to get list of teams
-    const teamsDirectory = path.join(process.cwd(), 'teams_summary');
+    // Resolve which year's teams data to use
+    const yearEntry = getLatestYearWithTeams();
+    const teamsDirectory = path.join(process.cwd(), yearEntry?.teamsDir ?? 'data/years/2026/teams_summary');
     const indexFilePath = path.join(teamsDirectory, 'index.json');
 
     let teams = [];
@@ -30,10 +32,10 @@ export default async function Projects() {
             const teamData = JSON.parse(fileContent);
 
             // Construct logo path
-            const logoPath = `/media/logoer/Team-${entry.teamNumber}.png`;
+            const logoPath = `/media/2026/logoer/Team-${entry.teamNumber}.png`;
 
             // Check if app showcase video exists
-            const showcaseVideoPath = `/app-showcase/Team-${entry.teamNumber}.mp4`;
+            const showcaseVideoPath = `/media/2026/app-showcase/Team-${entry.teamNumber}.mp4`;
             const absoluteShowcasePath = path.join(process.cwd(), 'public', showcaseVideoPath);
             let hasShowcase = false;
             try {

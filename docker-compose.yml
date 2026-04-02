@@ -1,0 +1,14 @@
+services:
+  web:
+    build:
+      context: ./my-app
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      # Mount source so edits are reflected immediately (hot-reload)
+      - ./my-app:/app
+      # Keep the container's node_modules separate from the host
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development

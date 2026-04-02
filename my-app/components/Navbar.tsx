@@ -6,7 +6,8 @@ import { usePathname } from "next/navigation";
 export default function Navbar() {
     const pathname = usePathname();
 
-    const isActive = (path: string) => pathname === path;
+    const isActive = (path: string) =>
+        path === '/' ? pathname === path : pathname.startsWith(path);
 
     const activeClass = "px-4 py-2 md:px-5 md:py-2 rounded-full bg-white/10 text-white backdrop-blur-md border border-white/5 transition-all hover:bg-white/20 whitespace-nowrap";
     const inactiveClass = "text-gray-400 hover:text-white transition-colors px-4 py-2 md:px-5 md:py-2 whitespace-nowrap";
@@ -22,16 +23,10 @@ export default function Navbar() {
                     Home
                 </Link>
                 <Link
-                    href="/teams"
-                    className={isActive("/teams") ? activeClass : inactiveClass}
+                    href="/years"
+                    className={isActive("/years") ? activeClass : inactiveClass}
                 >
-                    Teams
-                </Link>
-                <Link
-                    href="/projects"
-                    className={isActive("/projects") ? activeClass : inactiveClass}
-                >
-                    Projects
+                    Years
                 </Link>
                 <Link
                     href="/faq"

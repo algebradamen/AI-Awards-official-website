@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export interface TeamData {
     teamNumber: number;
     projectName: string;
@@ -8,7 +6,6 @@ export interface TeamData {
     price?: string; // The award name
     imageSrc?: string; // Path to team image
     goat?: boolean; // If they are the GOAT
-    // Add other fields if needed
 }
 
 interface WinnerCardProps {
@@ -20,27 +17,22 @@ interface WinnerCardProps {
     goat?: boolean;
 }
 
-const WinnerCard = ({ teamName, category, rank, imageSrc, className = "", goat }: WinnerCardProps) => {
-    const isPodium = rank <= 3;
+// Gradient backgrounds for teams without images
+const gradients = [
+    'from-indigo-900 via-purple-900 to-slate-900',
+    'from-blue-900 via-cyan-900 to-slate-900',
+    'from-violet-900 via-indigo-900 to-slate-900',
+    'from-slate-900 via-blue-900 to-indigo-900',
+    'from-purple-900 via-blue-900 to-cyan-900',
+];
 
-    // Updated Badge Style logic
-    const badgeStyle = rank === 1
-        ? "bg-gradient-to-br from-yellow-300 to-yellow-600 shadow-[0_0_15px_rgba(234,179,8,0.6)]"
-        : rank === 2
-            ? "bg-gradient-to-br from-gray-200 to-gray-500 shadow-[0_0_15px_rgba(209,213,219,0.5)]"
-            : rank === 3
-                ? "bg-gradient-to-br from-amber-400 to-amber-700 shadow-[0_0_15px_rgba(180,83,9,0.5)]"
-                : "bg-white/10 border-white/5 text-gray-300 shadow-lg backdrop-blur-md"; // Neutral for others
+const WinnerCard = ({ teamName, category, rank, imageSrc, className = "", goat }: WinnerCardProps) => {
+    const gradient = gradients[rank % gradients.length];
 
     return (
         <div className={`relative group rounded-[2.5rem] overflow-hidden border border-white/10 ${className}`}>
-            {/* Background Image */}
-            <Image
-                src={imageSrc}
-                alt={teamName}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-            />
+            {/* Background - gradient fallback */}
+            <div className={`absolute inset-0 bg-gradient-to-br ${gradient}`}></div>
 
             {/* Overlay Gradient */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-opacity duration-300"></div>
@@ -70,7 +62,7 @@ const WinnerCard = ({ teamName, category, rank, imageSrc, className = "", goat }
     );
 };
 
-export default function Winners({ teams = [] }: { teams?: TeamData[] }) {
+export default function Winners({ teams = [], year = 2026 }: { teams?: TeamData[]; year?: number }) {
     // Filter teams that have a price (award) - these are the WINNERS
     const winningTeams = teams
         .filter(t => t.price)
@@ -97,7 +89,7 @@ export default function Winners({ teams = [] }: { teams?: TeamData[] }) {
                     AI-AWARDS
                 </h1>
                 <div className="flex items-center gap-3 text-2xl md:text-3xl font-medium">
-                    <span className="bg-gradient-to-r from-[#B2A7E7] via-[#93BBE7] to-[#4D8EC3] bg-clip-text text-transparent font-bold">2026</span>
+                    <span className="bg-gradient-to-r from-[#B2A7E7] via-[#93BBE7] to-[#4D8EC3] bg-clip-text text-transparent font-bold">{year}</span>
                     <span className="bg-gradient-to-r from-[#FDAD4D] via-[#FEF974] to-[#E97F41] bg-clip-text text-transparent font-bold">winners</span>
                     <span className="text-2xl">🏆</span>
                 </div>
@@ -112,7 +104,7 @@ export default function Winners({ teams = [] }: { teams?: TeamData[] }) {
                             rank={team1.teamNumber}
                             teamName={team1.projectName}
                             category={team1.price || team1.projectType}
-                            imageSrc={team1.imageSrc || "/alle-vinner.jpg"}
+                            imageSrc={team1.imageSrc || "/media/2026/Bilder/alle-vinner.jpg"}
                             goat={team1.goat}
                             className="w-full h-full"
                         />
@@ -127,7 +119,7 @@ export default function Winners({ teams = [] }: { teams?: TeamData[] }) {
                                 rank={team2.teamNumber}
                                 teamName={team2.projectName}
                                 category={team2.price || team2.projectType}
-                                imageSrc={team2.imageSrc || "/alle-vinner.jpg"}
+                                imageSrc={team2.imageSrc || "/media/2026/Bilder/alle-vinner.jpg"}
                                 goat={team2.goat}
                                 className="w-full h-full"
                             />
@@ -139,7 +131,7 @@ export default function Winners({ teams = [] }: { teams?: TeamData[] }) {
                                 rank={team3.teamNumber}
                                 teamName={team3.projectName}
                                 category={team3.price || team3.projectType}
-                                imageSrc={team3.imageSrc || "/alle-vinner.jpg"}
+                                imageSrc={team3.imageSrc || "/media/2026/Bilder/alle-vinner.jpg"}
                                 goat={team3.goat}
                                 className="w-full h-full"
                             />
@@ -161,7 +153,7 @@ export default function Winners({ teams = [] }: { teams?: TeamData[] }) {
                                     rank={team.teamNumber}
                                     teamName={team.projectName}
                                     category={team.price || team.projectType}
-                                    imageSrc={team.imageSrc || "/alle-vinner.jpg"}
+                                    imageSrc={team.imageSrc || "/media/2026/Bilder/alle-vinner.jpg"}
                                     goat={team.goat}
                                     className="w-full h-full"
                                 />
@@ -176,7 +168,7 @@ export default function Winners({ teams = [] }: { teams?: TeamData[] }) {
                 <div className="w-full max-w-7xl animate-fade-in-up mt-20">
                     <div className="flex flex-col items-start mb-8 w-full">
                         <div className="flex items-center gap-3 text-xl md:text-2xl font-medium">
-                            <span className="bg-gradient-to-r from-gray-300 via-gray-100 to-gray-400 bg-clip-text text-transparent font-bold">2026</span>
+                            <span className="bg-gradient-to-r from-gray-300 via-gray-100 to-gray-400 bg-clip-text text-transparent font-bold">{year}</span>
                             <span className="bg-gradient-to-r from-gray-300 via-gray-100 to-gray-400 bg-clip-text text-transparent font-bold">Other Participant </span>
                             <span className="text-xl">✨</span>
                         </div>
@@ -192,7 +184,7 @@ export default function Winners({ teams = [] }: { teams?: TeamData[] }) {
                                     rank={team.teamNumber}
                                     teamName={team.projectName}
                                     category={team.price || team.projectType}
-                                    imageSrc={team.imageSrc || "/alle-vinner.jpg"}
+                                    imageSrc={team.imageSrc || "/media/2026/Bilder/alle-vinner.jpg"}
                                     goat={team.goat}
                                     className="w-full h-full"
                                 />

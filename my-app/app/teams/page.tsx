@@ -2,6 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import Navbar from "@/components/Navbar";
 import Winners from "@/components/Winners";
+import { getLatestYearWithTeams } from "@/data/years/index";
 
 interface TeamEntry {
     teamNumber: number;
@@ -13,8 +14,9 @@ interface TeamEntry {
 }
 
 export default async function Teams() {
-    // Read index.json to get list of teams
-    const teamsDirectory = path.join(process.cwd(), 'teams_summary');
+    // Resolve which year's teams data to use
+    const yearEntry = getLatestYearWithTeams();
+    const teamsDirectory = path.join(process.cwd(), yearEntry?.teamsDir ?? 'data/years/2026/teams_summary');
     const indexFilePath = path.join(teamsDirectory, 'index.json');
 
     let teams = [];
@@ -30,7 +32,7 @@ export default async function Teams() {
             const teamData = JSON.parse(fileContent);
 
             // Construct logo path
-            const logoPath = `/media/logoer/Team-${entry.teamNumber}.png`;
+            const logoPath = `/media/2026/logoer/Team-${entry.teamNumber}.png`;
 
             // Merge the info from index.json (like price) with the file content
             // If imageSrc is not present (non-winners), use the logo path
@@ -53,7 +55,7 @@ export default async function Teams() {
             <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-900/10 blur-[120px] rounded-full pointer-events-none"></div>
 
             <div className="relative z-10 pt-24 px-4 container mx-auto">
-                <Winners teams={teams} />
+                <Winners teams={teams} year={yearEntry?.year} />
             </div>
 
         </main>
