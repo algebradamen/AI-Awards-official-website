@@ -100,7 +100,7 @@ export default function ProjectCatalog({ projects }: { projects: ProjectData[] }
                         ></div>
 
                         {/* Modal Content */}
-                        <div className="relative bg-[#0a0a0a] border border-white/10 rounded-2xl md:rounded-3xl w-full max-w-4xl max-h-[90dvh] overflow-y-auto shadow-2xl flex flex-col md:flex-row overflow-hidden animate-fade-in-up md:max-h-[85vh]">
+                        <div className="relative bg-[#0a0a0a] border border-white/10 rounded-2xl md:rounded-3xl w-full max-w-5xl max-h-[90dvh] overflow-y-auto shadow-2xl flex flex-col md:flex-row overflow-hidden animate-fade-in-up md:max-h-[90vh]">
                             {/* Close Button */}
                             <button
                                 onClick={() => setSelectedProject(null)}
@@ -109,25 +109,23 @@ export default function ProjectCatalog({ projects }: { projects: ProjectData[] }
                                 ✕
                             </button>
 
-                            {/* Left Side: Logo Display */}
-                            <div className="w-full md:w-2/5 h-48 md:h-auto relative shrink-0">
+                            {/* Left Side: Photo Display */}
+                            <div className="w-full md:w-1/2 h-64 md:h-auto relative shrink-0 min-h-[300px]">
                                 {/* Gray gradient background */}
                                 <div className="absolute inset-0 bg-gradient-to-br from-gray-400 via-gray-500 to-gray-600"></div>
-                                {/* Large centered logo */}
+                                {/* Full bleed photo */}
                                 {selectedProject.imageSrc && (
-                                    <div className="absolute inset-0 flex items-center justify-center p-8 md:p-12">
-                                        <img
-                                            src={selectedProject.imageSrc}
-                                            alt={selectedProject.projectName}
-                                            className="w-full h-full object-contain drop-shadow-2xl"
-                                            onError={(e) => e.currentTarget.style.display = 'none'}
-                                        />
-                                    </div>
+                                    <img
+                                        src={selectedProject.imageSrc}
+                                        alt={selectedProject.projectName}
+                                        className="absolute inset-0 w-full h-full object-cover"
+                                        onError={(e) => e.currentTarget.style.display = 'none'}
+                                    />
                                 )}
                             </div>
 
                             {/* Right Side: Details */}
-                            <div className="w-full md:w-3/5 p-6 md:p-12 flex flex-col gap-5 md:gap-6">
+                            <div className="w-full md:w-1/2 p-6 md:p-10 flex flex-col gap-5 md:gap-6">
                                 <div>
                                     <div className="flex items-center gap-2 md:gap-3 mb-2 flex-wrap">
                                         <span className="px-2 py-1 md:px-3 md:py-1 rounded-full bg-blue-500/20 text-blue-300 text-[10px] md:text-xs font-bold uppercase tracking-wide border border-blue-500/30">

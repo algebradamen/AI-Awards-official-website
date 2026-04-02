@@ -108,9 +108,9 @@ export default function Winners({ teams = [], year = 2026 }: { teams?: TeamData[
             </div>
 
             {/* Gallery Grid - Left Big, Right Stacked */}
-            <div className="w-full max-w-7xl h-auto md:h-[400px] grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div className="w-full max-w-7xl h-auto md:h-[620px] grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
                 {/* Left Column: 1st Place */}
-                <div className="md:col-span-2 h-[300px] md:h-full">
+                <div className="md:col-span-2 h-[450px] md:h-full">
                     {team1 && (
                         <WinnerCard
                             rank={team1.teamNumber}
@@ -125,7 +125,7 @@ export default function Winners({ teams = [], year = 2026 }: { teams?: TeamData[
 
                 {/* Right Column: 2nd & 3rd Place */}
                 <div className="flex flex-col gap-6 h-auto md:h-full">
-                    <div className="h-[250px] md:h-auto md:flex-1">
+                    <div className="h-[350px] md:h-auto md:flex-[1.4]">
                         {team2 && (
                             <WinnerCard
                                 rank={team2.teamNumber}
@@ -137,7 +137,7 @@ export default function Winners({ teams = [], year = 2026 }: { teams?: TeamData[
                             />
                         )}
                     </div>
-                    <div className="h-[250px] md:h-auto md:flex-1">
+                    <div className="h-[280px] md:h-auto md:flex-[0.6]">
                         {team3 && (
                             <WinnerCard
                                 rank={team3.teamNumber}
@@ -159,7 +159,7 @@ export default function Winners({ teams = [], year = 2026 }: { teams?: TeamData[
                         {restOfWinners.map((team) => (
                             <div
                                 key={team.teamNumber}
-                                className="h-[250px]"
+                                className="h-[380px]"
                             >
                                 <WinnerCard
                                     rank={team.teamNumber}
@@ -190,7 +190,7 @@ export default function Winners({ teams = [], year = 2026 }: { teams?: TeamData[
                         {otherTeams.map((team) => (
                             <div
                                 key={team.teamNumber}
-                                className="h-[250px]"
+                                className="h-[380px]"
                             >
                                 <WinnerCard
                                     rank={team.teamNumber}
