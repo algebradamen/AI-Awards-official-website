@@ -4,8 +4,7 @@
     "private": true,
     "scripts": {
         "dev": "next dev",
-        "build": "cd public/Games/Team-5 && npm run build && cd ../../../ && next build",
-        "postinstall": "cd public/Games/Team-5 && npm install",
+        "build": "next build",
         "start": "next start",
         "lint": "next lint"
     },
