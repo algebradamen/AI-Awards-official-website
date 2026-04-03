@@ -47,7 +47,7 @@ export default async function Teams() {
     }
 
     return (
-        <main className="min-h-screen w-full bg-black text-white relative">
+        <main className="min-h-screen w-full text-white relative">
             <Navbar />
 
             {/* Background Glow - Matches landing page */}

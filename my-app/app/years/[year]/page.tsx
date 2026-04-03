@@ -45,11 +45,10 @@ export default function YearPage({ params }: { params: { year: string } }) {
               {entry.year}
             </h2>
             <h1 className="font-sans text-3xl md:text-4xl font-black tracking-widest text-white mt-1">
-              TANGEN IM AI PROJECT
+              AI-AWARDS
             </h1>
             <p className="text-gray-400 text-sm mt-3 max-w-xl">
-              Informasjons og medieproduksjonslinja på Tangen VGS samarbeidet med GerviLabs om et AI-prosjekt.
-              Her er alle promoteringsvideoene lagd av studentteamene.
+              The Media and Information Technology programme at Tangen VGS collaborated with GerviLabs on an AI project. Here are the videos they created.
             </p>
           </div>
 

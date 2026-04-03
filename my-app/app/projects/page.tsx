@@ -62,7 +62,7 @@ export default async function Projects() {
     teams.sort((a, b) => a.teamNumber - b.teamNumber);
 
     return (
-        <main className="min-h-screen w-full bg-black text-white relative">
+        <main className="min-h-screen w-full text-white relative">
             <Navbar />
 
             {/* Background Glow - Matches other pages */}

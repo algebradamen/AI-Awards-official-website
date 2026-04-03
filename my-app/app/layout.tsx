@@ -14,10 +14,10 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "AI-Awards 2026",
+  title: "AI-Awards",
   description: "The future of AI recognition.",
   openGraph: {
-    title: "AI-Awards 2026",
+    title: "AI-Awards",
     description: "The future of AI recognition. Created in just 2 weeks.",
     type: "website",
   },
