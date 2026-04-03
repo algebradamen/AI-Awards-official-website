@@ -2,6 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import Navbar from "@/components/Navbar";
 import ProjectCatalog from "@/components/ProjectCatalog";
+import { getLatestYearWithTeams } from "@/data/years/index";
 
 interface TeamEntry {
     teamNumber: number;
@@ -13,8 +14,9 @@ interface TeamEntry {
 }
 
 export default async function Projects() {
-    // Read index.json to get list of teams
-    const teamsDirectory = path.join(process.cwd(), 'teams_summary');
+    // Resolve which year's teams data to use
+    const yearEntry = getLatestYearWithTeams();
+    const teamsDirectory = path.join(process.cwd(), yearEntry?.teamsDir ?? 'data/years/2026/teams_summary');
     const indexFilePath = path.join(teamsDirectory, 'index.json');
 
     let teams = [];
@@ -30,10 +32,10 @@ export default async function Projects() {
             const teamData = JSON.parse(fileContent);
 
             // Construct logo path
-            const logoPath = `/media/logoer/Team-${entry.teamNumber}.png`;
+            const logoPath = `/media/2026/logoer/Team-${entry.teamNumber}.png`;
 
             // Check if app showcase video exists
-            const showcaseVideoPath = `/app-showcase/Team-${entry.teamNumber}.mp4`;
+            const showcaseVideoPath = `/media/2026/app-showcase/Team-${entry.teamNumber}.mp4`;
             const absoluteShowcasePath = path.join(process.cwd(), 'public', showcaseVideoPath);
             let hasShowcase = false;
             try {
@@ -43,15 +45,14 @@ export default async function Projects() {
                 // No showcase video found
             }
 
-            // Merge the info from index.json (like price, imageSrc) with the file content
-            // We verify if logo exists, but here we assume it does based on listing.
+            // Always use logo for projects page
             return {
                 ...teamData,
                 ...entry,
-                imageSrc: logoPath,
-                promotionalVideo: teamData.promotionalVideo, // Keep original trailer
-                appShowcaseVideo: hasShowcase ? showcaseVideoPath : undefined // Add showcase separately
-            }; // Use logoPath as imageSrc for projects list
+                imageSrc: logoPath, // Always use logo
+                promotionalVideo: teamData.promotionalVideo,
+                appShowcaseVideo: hasShowcase ? showcaseVideoPath : undefined
+            };
         }));
     } catch (error) {
         console.error("Error reading team data:", error);
@@ -61,7 +62,7 @@ export default async function Projects() {
     teams.sort((a, b) => a.teamNumber - b.teamNumber);
 
     return (
-        <main className="min-h-screen w-full bg-black text-white relative">
+        <main className="min-h-screen w-full text-white relative">
             <Navbar />
 
             {/* Background Glow - Matches other pages */}

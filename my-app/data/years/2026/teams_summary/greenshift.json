@@ -1,0 +1,16 @@
+{
+  "teamNumber": 15,
+  "projectName": "GreenShift",
+  "projectType": "Web Application (React)",
+  "description": "Connects climate data to daily life through CO2 calculators (transport focus), habit tracking, and knowledge building. Gamifies sustainability with XP, leaderboards, and Agder-specific challenges. Targets UN SDGs 13, 11, 12, and 7.",
+  "technologies": ["React 19", "Vite 7", "Tailwind CSS", "PostCSS", "Lucide React icons"],
+  "teamMembers": [
+    { "name": "Mathias", "role": "Team Member" },
+    { "name": "Lars Georg", "role": "Team Member" },
+    { "name": "Ignas", "role": "Team Member" },
+    { "name": "Magnus", "role": "Team Member" },
+    { "name": "Adem", "role": "Team Member" }
+  ],
+  "promotionalVideo": "../promotional_videos/Team_15_GreenShift_Promo.mp4",
+  "projectUrl": "/games/team-15"
+}

@@ -1,0 +1,16 @@
+{
+  "teamNumber": 2,
+  "projectName": "Trivsel App",
+  "projectType": "Mobile App",
+  "description": "Provides real-time neighborhood environmental data (traffic noise, air quality, green spaces). AI predicts environmental shifts 5\u201350 years out. Users get a Trivsel Score (well-being metric) to inform living decisions. Targets UN SDGs 11, 13, and 3.",
+  "technologies": ["React Native", "Expo", "TypeScript", "Google Generative AI (Gemini)", "react-native-maps", "expo-location", "expo-blur", "react-native-reanimated"],
+  "teamMembers": [
+    { "name": "Elias A.", "role": "Team Member" },
+    { "name": "Jens", "role": "Team Member" },
+    { "name": "Benjamin S.", "role": "Team Member" },
+    { "name": "Daniel H.", "role": "Team Member" },
+    { "name": "Theodor Hjort", "role": "Team Member" }
+  ],
+  "promotionalVideo": "../promotional_videos/Team_02_Trivsel_App_Promo.mp4",
+  "appShowcaseVideo": "/media/2026/app-showcase/Team-2.mp4"
+}

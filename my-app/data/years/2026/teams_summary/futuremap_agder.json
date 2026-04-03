@@ -1,0 +1,16 @@
+{
+  "teamNumber": 16,
+  "projectName": "FutureMap Agder",
+  "projectType": "Interactive Web Map Application",
+  "description": "Visualizes Agder in 2050 under contrasting scenarios (sustainable vs. non-sustainable). Interactive maps display climate risks like floods, drought, and fire zones alongside local landmark impacts. Includes an AI \"Climate Expert\" chatbot. Targets UN SDGs 13, 11, and 15.",
+  "technologies": ["HTML5", "CSS3", "JavaScript", "Leaflet.js", "FontAwesome", "AOS (Animate On Scroll)", "Google Fonts (Poppins)"],
+  "teamMembers": [
+    { "name": "Tobias", "role": "Team Member" },
+    { "name": "Eskil", "role": "Team Member" },
+    { "name": "Dmytro", "role": "Team Member" },
+    { "name": "Nasir", "role": "Team Member" },
+    { "name": "Max", "role": "Team Member" },
+    { "name": "Ahmed", "role": "Team Member" }
+  ],
+  "promotionalVideo": "../promotional_videos/Team_16_FutureMap_Promo.mp4"
+}

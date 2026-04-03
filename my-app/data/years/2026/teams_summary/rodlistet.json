@@ -1,0 +1,16 @@
+{
+  "teamNumber": 14,
+  "projectName": "R\u00f8dlistet",
+  "projectType": "Interactive Web Game with Map",
+  "description": "An educational game raising awareness about endangered species in Agder, Norway. Features an AI chatbot called \"Naturens Vokter\" (Nature's Guardian), an interactive map with 400+ species, and gamified conservation learning. Targets UN SDGs 15, 13, and 4.",
+  "technologies": ["HTML5", "CSS3", "JavaScript", "Leaflet.js", "Google Fonts (Montserrat)", "AI chatbot integration", "PowerShell scripts"],
+  "teamMembers": [
+    { "name": "Mateo", "role": "Team Member" },
+    { "name": "Jan Morten", "role": "Team Member" },
+    { "name": "Oliver", "role": "Team Member" },
+    { "name": "Martine", "role": "Team Member" },
+    { "name": "Mykhailo", "role": "Team Member" }
+  ],
+  "promotionalVideo": "../promotional_videos/Team_14_Rodlistet_Promo.mp4",
+  "folderPath": "Games/Team-14/site/"
+}

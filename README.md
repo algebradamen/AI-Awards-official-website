@@ -49,4 +49,4 @@ Team-5 has a separate Vite-based React application. To run it:
 
 ## Credits
 
-This project was developed with support from [utviklerensite](https://utviklerensite.no/). 
+This project was developed with support from [utviklerensite](https://utviklerensite.no/) and [Victor](https://thevictor.net/) 
